@@ -6,17 +6,6 @@
  */
 
 var R = require('ramda');
-var test = require('./tests');
+var test = require('./rClssTester');
 
-var stubList = [0, 1, 2, 3, 4, 5, 6, 7, 8];// pretend these are verse INDEXES
-var stubVerses = stubList;
-var stub_curRngeD = {beg: 3, end: 4};
-CUT = R.splitAt(stub_curRngeD.beg)( stubVerses);
-var pst = CUT[0];
-var span = stub_curRngeD.end - stub_curRngeD.beg;
-var CUT = R.splitAt(span)(CUT[1]);
-var cur = CUT[0];
-var fut = CUT[1];
-test.test; // NG  how call tests ??
-var noop;
-
+module.exports = function _curSpan (dict) { return dict.end - dict.beg};
