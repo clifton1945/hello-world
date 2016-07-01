@@ -5,7 +5,7 @@
  */
 var R = require('ramda');
 module.exports = {
-    _curBeg: R.prop('beg'), // D -> {D -> N}
-    _crntEnd: R.prop('end'), // D -> {D -> N}
-    _curSpan: dict => dict.end - dict.beg
+    _beg: R.prop('beg'), // D -> {D -> N}
+    _end: R.prop('end'), // D -> {D -> N}
+    _span: dict => dict.end - dict.beg
 };
