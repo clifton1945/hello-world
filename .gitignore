@@ -1,4 +1,4 @@
 # Created by .ignore support plugin (hsz.mobi)
 # all -compiled .js && bundle
 *-compiled.js*
-tst/*bundle.js
+*bundle.js

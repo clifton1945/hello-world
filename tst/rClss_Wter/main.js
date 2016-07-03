@@ -1,5 +1,5 @@
 /**
- *  * tst/_rClss_3L/main.js
+ *  _rClss_Wter/main.js TODO  reinvoke watchify for new class names
  *  160702
  *      @2141 REFACTED names of weighter file and require in main. Now all use f_n_Wter.
  *      @2122 ADDED var nWt_ = require('./f_n_a_Wter.js') STABLE WORKS
