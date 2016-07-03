@@ -1,6 +1,7 @@
 /**
- * f_a_Wter.js
+ * f_n_Wter_.js
  *  160702
+ *      @2141 REFACTED names of weighter file and require in main. Now all use f_n_Wter.
  *      @ 2120 ADDED module.export of f_n_Wter_  function.
  *      @ 1948  f_n_Wter_(S:name of Rclss_Csd dictionary)  STABLE AND TESTED
  *      @ 12341   brought over FROM  C_scrip_FP/../wtEr_tests.js
@@ -16,31 +17,23 @@ var test = require('tape');
 // let l_stb_Sibs = [0,1,2,3,4,5];
 var skip = {skip: true};
 //---------------------- Code Under Test: wtFunctions
-
+/**
+ *      f_n_Len:; L:[]-> N:len || 1
+ * @param l_list
+ * @param n_ndx
+ * @returns {number}
+ */
+let f_n_Len = l_list => {
+    var len = R.length(l_list);
+    return len > 0 ? len : 1
+};
 /**
  *      f_n_Wter_:: S:rClssName -> (_Wter_:: (L, N) -> N:wt)
  * @param s
  * @returns {function()}
  * @private
  */
-module.exports = function f_n_Wter_(s) {
-
-    /**
-     *      f_n_Len:; L:[]-> N:len || 1
-     * @param l_list
-     * @param n_ndx
-     * @returns {number}
-     */
-    let f_n_Len = l_list => {
-        var len = R.length(l_list);
-        return len > 0 ? len : 1
-    };
-    test("n_Len::-> N ", skip, function (t) {
-        t.equals(f_n_Len([]), 1, "n_Len w/ L:[0]->1 ");
-        t.equals(f_n_Len([0, 1, 2, 3, 4, 5]), 6, "n_Len w/ L:[,,,,,] ");
-        t.end();
-    });
-
+let f_n_Wter_ = function f_n_Wter_(s) {
     /**
      *      f_Wter_pst:: L:[sibsLst] -> N:ndx -> ( *-> N:wt)
      *      pst factor = (ndx + 1) / siblLen
@@ -52,13 +45,6 @@ module.exports = function f_n_Wter_(s) {
      * @param n_ndx
      */
     var f_n_Wter_pst = (l_lst, n_ndx) => R.inc(n_ndx) / f_n_Len(l_lst);
-    test("n_Wter_('pst')::(L,N)-> N. ", skip, function (t) {
-        t.equals(f_n_Wter_('pst')([], 0), 1, "([],0)->1");
-        t.equals(f_n_Wter_('pst')([0, 1, 2, 3], 0), 0.25, "([0,1,2,3],0)->1/4");
-        t.equals(f_n_Wter_('pst')([0, 1, 2, 3], 3), 1, "([0,1,2,3],3)->1");
-        t.end();
-    });
-
     /**
      *      f_n_Wter_cur:: (L:[*], N:a)-> N:1
      *      pst factor = 1;
@@ -68,7 +54,6 @@ module.exports = function f_n_Wter_(s) {
      * @param n_ndx
      */
     var f_n_Wter_cur = (l_lst, n_ndx) => R.always(1);
-
     /**
      *     f_Wter_fut:: L:[sibsLst] -> N:ndx -> ( *-> N:wt)
      *      fut factor = - ndx / siblLen
@@ -79,33 +64,30 @@ module.exports = function f_n_Wter_(s) {
      * @param n_ndx
      */
     var f_n_Wter_fut = (l_lst, n_ndx) => 1 - n_ndx / f_n_Len(l_lst);
-    test("f_n_Wter_fut::(L,N)-> N. ", skip, function (t) {
-        t.equals(f_n_Wter_('fut')([], 0), 1, "([],0)->1");
-        t.equals(f_n_Wter_('fut')([0, 1, 2, 3], 0), 1, "([0,1,2,3],0)->1");
-        t.equals(f_n_Wter_('fut')([0, 1, 2, 3], 3), 0.25, "([0,1,2,3],3)->1/4");
-        t.end();
-    });
 
-// /**
-//  *      f_n_Wter_:: S:rClssName -> (_Wter_:: (L, N) -> N:wt)
-//  * @param s
-//  * @returns {function()}
-//  * @private
-//  */
-// function  f_n_Wter_(s){
+    // main function return
     return s === 'pst' ? f_n_Wter_pst
         : s === 'cur' ? f_n_Wter_cur
         : s === 'fut' ? f_n_Wter_fut
         : null;
-}
+};
+module.exports = f_n_Wter_;
 
-// module.exports = function  f_n_Wter_(s){
-// module.exports = function  (s){
-//     return s === 'pst' ? f_n_Wter_pst
-//         : s === 'cur' ? f_n_Wter_cur
-//         : s === 'fut' ? f_n_Wter_fut
-//         : null;
-// };
-
-
+test("n_Len::-> N ", skip, function (t) {
+    // referenceError:    f_n_Len is not defined
+    t.equals(f_n_Len([0, 1, 2, 3, 4, 5]), 6, "n_Len w/ L:[,,,,,] ");
+    t.end();
+});
+test("n_Wter_('pst')::(L,N)-> N. ", skip, function (t) {
+    t.equals(f_n_Wter_('pst')([], 0), 1, "([],0)->1");
+    t.equals(f_n_Wter_('pst')([0, 1, 2, 3], 0), 0.25, "([0,1,2,3],0)->1/4");
+    t.equals(f_n_Wter_('pst')([0, 1, 2, 3], 3), 1, "([0,1,2,3],3)->1");
+    t.end();
+});
+test("n_Wter_fut::(L,N)-> N. ", skip, function (t) {
+    t.equals(f_n_Wter_('fut')([], 0), 1, "([],0)->1");
+    t.equals(f_n_Wter_('fut')([0, 1, 2, 3], 0), 1, "([0,1,2,3],0)->1");
+    t.equals(f_n_Wter_('fut')([0, 1, 2, 3], 3), 0.25, "([0,1,2,3],3)->1/4");
+    t.end();
+});
 
