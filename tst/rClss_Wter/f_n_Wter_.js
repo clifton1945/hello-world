@@ -1,5 +1,7 @@
 /**
  * f_n_Wter_.js
+ *  160704
+ *      @0822 TEST true TABLE 
  *  160702
  *      @2141 REFACTED names of weighter file and require in main. Now all use f_n_Wter.
  *      @ 2120 ADDED module.export of f_n_Wter_  function.
@@ -9,11 +11,10 @@
 "use strict";
 var R = require('ramda');
 
-
 //----------------------  Test Stubs
 // let n_stb_Ndx = 0;
 // let l_stb_Sibs = [0,1,2,3,4,5];
-var skip = {skip: true};
+var skip = {skip: false};
 //---------------------- Code Under Test: wtFunctions
 /**
  *      f_n_Len:; L:[]-> N:len || 1
@@ -26,7 +27,7 @@ const f_n_Len = l_list => {
     return len > 0 ? len : 1
 };
 /**
- *      f_n_Wter_:: S:rClssName -> (_Wter_:: (L, N) -> N:wt)
+ *      f_n_Wter_:: S:rClssName -> F:(_Wter_:: (L, N) -> N:wt)
  * @param s
  * @returns {function()}
  * @private

@@ -7,9 +7,8 @@
  *  @10:55  trying to test main but do not know how to apply test to main
  *  @1016 Std setup and first commit
  */
-
 var R = require('ramda');
-var test = require('tape');
+
 
 /**
  *      requires( the equivalent of f_n_Wter() FROM './f_n_Wter_'
@@ -17,6 +16,8 @@ var test = require('tape');
  * @private
  */
 var f_n_Wter_ = require('./f_n_Wter_');
+
+var test = require('tape');
 test("*********** _n_Wter_('fut')->", function (t) {
     t.equals(f_n_Wter_('fut')([0, 1, 3], 0), 1);
     t.end();
