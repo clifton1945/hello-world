@@ -10,6 +10,7 @@
 var test = require('tape');
 var R = require('ramda');
 
+// CODE UNDER TEST aka CUT
 /**
  *      f_l_Rclss:: L->D->L:[[pst],[cur],[pst]] a L of the current chapters three Rclss verses.
  * @param chptVerses
@@ -17,23 +18,12 @@ var R = require('ramda');
  * @return {*}
  */
 var f_l_Rclss = require('../src/f_l_Rclss');
-// var f_l_Rclss = (chptVerses, crntLmts) => {
-//     RET = [];
-//     var CUT1 = R.splitAt(crntLmts.end)(chptVerses);
-//     var fut = CUT1[1];
-//     var CUT2 = R.splitAt(crntLmts.beg)(CUT1[0]);
-//     var cur = CUT2[1];
-//     var pst = CUT2[0];
-//     return [pst,cur,fut]
-// };
-
 
 // test data
 var stubList = [0, 1, 2, 3, 4, 5, 6, 7, 8];// pretend these are verse INDEXES
 var stubVerses = stubList;
 var RET, EXP, CUT, limits, SKIP={skip:false};
 // test code:
-
 test(`exp f_l_Rclss.length -> 3 un flattened, 9 flattened.`, SKIP,
     function (t) {
     RET = f_l_Rclss(stubVerses, {beg: 111, end: 222});

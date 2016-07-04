@@ -1,6 +1,7 @@
 /**
- * f_l_Rclss.js  -> [[pst],[cur],[fut]]
+ * \src\f_l_Rclss.js  -> [[pst],[cur],[fut]]
  * 160704
+ *  @1045 STRUCTURED code: \src\.. and  \tst\.. &&  STABLE TESTS
  *  @0855 SPLIT tst and src versions && FIXED conflict of names: f_l_Rclss  NOT f_n_Rclss;
  *  @0752 FIXED f_l_Rclss()   STABLE && TESTED
  *  @0549 REFACT f_l_Rclss NOT BROKE for now
