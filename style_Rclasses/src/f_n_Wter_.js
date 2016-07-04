@@ -1,7 +1,8 @@
 /**
  * f_n_Wter_.js
  *  160704
- *      @0822 TEST true TABLE 
+ *      @1045 STRUCTURED code: \src\.. and  \tst\.. &&  STABLE TESTS
+ *      @0822 TEST true
  *  160702
  *      @2141 REFACTORED names of weighter file and require in main. Now all use f_n_Wter.
  *      @ 2120 ADDED module.export of f_n_Wter_  function.
@@ -11,10 +12,6 @@
 "use strict";
 var R = require('ramda');
 
-//----------------------  Test Stubs
-// let n_stb_Ndx = 0;
-// let l_stb_Sibs = [0,1,2,3,4,5];
-var skip = {skip: false};
 //---------------------- Code Under Test: wtFunctions
 /**
  *      f_n_Len:; L:[]-> N:len || 1
@@ -26,6 +23,7 @@ const f_n_Len = l_list => {
     var len = R.length(l_list);
     return len > 0 ? len : 1
 };
+
 /**
  *      f_n_Wter_:: S:rClssName -> F:(_Wter_:: (L, N) -> N:wt)
  * @param s
@@ -63,7 +61,6 @@ const f_n_Wter_ = function f_n_Wter_(s) {
      * @param n_ndx
      */
     var f_n_Wter_fut = (l_lst, n_ndx) => 1 - n_ndx / f_n_Len(l_lst);
-
     // main function return
     return s === 'pst' ? f_n_Wter_pst
         : s === 'cur' ? f_n_Wter_cur
@@ -71,24 +68,5 @@ const f_n_Wter_ = function f_n_Wter_(s) {
         : null;
 };
 
-module.exports = f_n_Wter_;
-
-var test = require('tape');
-test("n_Len::-> N ", skip, function (t) {
-    // referenceError:    f_n_Len is not defined
-    t.equals(f_n_Len([0, 1, 2, 3, 4, 5]), 6, "n_Len w/ L:[,,,,,] ");
-    t.end();
-});
-test("n_Wter_('pst')::(L,N)-> N. ", skip, function (t) {
-    t.equals(f_n_Wter_('pst')([], 0), 1, "([],0)->1");
-    t.equals(f_n_Wter_('pst')([0, 1, 2, 3], 0), 0.25, "([0,1,2,3],0)->1/4");
-    t.equals(f_n_Wter_('pst')([0, 1, 2, 3], 3), 1, "([0,1,2,3],3)->1");
-    t.end();
-});
-test("n_Wter_fut::(L,N)-> N. ", skip, function (t) {
-    t.equals(f_n_Wter_('fut')([], 0), 1, "([],0)->1");
-    t.equals(f_n_Wter_('fut')([0, 1, 2, 3], 0), 1, "([0,1,2,3],0)->1");
-    t.equals(f_n_Wter_('fut')([0, 1, 2, 3], 3), 0.25, "([0,1,2,3],3)->1/4");
-    t.end();
-});
-
+// of the above functions I want use ->
+module.exports = {f_n_Len, f_n_Wter_};
