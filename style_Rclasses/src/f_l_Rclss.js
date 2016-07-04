@@ -8,8 +8,6 @@
  *  @0525 COPY OF _rClss_3L.js
  */
 
-// var crnt = require('./crnt_limits.js');
-// var test = require('tape');
 var R = require('ramda');
 
 /**

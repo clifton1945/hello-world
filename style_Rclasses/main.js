@@ -15,7 +15,7 @@ var R = require('ramda');
  * @type {f_n_Wter_}
  * @private
  */
-var f_n_Wter_ = require('./f_n_Wter_');
+var f_n_Wter_ = require('./tst/f_n_Wter_');
 
 var test = require('tape');
 test("*********** _n_Wter_('fut')->", function (t) {
