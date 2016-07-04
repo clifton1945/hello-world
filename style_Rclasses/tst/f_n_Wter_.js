@@ -1,6 +1,7 @@
 /**
- * tst\f_n_Wter_.js
+ * \src\... && \tst\f_n_Wter_.js
  *  160704
+ *      @1045 STRUCTURED code: \src\.. and  \tst\.. &&  STABLE TESTS
  *      @0957 MOVED TO tst\
  *      @0822 TEST true TABLE
  */
