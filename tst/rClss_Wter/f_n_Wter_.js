@@ -3,7 +3,7 @@
  *  160704
  *      @0822 TEST true TABLE 
  *  160702
- *      @2141 REFACTED names of weighter file and require in main. Now all use f_n_Wter.
+ *      @2141 REFACTORED names of weighter file and require in main. Now all use f_n_Wter.
  *      @ 2120 ADDED module.export of f_n_Wter_  function.
  *      @ 1948  f_n_Wter_(S:name of Rclss_Csd dictionary)  STABLE AND TESTED
  *      @ 12341   brought over FROM  C_scrip_FP/../wtEr_tests.js
