@@ -8,9 +8,7 @@
  */
 "use strict";
 var R = require('ramda');
-var test = require('tape');
-//GLOBAL:
-// var CUT, RET, TST, EXP, MSG = ``;
+
 
 //----------------------  Test Stubs
 // let n_stb_Ndx = 0;
@@ -23,7 +21,7 @@ var skip = {skip: true};
  * @param n_ndx
  * @returns {number}
  */
-let f_n_Len = l_list => {
+const f_n_Len = l_list => {
     var len = R.length(l_list);
     return len > 0 ? len : 1
 };
@@ -33,7 +31,7 @@ let f_n_Len = l_list => {
  * @returns {function()}
  * @private
  */
-let f_n_Wter_ = function f_n_Wter_(s) {
+const f_n_Wter_ = function f_n_Wter_(s) {
     /**
      *      f_Wter_pst:: L:[sibsLst] -> N:ndx -> ( *-> N:wt)
      *      pst factor = (ndx + 1) / siblLen
@@ -71,8 +69,10 @@ let f_n_Wter_ = function f_n_Wter_(s) {
         : s === 'fut' ? f_n_Wter_fut
         : null;
 };
+
 module.exports = f_n_Wter_;
 
+var test = require('tape');
 test("n_Len::-> N ", skip, function (t) {
     // referenceError:    f_n_Len is not defined
     t.equals(f_n_Len([0, 1, 2, 3, 4, 5]), 6, "n_Len w/ L:[,,,,,] ");
