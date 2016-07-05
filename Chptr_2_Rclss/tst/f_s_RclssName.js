@@ -1,6 +1,7 @@
 /**
  * f_s_RclssName.js
  *  160705
+ *  @1245 SIMPLE TESTS STABLE
  *  @0855 RENAMED rClssName() TO f_s_RclssName(): STABLE
  *  @0850 RENAMED file FROM transfrm_Chpt2Rclss.js
  *      CREATED sub dir: Chptr_2_Rclss
@@ -25,53 +26,64 @@
 var R = require('ramda');
 var assert = require('assert');
 
-var ltBeg = (dict)=>(i)=> R.lt(i, dict.beg);//D -> N -> Bool
-var gtEnd = (dict)=>(i)=> R.gt(i, dict.end);//D -> N -> Bool
-var tweenBegEnd = (dict)=>(i)=> R.gte(i, dict.beg) && R.lte(i, dict.end);//D -> N -> Bool
+var ltBeg = (dict)=>(i)=> R.lt(i, dict.begNdx);//D -> N -> Bool
+var gtEnd = (dict)=>(i)=> R.gt(i, dict.endNdx);//D -> N -> Bool
+var tweenBegEnd = (dict)=>(i)=> R.gte(i, dict.begNdx) && R.lte(i, dict.endNdx);//D -> N -> Bool
 var isPst = (dict) => ltBeg(dict); //: D:N:i -> Bool
 var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
 var isCur = (dict) => tweenBegEnd(dict);
 /**
  *      f_s_RclssName:: D:curRnge -> N:i -> S:rClss name
  *
- * @param rngD >  the cChptr.range of : beg and end indexes, used to establish the rClss 'cur'rent verses.
- * @param i > the cChptr.index. It will be tranformed into the rClss.index
+ * @param d_Range >  the cChptr.range of : begNdx and endNdx indexes, used to establish the rClss 'cur'rent verses.
+ * @param i > the cChptr.index.
  */
-// var rClssByChptrElem = R.curry((rngD, i) =>
-const f_s_RclssName = R.curry((rngD, i) =>
-    ltBeg(rngD)(i) ? 'pst' :
-        gtEnd(rngD)(i) ? 'fut' :
-            tweenBegEnd(rngD)(i) ? 'cur' :
+const f_s_RclssName = R.curry((d_Range, i) =>
+    ltBeg(d_Range)(i) ? 'pst' :
+        gtEnd(d_Range)(i) ? 'fut' :
+            tweenBegEnd(d_Range)(i) ? 'cur' :
                 'hey, f_s_RclssName() is broken.');
 /**
  *      -------------------------- INVOKE and TESTS
  */
+
+var test = require('tape');
 isPst_isCur_isFut_tests();
 function isPst_isCur_isFut_tests() {
     var NUM, _CUT, RET, EXP, MSG, TST;
-    MSG = ` cBI_t -> `;
-    var stubList = [0, 1, 2, 3, 4, 5, 6];// pretend these are verse INDEXES
-    // var stubVerses = curChptVerse_NL;
-    var stub_curRngeD = {beg: 4, end: 5};
-    // CUT
-    // var isPst = (dict) => ltBeg(dict); //: D:N:i -> Bool
-    // var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
-    // var isCur = (dict) => tweenBegEnd(dict);
+    MSG = ` f_s_RclssName.js\ `;
+    var stubList, stub_curRngeD;
+    stubList = [0, 1, 2, 3, 4, 5, 6];// pretend these are verse INDEXES
     // TESTS
-    MSG += ` #1:isPst, `;
-    TST = R.map(i => isPst(stub_curRngeD)(i))([3, 4, 5, 6]);//-> [true, false, false]
-    assert([true, false, false, false], TST, MSG);
-    MSG += ` #2:isCur, `;
-    TST = R.map(i => isCur(stub_curRngeD)(i))([3, 4, 5, 6]);//-> [false, false, true]
-    assert([false, true, true, false], TST, MSG);
-
-    MSG += ` #3:isFut, `;
-    TST = R.map(i => isFut(stub_curRngeD)(i))([3, 4, 5, 6]);//-> [false, false, true]
-    assert([false, false, false, true], TST, MSG);
-
-// final Msg
+    test(` #0:beg:3, end:4, `, function (t) {
+        stub_curRngeD = {begNdx: 3, endNdx: 4};
+        TST =f_s_RclssName(stub_curRngeD);
+        t.equals(TST(0), 'pst');
+        t.equals(TST(3), 'cur');
+        t.equals(TST(4), 'cur');
+        t.equals(TST(7), 'fut');
+        t.end();
+    });
+    test(` #1:beg:0, end:1, `, function (t) {
+        stub_curRngeD = {begNdx: 0, endNdx: 1};
+        TST =f_s_RclssName(stub_curRngeD);
+        t.equals(TST(0), 'cur');
+        t.equals(TST(3), 'fut');
+        t.equals(TST(4), 'fut');
+        t.equals(TST(7), 'fut');
+        t.end();
+    });
+    test(` #2:beg:1, end:7, `, function (t) {
+        stub_curRngeD = {begNdx: 0, endNdx: 7};
+        TST =f_s_RclssName(stub_curRngeD);
+        t.equals(TST(0), 'cur');
+        t.equals(TST(3), 'cur');
+        t.equals(TST(4), 'cur');
+        t.equals(TST(7), 'cur');
+        t.end();
+    });// final Msg
     MSG += `
-    finished classByIndex_tests`;
+    finished f_s_RclssName::D->N->S`;
     console.log(MSG);
 }
 
