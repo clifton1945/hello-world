@@ -1,36 +1,36 @@
 /**
  * evolvedCSD.js
+ * 160705
+ *  @0820 REFACTORED FOR require  - 'ramda' and 'tepe'
  * 160704
  *  @1717 renamed func TO f_evolve_a_d_Csd
  *      was in project: C_Script_FP/....tst/evolve_CSD_tests.js
  * 160624
- *  @15.55 NAME CHANGE, REMOVED wtER code and tests
- * 160622
- *  @0625 ADDED & TESTED _wtER_cur
- * 160621
- *  @0932: STABLE CREATED AND TESTED wt_ER_pst AND wt_ER_fut FROM wt_factor
- *  @0628: CREATED wtFunc_pst AND wtFunc_fut FROM wt_factor
  */
 "use strict";
-//GLOBAL:
-var CUT, RET, MSG = ``;
+
+let R = require('ramda');
+
 // ---------------------- Code Under Test: f_evolve_a_d_Csd
 /**
  *      f_evolve_a_d_Csd: D:csd, N:fctr -> D:csd
  *  REFACT: RENAMED FROM evolve_CSD_tests ??
  */
-var f_evolve_a_d_Csd = R.curry(function (csd, fctr) {
-// make this a function
+const f_evolve_a_d_Csd = R.curry(function (csd, fctr) {
     var wt_opacity = R.compose(R.toString, R.multiply(fctr), parseFloat);
     var wt_fontSize = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(fctr), parseFloat);
     var transform = {
         opacity: wt_opacity,
         fontSize: wt_fontSize
     };
-    return R.evolve(transform, csd); //=>
+    return R.evolve(transform, csd); //=> D->N->D
 });
+module.exports ={f_evolve_a_d_Csd};
 // ---------------------- test: f_evolve_a_d_Csd
-// f_evolve_a_d_Csd_tests();
+let assert = require('assert');
+//GLOBAL:
+var CUT, RET, MSG = ``;
+f_evolve_a_d_Csd_tests();
 function f_evolve_a_d_Csd_tests() {
     MSG = `_transform_CSD-> `;
     var stub_csd = {opacity: '76', fontSize: '80%'};
@@ -50,5 +50,5 @@ function f_evolve_a_d_Csd_tests() {
     assert('80%', RET.fontSize, MSG);
     MSG += `
       f_evolve_a_d_Csd_tests: DONE`;
-    C_Both(MSG);
+    console.log(MSG);
 }
