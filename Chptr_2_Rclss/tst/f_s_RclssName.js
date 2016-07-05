@@ -1,6 +1,7 @@
 /**
- * f_s_RclssName.js 
+ * f_s_RclssName.js
  *  160705
+ *  @0855 RENAMED rClssName() TO f_s_RclssName(): STABLE
  *  @0850 RENAMED file FROM transfrm_Chpt2Rclss.js
  *      CREATED sub dir: Chptr_2_Rclss
  *          which will hold code to INTENT: using R.evolve,
@@ -10,6 +11,8 @@
 
 /**
  * THINKING: what want? what tests?
+ *  want set module.export to make rClssName available.
+ *  tests: old style tests are adequate.
  */
 "use strict";
 /**
@@ -29,17 +32,17 @@ var isPst = (dict) => ltBeg(dict); //: D:N:i -> Bool
 var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
 var isCur = (dict) => tweenBegEnd(dict);
 /**
- *      _rClssName:: D:curRnge -> N:i -> S:rClss name
+ *      f_s_RclssName:: D:curRnge -> N:i -> S:rClss name
  *
  * @param rngD >  the cChptr.range of : beg and end indexes, used to establish the rClss 'cur'rent verses.
  * @param i > the cChptr.index. It will be tranformed into the rClss.index
  */
 // var rClssByChptrElem = R.curry((rngD, i) =>
-const _rClssName = R.curry((rngD, i) =>
+const f_s_RclssName = R.curry((rngD, i) =>
     ltBeg(rngD)(i) ? 'pst' :
         gtEnd(rngD)(i) ? 'fut' :
             tweenBegEnd(rngD)(i) ? 'cur' :
-                'hey, _rClssName() is broken.');
+                'hey, f_s_RclssName() is broken.');
 /**
  *      -------------------------- INVOKE and TESTS
  */
