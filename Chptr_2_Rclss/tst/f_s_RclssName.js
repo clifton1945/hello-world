@@ -34,21 +34,26 @@ var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
 var isCur = (dict) => tweenBegEnd(dict);
 /**
  *      f_s_RclssName:: D:curRnge -> N:i -> S:rClss name
- *
- * @param d_Range >  the cChptr.range of : begNdx and endNdx indexes, used to establish the rClss 'cur'rent verses.
+ * @param d_Range >  the cChptr.range of used to establish the rClss 'cur'rent verses.
+ *  EXPECTS d_Range KEYS: begNdx and endNdx.
  * @param i > the cChptr.index.
+ *
  */
 const f_s_RclssName = R.curry((d_Range, i) =>
     ltBeg(d_Range)(i) ? 'pst' :
         gtEnd(d_Range)(i) ? 'fut' :
             tweenBegEnd(d_Range)(i) ? 'cur' :
-                'hey, f_s_RclssName() is broken.');
+                `f_s_RclssName() is broken. 
+                Were the range dict keys: begNdx && endNdx?`);
+
+module.exports = f_s_RclssName;
+
 /**
  *      -------------------------- INVOKE and TESTS
  */
 
 var test = require('tape');
-isPst_isCur_isFut_tests();
+// isPst_isCur_isFut_tests();
 function isPst_isCur_isFut_tests() {
     var NUM, _CUT, RET, EXP, MSG, TST;
     MSG = ` f_s_RclssName.js\ `;

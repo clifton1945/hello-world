@@ -25,7 +25,7 @@ var f_l_Rclss = (chptVerses, crntLmts) => {
     var pst = CUT2[0];
     return [pst,cur,fut]
 };
-module.exports =f_l_Rclss;
+module.exports = f_l_Rclss;
 // // test data
 // var stubList = [0, 1, 2, 3, 4, 5, 6, 7, 8];// pretend these are verse INDEXES
 // var stubVerses = stubList;
