@@ -64,9 +64,12 @@ function isPst_isCur_isFut_tests() {
         stub_curRngeD = {begNdx: 3, endNdx: 4};
         TST =f_s_RclssName(stub_curRngeD);
         t.equals(TST(0), 'pst');
+        t.equals(TST(1), 'pst');
+        t.equals(TST(2), 'pst');
         t.equals(TST(3), 'cur');
         t.equals(TST(4), 'cur');
-        t.equals(TST(7), 'fut');
+        t.equals(TST(5), 'fut');
+        t.equals(TST(6), 'fut');
         t.end();
     });
     test(` #1:beg:0, end:1, `, function (t) {
