@@ -11,6 +11,7 @@
 let R = require('ramda');
 
 // ---------------------- Code Under Test: f_d_evolveDict
+
 /**
  *      f_d_evolveDict: D:dObj, N:nScaler -> D:dObj
  */
@@ -23,12 +24,11 @@ const f_d_evolveDict = R.curry(function (dObj, nScaler) {
     };
     return R.evolve(transform, dObj); //=> D->N->D
 });
-// module.exports ={f_d_evolveDict};
+module.exports ={f_d_evolveDict};
 // ---------------------- test: f_d_evolveDict
 let test = require('tape');
 
-    var MSG = `_transform_CSD-> `;
-    test('#0 f_d_evolveDict/ ', function(t) {
-        t.deepEquals(f_d_evolveDict({opacity:1}, 0.5), {opacity: "0.5"}, '> opacity:".5"');
-        t.end();
-    });
+test('#0 f_d_evolveDict/ ', function(t) {
+    t.deepEquals(f_d_evolveDict({opacity:1}, 0.5), {opacity: "0.5"}, '> opacity:".5"');
+    t.end();
+});

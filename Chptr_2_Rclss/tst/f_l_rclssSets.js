@@ -1,15 +1,12 @@
 /**
  * f_n_RclssNdx
  * 160707
- *  @1151   plans for next
+ *  @1926 ADDED documentation && thinking
  *  @0857 f_d_set_currentRclss() STABLE to reset the limits of a current Rclss.
  *  @0625 will filter doc elements into three sets: pst, cur, fut
  */
 
 "use strict";
-/**
- *       --------------------------DATA:
- */
 /**
  *      -------------------------- CodeUnderTest and HELPERS
  */
@@ -69,8 +66,13 @@ function f_l_rClssSets() {
     });
 
     test(` #1:???f_d_set_beg|end, `, function (t) {
+    // broadly: SPLIT List:all_elements INTO three rclss Lists
+    //  R.prepend /append straight forward
+    //  R.splitAt maybe
+    //  R.groupBy looked good BUT -> a Dict
+    //  R.takeWhile -> aLst sort of a filter for all of one predicate
     // ok I can change the current Rclss boundaries/limits
-    //    Given cur Boundaries set the isPst, isCur.... (param: beg, end
+    //    Given cur Boundaries set the isPst, isCur.... (param: beg, end)
     //  then use the ChptNdx and  booleans to fill a Set
     // and put the three sets in one List
         // stubD = f_d_set_beg(333)(stubD);
