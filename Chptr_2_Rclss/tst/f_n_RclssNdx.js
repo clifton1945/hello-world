@@ -1,24 +1,25 @@
 /**
  * f_n_RclssNdx
- * 7/6/2016 @ 0706 create
- *  @0835 structure set and pseudo test set up. Now ADD the 3 ChptNdx -> RclssNdx functions
- * this will transform n_ChptNdx -> n_RclssNdx.
+ * 160707
+ *  @0835 stable and tested I think. May no use in it entirety 
  *
  */
 "use strict";
 var R = require('ramda');
 var h = require('../src/h');
 
-let x;
+let f_n_cur_RclssNdx = function (n_beg, n_end, n_ndx){
+  return 3
+};
 
 /**
  *      f_n_RclssNdx:: (D:curScope, N:chptNdx) -> N:rclssNdx
  *
  */
 const f_n_RclssNdx = R.curry(function f_n_RclssNdx(d_curScope, n_chptNdx) {
-    return h.isPst(d_curScope)(n_chptNdx) ? 'pst' :
-        h.isCur(d_curScope)(n_chptNdx) ? 'cur' :
-            h.isFut(d_curScope)(n_chptNdx) ? 'fut' :
+    return h.isPst(d_curScope)(n_chptNdx) ? n_chptNdx :
+        h.isCur(d_curScope)(n_chptNdx) ? 1 + n_chptNdx - d_curScope.endNdx :
+            h.isFut(d_curScope)(n_chptNdx) ? 2 + n_chptNdx  - d_curScope.endNdx - d_curScope.begNdx :
                 `f_n_RclssNdx() is broken. 
                 d_curScope dict keys must be "begNdx" && "endNdx" `
 });
@@ -29,10 +30,13 @@ var stubList = [0, 1, 2, 3, 4, 5, 6];// pretend these are verse INDEXES
 test(` #0 :beg:3, end:4, `, function (t) {
     var stub_curRngeD = {begNdx: 3, endNdx: 4};
     var TST = f_n_RclssNdx(stub_curRngeD, R.__);
-    t.equals(TST(0), 'pst');
-    t.equals(TST(3), 'cur');
-    t.equals(TST(4), 'cur');
-    t.equals(TST(7), 'fut');
+    t.equals(TST(0), 0);
+    t.equals(TST(1), 1);
+    t.equals(TST(2), 2);
+    t.equals(TST(3), 0);
+    t.equals(TST(4), 1);
+    t.equals(TST(5), 0);
+    t.equals(TST(6), 1);
     t.end();
 });
 
