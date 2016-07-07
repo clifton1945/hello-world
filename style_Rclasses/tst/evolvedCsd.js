@@ -30,8 +30,8 @@ module.exports ={f_evolve_a_d_Csd};
 let assert = require('assert');
 //GLOBAL:
 var CUT, RET, MSG = ``;
-f_evolve_a_d_Csd_tests();
-function f_evolve_a_d_Csd_tests() {
+tst_f_evolve_a_d_Csd_tests();
+function tst_f_evolve_a_d_Csd_tests() {
     MSG = `_transform_CSD-> `;
     var stub_csd = {opacity: '76', fontSize: '80%'};
     var stub_col = [1, 2, 3, 4];

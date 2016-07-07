@@ -6,7 +6,6 @@
  *      @0822 TEST true TABLE
  */
 "use strict";
-
 // CODE UNDER TEST aka CUT
 var R = require('ramda');
 var Wter = require('../src/f_n_Wter_');

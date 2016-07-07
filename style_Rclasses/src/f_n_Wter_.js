@@ -16,7 +16,6 @@ var R = require('ramda');
 /**
  *      f_n_Len:; L:[]-> N:len || 1
  * @param l_list
- * @param n_ndx
  * @returns {number}
  */
 const f_n_Len = l_list => {
@@ -68,5 +67,4 @@ const f_n_Wter_ = function f_n_Wter_(s) {
         : null;
 };
 
-// of the above functions I want use ->
 module.exports = {f_n_Len, f_n_Wter_};

@@ -1,5 +1,6 @@
 /**
  * \src\f_l_Rclss.js  -> [[pst],[cur],[fut]]
+ * 160707 @1930  ADDED Documentation
  * 160704
  *  @1045 STRUCTURED code: \src\.. and  \tst\.. &&  STABLE TESTS
  *  @0855 SPLIT tst and src versions && FIXED conflict of names: f_l_Rclss  NOT f_n_Rclss;
@@ -18,12 +19,12 @@ var R = require('ramda');
  */
 var f_l_Rclss = (chptVerses, crntLmts) => {
     RET = [];
-    var CUT1 = R.splitAt(crntLmts.end)(chptVerses);
-    var fut = CUT1[1];
-    var CUT2 = R.splitAt(crntLmts.beg)(CUT1[0]);
-    var cur = CUT2[1];
-    var pst = CUT2[0];
-    return [pst,cur,fut]
+    var CUT1 = R.splitAt(crntLmts.end)(chptVerses);// N:end -> L:chptr -> L[La, Lb]
+    var fut = CUT1[1];                              // Lb:l_fut
+    var CUT2 = R.splitAt(crntLmts.beg)(CUT1[0]);    // N:beg -> La -> L[Lc, Ld]
+    var cur = CUT2[1];                              // Ld:cur
+    var pst = CUT2[0];                              // Lc:pst
+    return [pst,cur,fut];                           // L:[Lc,Ld,Lb]
 };
 module.exports = f_l_Rclss;
 // // test data
