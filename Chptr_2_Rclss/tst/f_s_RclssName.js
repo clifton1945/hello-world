@@ -24,14 +24,14 @@
  */
 
 var R = require('ramda');
-var assert = require('assert');
+// var h = require('../src/h');
 
 var ltBeg = (dict)=>(i)=> R.lt(i, dict.begNdx);//D -> N -> Bool
 var gtEnd = (dict)=>(i)=> R.gt(i, dict.endNdx);//D -> N -> Bool
 var tweenBegEnd = (dict)=>(i)=> R.gte(i, dict.begNdx) && R.lte(i, dict.endNdx);//D -> N -> Bool
-var isPst = (dict) => ltBeg(dict); //: D:N:i -> Bool
-var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
-var isCur = (dict) => tweenBegEnd(dict);
+// var isPst = (dict) => ltBeg(dict); //: D:N:i -> Bool
+// var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
+// var isCur = (dict) => tweenBegEnd(dict);
 /**
  *      f_s_RclssName:: D:curRnge -> N:i -> S:rClss name
  * @param d_Range >  the cChptr.range of used to establish the rClss 'cur'rent verses.
@@ -41,8 +41,8 @@ var isCur = (dict) => tweenBegEnd(dict);
  */
 const f_s_RclssName = R.curry((d_Range, i) =>
     ltBeg(d_Range)(i) ? 'pst' :
+        tweenBegEnd(d_Range)(i) ? 'cur' :
         gtEnd(d_Range)(i) ? 'fut' :
-            tweenBegEnd(d_Range)(i) ? 'cur' :
                 `f_s_RclssName() is broken. 
                 Were the range dict keys: begNdx && endNdx?`);
 
@@ -53,7 +53,7 @@ module.exports = f_s_RclssName;
  */
 
 var test = require('tape');
-// isPst_isCur_isFut_tests();
+isPst_isCur_isFut_tests();
 function isPst_isCur_isFut_tests() {
     var NUM, _CUT, RET, EXP, MSG, TST;
     MSG = ` f_s_RclssName.js\ `;

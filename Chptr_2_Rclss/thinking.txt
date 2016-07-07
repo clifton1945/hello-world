@@ -1,0 +1,39 @@
+Overview
+160707:0455 > Nomenclature
+I am trying to guess what kind of containers to use for what:
+    Dictionaries || Lists ?
+    The D:DOM IS A hierarchical Dict | Tree: a Dict
+        Text|Document|Scriptures|Book|Chapter|Verse....
+    A L: | Space: Space|PointOfView|Category|View IS a Distinguishing Set of Elements  based on some criteria/function
+        Read.pst, ,cur, .fut: what I started with
+    A D: || E: DOM Element HAS A Style Obj/Dict
+        a Verse in the current thinking
+    The D:Stytle Object HAS Properties: each IS A Dict,
+    A HTML element therefore has A styleObj WITH many CssStyleDeclaration: Dicts
+
+I am trying to guess what kind of functions to use for what:
+    Thus DOM Element selection IS TO Dict
+    Thus Element Context selection IS TO a List
+    Thus Element Style selection IS TO a Dict/jsObj
+
+Broadly, I want to
+    STEP1. define a Distinguishing Element selection Criteria function:
+            currently: Reading. pst. cur, fut
+    STEP2. accumulate elements into n>1 Sets of Elements
+    STEP3. Apply Style transformations to each Element.style object as a function of it Category AND its CONTEXT within the Category:
+
+     NOTE: transformation function parameters are
+        (1) its space|category AND
+        (2) its CONTEXT within that context: index and siblings*.
+            * needing sibling Count forces the use of traversing the Document to segregate sub Sets /Lists
+             rather than a one pass over the entire
+
+    today This firms up my vacillating tween Rclass Lists OR on-the-fly assigning which Rclss: pst, cur, fut
+      So (STEP1) use my existing three isPst, isCur, isFut
+      and (STEP2) use R.filter -> 3 sets
+      and (STEP3) indexMap and evolve and transform each element in each set.
+        start with opacity and fontSize CSDs
+        transform as f(ndx, sbls) -> Scaler|Wter constant
+
+
+
