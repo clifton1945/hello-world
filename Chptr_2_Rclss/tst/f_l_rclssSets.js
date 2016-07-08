@@ -10,7 +10,6 @@
 /**
  *      -------------------------- CodeUnderTest and HELPERS
  */
-
 var R = require('ramda');
 // var h = require('../src/h');
 
@@ -34,15 +33,15 @@ var isFut = beg => end => gtEnd(beg, end); //:-> N:i -> Bool
 /**
  *      f_l_RclssSets :: F:(f_fltr)-> (el, ndx, sibs) -> L[L..]
  */
-const f_l_RclssSets = R.curry((d_Range, i) =>
-    ltBeg(d_Range)(i) ? 'pst' :
-        tweenBegEnd(d_Range)(i) ? 'cur' :
-            gtEnd(d_Range)(i) ? 'fut' :
-                `f_s_RclssName() is broken. 
-                Were the range dict keys: begNdx && endNdx?`
-);
+// const f_l_RclssSets = R.curry((d_Range, i) =>
+//     ltBeg(d_Range)(i) ? 'pst' :
+//         tweenBegEnd(d_Range)(i) ? 'cur' :
+//             gtEnd(d_Range)(i) ? 'fut' :
+//                 `f_s_RclssName() is broken.
+//                 Were the range dict keys: begNdx && endNdx?`
+// );
 
-module.exports = f_l_RclssSets;
+// module.exports = f_l_RclssSets;
 
 /**
  *      -------------------------- INVOKE and TESTS
