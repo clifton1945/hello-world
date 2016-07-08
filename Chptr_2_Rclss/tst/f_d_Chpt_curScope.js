@@ -1,5 +1,6 @@
 /**
- * f_d_curChptScope.js @0805 MOVED f_d_set_key TO h.js FROM here
+ * f_d_curChptScope.js @0945 ADDED thisTest TO modues.export
+ * @0805 MOVED f_d_set_key TO h.js FROM here
  * 160708 @ 0740 > usable f_d_curScope_set_beg & .._end 
  * @ 0623 was in f_d_Chpt_curScope.js
  */
@@ -35,13 +36,17 @@ let f_d_curScope_set_beg = f._d_set_key('beg');// D:{k:a} -> N:v -> D:{k:v}
  * @param val
  */
 let f_d_curScope_set_end = f._d_set_key('end');// D:{k:a} -> N:v -> D:{k:v}
+// EXPORT
+var thisTest= test_f_d_Chpt_curScope;
+module.exports = {f_d_curScope_set_beg, f_d_curScope_set_end, thisTest};
 
 /**
  *      -------------------------- INVOKE and TESTS
  */
 var test = require('tape');
-f_d_Chpt_curScope();
-function f_d_Chpt_curScope() {
+
+test_f_d_Chpt_curScope();
+function test_f_d_Chpt_curScope() {
     var MSG;
     // var NUM, CUT, RET, EXP, TST;
     MSG = ` f_d_Chpt_curScope.js\ `;
@@ -62,6 +67,4 @@ function f_d_Chpt_curScope() {
     finished f_d_curChptScope::D->N->S`;
     console.log(MSG);
 }
-
-
 
