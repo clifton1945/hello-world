@@ -3,7 +3,6 @@
  * Created by CLIF on 7/6/2016.\
  * helper files
  */
-
 var R = require('ramda');
 var test = require('tape');
 

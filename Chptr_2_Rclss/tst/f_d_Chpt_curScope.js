@@ -1,5 +1,5 @@
 /**
- * f_d_curChptScope.js
+ * f_d_curChptScope.js @0805 MOVED f_d_set_key TO h.js FROM here
  * 160708 @ 0740 > usable f_d_curScope_set_beg & .._end 
  * @ 0623 was in f_d_Chpt_curScope.js
  */
@@ -13,21 +13,28 @@ var R = require('ramda');
 let d_curScope = {beg: 0, end: 1}; // default
 
 
-    /**
-     *      f_d_set_key:: S:key -> D:{key:val} -> N:val -> D:{key:val}
-     *      USAGE: setting d_curScope at the Chptr level.
-     *      TESTS in tst/f_d_Chptr_curScope.js
-     * @param key
-     * @param dict
-     * @param val
-     */
-const f_d_set_key = R.curry(
-    (key, dict, val)=> R.set(R.lensProp(key), val, dict)
-);// S:k -> D:{k:v} -> N:v ->  D:{k:v}
-// NOTE:  USE the Named f_d_set-functions below NOT f_d_set_key()
-// USING f_d_set_key() DEFEATS the purpose of fixing the distinct d_curScope two keys.
-let f_d_curScope_set_beg = f_d_set_key('beg');// D:{k:a} -> N:v -> D:{k:v}
-let f_d_curScope_set_end = f_d_set_key('end');// D:{k:a} -> N:v -> D:{k:v}
+/**
+ * NOTE:  USE the Named f_d_curScope_set-functions below NOT f_d_set_key()
+ * USING f_d_set_key() DEFEATS the purpose of making the distinct d_curScope two keys Private.
+ */
+var f = require('../src/h.js');
+
+/**
+ *      f_d_curScope_set_beg:: D:{key:val} -> N:val -> D:{key:val}
+ *      USAGE: setting d_curScope at the Chptr level.
+ *      TESTS in tst/f_d_Chptr_curScope.js
+ * @param dict
+ * @param val
+ */
+let f_d_curScope_set_beg = f._d_set_key('beg');// D:{k:a} -> N:v -> D:{k:v}
+/**
+ *      f_d_curScope_set_end:: D:{key:val} -> N:val -> D:{key:val}
+ *      USAGE: setting d_curScope at the Chptr level.
+ *      TESTS in tst/f_d_Chptr_curScope.js
+ * @param dict
+ * @param val
+ */
+let f_d_curScope_set_end = f._d_set_key('end');// D:{k:a} -> N:v -> D:{k:v}
 
 /**
  *      -------------------------- INVOKE and TESTS
