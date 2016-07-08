@@ -1,6 +1,7 @@
 /**
  *  Chptr_2_Rclss/.../main.js
- *  160708 @ 0945 -> ADDED thisTest FROM f_d_Chpt_curScope. Ran w/o error.
+ *  160708 @ 1125 -> ADDED the use of .f_d_curScope_set_beg / end functions TO MODIFY copies of dthe constant d_curScope;
+ *      @ 0945 -> ADDED thisTest FROM f_d_Chpt_curScope. Ran w/o error.
  *  160708 @ 0940 -> imported f_d_Chpt_curScope AS setScope; its tests ran w/ no errors.
  *  160706
  *      @0635  required _s_RclssName works and stable
@@ -12,5 +13,9 @@ var setScope  = require('./f_d_Chpt_curScope.js');
 
 // tests
 var test = require('tape');
-setScope.thisTest();
+setScope.thisTest();// no fail
 // let us define and set
+var beg =setScope.f_d_Chpt_curScope_set_beg(1);
+var end =setScope.f_d_Chpt_curScope_set_end(3);
+//PLAN add incScope() and decScope()
+//
