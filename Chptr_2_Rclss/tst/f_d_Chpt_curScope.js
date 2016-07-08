@@ -1,7 +1,9 @@
 /**
- * f_d_curChptScope.js @0945 ADDED thisTest TO modues.export
+ * f_d_curChptScope.js
+ * 160708
+ * @0945 ADDED thisTest TO modules.export
  * @0805 MOVED f_d_set_key TO h.js FROM here
- * 160708 @ 0740 > usable f_d_curScope_set_beg & .._end 
+ * @ 0740 > usable f_d_curScope_set_beg & .._end
  * @ 0623 was in f_d_Chpt_curScope.js
  */
 
