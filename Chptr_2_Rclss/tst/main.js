@@ -14,7 +14,7 @@ var R = require('ramda');
 // var h = require('./../src/h');
 
 // tests
-//PLAN 1. get f_l_RclssSets   2.setScope
+//PLAN  2.setScope  FORGET ABOUT IT !!!
 
 var test = require('tape');
 // var setScope  = require('./f_d_Chpt_curScope.js');
