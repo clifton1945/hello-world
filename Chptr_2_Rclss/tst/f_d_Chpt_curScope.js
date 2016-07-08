@@ -30,7 +30,7 @@ var f = require('../src/h.js');
  * @param val
  */
 let f_d_set_beg = f._d_set_key('beg');// D:{k:a} -> N:v -> D:{k:v}
-let f_d_Chpt_curScope_set_beg = f._d_set_key('beg')(d_curScope);//  N:v -> D:{k:v}
+// let f_d_Chpt_curScope_set_beg = f._d_set_key('beg')(d_curScope);//  N:v -> D:{k:v}
 /**
  *      f_d_set_end:: D:{key:val} -> N:val -> D:{key:val}
  *      USAGE: setting d_curScope at the Chptr level.
@@ -41,10 +41,11 @@ let f_d_Chpt_curScope_set_beg = f._d_set_key('beg')(d_curScope);//  N:v -> D:{k:
 let f_d_set_end = f._d_set_key('end');// D:{k:a} -> N:v -> D:{k:v}
 // EXPORT
 //ADD here
-let f_d_Chpt_curScope_set_end = f._d_set_key('end')(d_curScope);// N:v -> D:{k:v}
+// let f_d_Chpt_curScope_set_end = f._d_set_key('end')(d_curScope);// N:v -> D:{k:v}
 
 var thisTest= test_f_d_Chpt_curScope;
-module.exports = {f_d_Chpt_curScope_set_beg, f_d_Chpt_curScope_set_end, thisTest};
+module.exports = {f_d_set_beg, f_d_set_end, thisTest};
+// module.exports = {f_d_Chpt_curScope_set_beg, f_d_Chpt_curScope_set_end, thisTest};
 
 /**
  *      -------------------------- INVOKE and TESTS
@@ -66,15 +67,6 @@ function test_f_d_Chpt_curScope() {
         stubD = f_d_set_beg(stubD)(333);
         t.deepEquals(stubD, {beg: 333, end: 1}, '-> beg:333, end:1');
         stubD = f_d_set_end(stubD)(44);
-        t.deepEquals(stubD, {beg: 333, end: 44}, '->{beg:333, end:44}');
-        t.end();
-    });
-    test(` #1:f_d_Chpt_curScope_set_beg|end, `, function (t) {
-        stubD = R.clone(d_curScope);
-        t.deepEquals(stubD, {beg: 0, end: 1}, 'default {beg:0, end:1');
-        stubD = f_d_Chpt_curScope_set_beg(333);
-        t.deepEquals(stubD, {beg: 333, end: 1}, '-> beg:333, end:1');
-        stubD = f_d_Chpt_curScope_set_end(44);
         t.deepEquals(stubD, {beg: 333, end: 44}, '->{beg:333, end:44}');
         t.end();
     });

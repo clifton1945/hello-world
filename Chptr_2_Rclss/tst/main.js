@@ -8,14 +8,28 @@
  *  160705 @1252  new file
  */
 var R = require('ramda');
-var h = require('./../src/h');
-var setScope  = require('./f_d_Chpt_curScope.js');
+// var h = require('./../src/h');
 
 // tests
 var test = require('tape');
-setScope.thisTest();// no fail
-// let us define and set
-var beg =setScope.f_d_Chpt_curScope_set_beg(1);
-var end =setScope.f_d_Chpt_curScope_set_end(3);
-//PLAN add incScope() and decScope()
+var setScope  = require('./f_d_Chpt_curScope.js');
+setScope.thisTest();// BROKEN FIX????
+
+// SET Scope
+var curScope = require('../src/d_Chptr_curScope.js');
+var scope = R.clone(curScope);
+
+scope = setScope.f_d_set_beg(scope)(1);
+scope = setScope.f_d_set_end(scope)(3);
+test('***** do I see curScope?', function (t) {
+    t.equals(scope.beg, 1);
+    t.equals(scope.end, 3);
+    t.end();
+});
+// BUILD L:[L,L,L]
+var f_l_RclssSets = require('../tst/f_l_rclssSets');
+var stub_ChptList = [0,1,2,3,4,5,6];
+var ll = f_l_RclssSets(stub_ChptList)(0);
+
+
 //
