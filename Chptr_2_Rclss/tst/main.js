@@ -1,23 +1,24 @@
 /**
  *  main.js IN Chptr_2_Rclss/.../tst/
- *  1607141 @1152-> WIP #2 using html nodes.
+ *  160711   @1222    div set class-'vers' FROM 'verse' IN Job_1_to_6.html to be compatible with testDoc.html
+ *      @1152-> WIP #2 using html nodes.
  *      @0848-> STABLE testing evolve a CSD. evolve trnsfrms DO NOT WORK ON an empty style property!!!
- *  160711 @0532 -> paradigm shift: add transforms!!
+ *      @0532 -> paradigm shift: add transforms!!
  *      Use one step at a time.
  *      DONE #1 1 dict, 1 property 1 transform evolve the property
  *      #2 1 HTML Elem, 1 Prop evolve w/ 1 transform'.
  *      #3 keep adding transforms
-
  */
 
+// requires
 var R = require('ramda');
+var C_Both = require('../src/h').C_Both;
 
 var n_Scale = .75;
 var wt_opacity = R.compose(R.toString, R.multiply(n_Scale), parseFloat);
 var wt_fontSize = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(n_Scale), parseFloat);
 
-// requires
-var C_Both = require('../src/h').C_Both;
+
 var test = require('tape');
 //GLOBALS
 var CUT, RET, TST;
@@ -39,10 +40,10 @@ test('#2 ***** main: evolve a testDoc.html CSD', function (t) {
     RET = e_aVerseCSD.style;
     t.equals( R.isEmpty(RET.opacity), true,"opacity isEmpty.");
     t.deepEquals(RET.opacity, '', 'opacity -> "".');
-    // force the opacity property to !== '';
+    // MUST FORCE the opacity property to NOT BE empty !!
     RET = e_aVerseCSD.style.opacity = '1.0';// dummy
-    RET = R.evolve(trnsfrms)(e_aVerseCSD.style);//->
-    t.deepEquals(RET.opacity, '0.75', 'opacity ->0.75');
+    RET = R.evolve(trnsfrms)(e_aVerseCSD.style);//-> NOW evolve works!
+    t.deepEquals(RET.opacity, '0.75', 'after not empty opacity -> 0.75');
     t.end();
 });
 test('#1 ***** main: see a testDoc.html Elem', function (t) {
