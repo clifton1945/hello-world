@@ -55,7 +55,7 @@ var test = require('tape');
 test_f_d_Chpt_curScope();
 function test_f_d_Chpt_curScope() {
     var MSG;
-    // var NUM, CUT, RET, EXP, TST;
+    // var NUM, CUT, CUT, EXP, t_csd;
     MSG = ` f_d_Chpt_curScope.js\ `;
     // var stubList = [0, 1, 2, 3, 4, 5, 6];// pretend these are verse INDEXES
     var stubD;

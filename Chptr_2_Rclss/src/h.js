@@ -36,7 +36,6 @@ var isCur = (dict) => tweenBegEnd(dict);
 const Doc_It = (txt) => document.querySelector(".console").textContent = txt;
 
 const C_It = (txt) => console.log(txt);
-// export {C_It};
 
 const C_Both = (txt) => {
     C_It(txt);
