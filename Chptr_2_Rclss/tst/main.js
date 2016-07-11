@@ -1,47 +1,36 @@
 /**
- *  Chptr_2_Rclss/.../main.js
- *  160708 @1630
- *      ->  STABLE var f_l_RclssSets = require('./f_l_RclssSets');
- *      -> for 1TAAT: COMMENTED_OUT var setScope = require('./f_d_Chpt_curScope.js');
- *      @ 1125 -> ADDED the use of .f_d_curScope_set_beg / end functions TO MODIFY copies of dthe constant d_curScope;
- *      @ 0945 -> ADDED thisTest FROM f_d_Chpt_curScope. Ran w/o error.
- *  160708 @ 0940 -> imported f_d_Chpt_curScope AS setScope; its tests ran w/ no errors.
- *  160706
- *      @0635  required _s_RclssName works and stable
- *  160705 @1252  new file
+ *  main.js IN Chptr_2_Rclss/.../tst/
+ *  160711 @0532 -> paradigm shift: add transforms!!
+ *      Use one step at a time.
+ *      #1 1 dict, 1 property 1 transform evolve the property
+ *      #2 1 NL, 1 Prop 1 transform evolve
+ *      #2 1 NL, 1 Prop 2 transforms evolve
+ *      #3 keep adding transforms
+
  */
+
 var R = require('ramda');
-// var h = require('./../src/h');
+var f_trnsfrm_opacity = R.multiply(.5);
+
+var n_Scale = .75;
+var wt_opacity = R.compose(R.toString, R.multiply(n_Scale), parseFloat);
+var wt_fontSize = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(n_Scale), parseFloat);
 
 // tests
-//PLAN  2.setScope  FORGET ABOUT IT !!!
-
+var C_Both = require('../src/h').C_Both;
+var C_It = require('../src/h').C_It;
 var test = require('tape');
-// var setScope  = require('./f_d_Chpt_curScope.js');
-// setScope.thisTest();// BROKEN FIX????
-// SET Scope
-// var curScope = require('../src/d_Chptr_curScope.js');
-// var scope = R.clone(curScope);
-// scope = setScope.f_d_set_beg(scope)(1);
-// scope = setScope.f_d_set_end(scope)(3);
-// test('***** setScope   do I see curScope?', function (t) {
-//     t.equals(scope.beg, 1);
-//     t.equals(scope.end, 3);
-//     t.end();
-// });
+var trnsfrms = {
+    opacity:  wt_opacity,
+    id: R.concat('should show ')
+};
+var d_data = {id:0, fontSize: '100%', opacity:'1.0', textAlign:'center'};
+var RET = R.evolve(trnsfrms, d_data);
+C_Both(JSON.stringify(RET));
+var TST = RET.id;
 
-// BUILD L:[L,L,L]
-var f_l_RclssSets = require('./f_l_RclssSets');
-
-
-var stub_ChptList = [0,1,2,3,4,5,6];
-var CUT = f_l_RclssSets(stub_ChptList);
-var TST = R.map(x=>x.length);
-var RET = R.compose(TST, CUT);
-test('***** f_l_RclssSets', function (t) {
-    var x = RET({beg:0, end:1});
-    t.deepEquals(RET({beg:0, end:1}), [0,1,6], '{b:1,e:2->[0,1,6]');
-    t.deepEquals(RET({beg:1, end:2}), [1,1,5], '{b:1,e:2- [1,1,5]');
-    t.deepEquals(RET({beg:5, end:7}), [4,2,0], '{b:5,e:7->[5,2,0]');
+test('#1 ***** main: evolve dict', function (t) {
+    t.deepEquals(TST, 'should show 0', 'id -> msg');
     t.end();
 });
+

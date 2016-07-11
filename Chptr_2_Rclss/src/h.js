@@ -30,15 +30,19 @@ var isPst = (dict) => ltBeg(dict); //: D:scope->Nlt:i -> Bool
 var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
 var isCur = (dict) => tweenBegEnd(dict);
 
-module.exports = {_d_set_key};
-// module.exports = {f_d_set_key};
-//
-// test = ("use es6 unpack ", function (t) {
-//     var b, e;
-//     ({b, v} = {any:2, som:4});
-//     t.equals(b === 2);
-//     t.end();
-// });
+// module.exports = {_d_set_key};
+
+// *********** OLD BUT STILL IN USE
+const Doc_It = (txt) => document.querySelector(".console").textContent = txt;
+
+const C_It = (txt) => console.log(txt);
+// export {C_It};
+
+const C_Both = (txt) => {
+    C_It(txt);
+    Doc_It(txt);
+};
+module.exports = {C_It, Doc_It, C_Both};
 
 
 
