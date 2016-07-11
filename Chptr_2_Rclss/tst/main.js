@@ -1,8 +1,8 @@
 /**
  *  main.js IN Chptr_2_Rclss/.../tst/
- *  1607141 @1152-> WIP #2 using html nodes.
+ *  160711 @1152-> WIP #2 using html nodes.
  *      @0848-> STABLE testing evolve a CSD. evolve trnsfrms DO NOT WORK ON an empty style property!!!
- *  160711 @0532 -> paradigm shift: add transforms!!
+ *      @0532 -> paradigm shift: add transforms!!
  *      Use one step at a time.
  *      DONE #1 1 dict, 1 property 1 transform evolve the property
  *      #2 1 HTML Elem, 1 Prop evolve w/ 1 transform'.
