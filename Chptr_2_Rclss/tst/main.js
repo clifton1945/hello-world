@@ -1,6 +1,10 @@
 /**
  *  main.js IN Chptr_2_Rclss/.../tst/
- *  160711   @1222    div set class-'vers' FROM 'verse' IN Job_1_to_6.html to be compatible with testDoc.html
+ *  160711  @1819 debugging WORKS NOW
+ *      for tst/main.js and tst/index.html and main_bundle.js
+ *          New WS version 2016.2
+ *          ADDED Book to index.html
+ *      @1222    div set class-'vers' FROM 'verse' IN Job_1_to_6.html to be compatible with testDoc.html
  *      @1152-> WIP #2 using html nodes.
  *      @0848-> STABLE testing evolve a CSD. evolve trnsfrms DO NOT WORK ON an empty style property!!!
  *      @0532 -> paradigm shift: add transforms!!
@@ -17,7 +21,6 @@ var C_Both = require('../src/h').C_Both;
 var n_Scale = .75;
 var wt_opacity = R.compose(R.toString, R.multiply(n_Scale), parseFloat);
 var wt_fontSize = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(n_Scale), parseFloat);
-
 
 var test = require('tape');
 //GLOBALS
@@ -36,6 +39,12 @@ var trnsfrms = {
 // MAIN CodeUnderTest
 CUT = R.evolve(trnsfrms);
 
+test('#3 ***** main: getComputerStyles', function (t) {
+    RET = e_aVerseCSD.style;
+    t.equals( R.isEmpty(RET.opacity), true,"opacity isEmpty.");
+    t.deepEquals(RET.opacity, '', 'opacity -> "".');
+    t.end();
+});
 test('#2 ***** main: evolve a testDoc.html CSD', function (t) {
     RET = e_aVerseCSD.style;
     t.equals( R.isEmpty(RET.opacity), true,"opacity isEmpty.");
