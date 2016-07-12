@@ -1,6 +1,8 @@
 /**
  *  main.js IN Chptr_2_Rclss/.../tst/
- *  160712 -> @0817 CONFIRMED getComputeredSTyle IS a great base for transformer functions.
+ *  160712 -> @0937 YEAH - I used an EVOLVED getComputedStyle Obj TO SET elent.style
+ *          SEE test 7
+ *      @0817 CONFIRMED a getComputedStyle csd IS a great base for transformer functions.
  *      @0617 holy smokes THIS WORKS SO WELL. Added transform: wt_fontSize_px
  *  -> getComputedStyles WORKS!!
  *      @0554 CSDs from getComputedStyles ARE RECOGNIZED BY evolve
@@ -29,7 +31,14 @@ var n_Scale = .75;
 var wt_opacity = R.compose(R.toString, R.multiply(n_Scale), parseFloat);
 var wt_fontSize_px = R.compose(R.flip(R.concat)('px'), R.toString, R.multiply(n_Scale), parseFloat);
 var wt_fontSize_Prcnt = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(n_Scale), parseFloat);
-
+/**
+ *      _set_trgtStyles: CSD D -> E: trgt -> mutated E:trgt
+ * @param csd
+ * @param e_trgt
+ */
+const _set_trgtElem = R.curry(
+    (csd, e_trgt)=> Object.assign(e_trgt.style, csd)
+);
 var test = require('tape');
 //GLOBALS
 var CUT, TST;
@@ -104,7 +113,7 @@ test('6 ***** main: assure I SEE <style>->#tstVerse{font-size: 30px;', function 
     t.equals( R.isEmpty(computedStyle.fontSize), false,"fontSize is NOT Empty.");
     t.equals(computedStyle.fontSize, '30px', 'styled fontSize -> "30px".');
     computedStyle = R.evolve(trnsfrms)(computedStyle);//-> evolve USED wt_fontSize_px!
-    t.deepEquals(computedStyle.fontSize, '22.5px', 'evolved fontSize -> 22.5px');
+    t.deepEquals(computedStyle.fontSize, '22.5px', 'evolved fontSize 30px -> 22.5px');
     C_Both(JSON.stringify(computedStyle.fontSize));
     t.end();
 });
@@ -117,7 +126,9 @@ test('7 ***** main: evolve a <style>->#tstVerse{font-size: 30px;', function (t) 
     wt_fontSize_px = R.compose(R.flip(R.concat)('px'), R.toString, R.multiply(n_Scale), parseFloat);
     trnsfrms.fontSize = wt_fontSize_px;
     computedStyle = R.evolve(trnsfrms)(computedStyle);//-> evolve USED wt_fontSize_px!
-    t.deepEquals(computedStyle.fontSize, '15px', 'evolved fontSize -> 15px');
+    t.deepEquals(computedStyle.fontSize, '15px', 'evolved fontSize 30px -> 15px');
     C_Both(JSON.stringify(computedStyle.fontSize));
+    e_aVerse.style.fontSize = computedStyle.fontSize;
+    t.deepEquals(e_aVerse.style.fontSize, '15px', 'evolved fontSize 30px -> 15px');
     t.end();
 });
