@@ -36,9 +36,9 @@ var wt_fontSize_Prcnt = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(
  * @param csd
  * @param e_trgt
  */
-const _set_trgtElem = R.curry(
-    (csd, e_trgt)=> Object.assign(e_trgt.style, csd)
-);
+// const _set_trgtElem = R.curry(
+//     (csd, e_trgt)=> Object.assign(e_trgt.style, csd)
+// );
 var test = require('tape');
 var CUT, TST;
 //GLOBALS
@@ -54,7 +54,7 @@ var trnsfrms = {
     fontSize: wt_fontSize_px,
 };
 // MAIN CodeUnderTest
-// CUT = R.evolve(trnsfrms);
+var _style_CSD = require('./f_d_evolveDict');
 
 test('0 ***** main: evolve a hard coded CSD', function (t) {
     t_csd = {id: 0, fontSize: '100%', opacity: '1.0', textAlign: 'center'};
