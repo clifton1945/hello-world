@@ -1,6 +1,7 @@
 /**
  *  main.js IN Chptr_2_Rclss/.../tst/
  *  160712 -> BEGIN ADDING transforms
+ *      @0617 holy smokes THIS WORKS SO WELL. Added transform: wt_fontSize_px
  *  -> getComputedStyles WORKS!!
  *      @0554 CSDs from getComputedStyles ARE RECOGNIZED BY evolve
  *      so I do not have to provide a dummy csd
@@ -26,7 +27,7 @@ var C_Both = require('../src/h').C_Both;
 
 var n_Scale = .75;
 var wt_opacity = R.compose(R.toString, R.multiply(n_Scale), parseFloat);
-var wt_fontSize = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(n_Scale), parseFloat);
+var wt_fontSize_px = R.compose(R.flip(R.concat)('px'), R.toString, R.multiply(n_Scale), parseFloat);
 
 var test = require('tape');
 //GLOBALS
@@ -35,12 +36,12 @@ var t_csd;
 
 // test data
 var nl_allVerses = document.querySelectorAll('.vers');
-var e_aVerseCSD = nl_allVerses.item(2);
-C_Both(JSON.stringify(e_aVerseCSD.innerText));
+var e_aVerse = nl_allVerses.item(2);
+C_Both(JSON.stringify(e_aVerse.innerText));
 
 var trnsfrms = {
     opacity: wt_opacity,
-    id: R.concat('should show ')
+    fontSize: wt_fontSize_px,
 };
 // MAIN CodeUnderTest
 CUT = R.evolve(trnsfrms);
@@ -50,42 +51,49 @@ CUT = R.evolve(trnsfrms);
 test('0 ***** main: evolve a hard coded CSD', function (t) {
     t_csd = {id: 0, fontSize: '100%', opacity: '1.0', textAlign: 'center'};
     var RET = R.evolve(trnsfrms)(t_csd);
-    t.deepEquals(RET.id, 'should show 0', 'id -> ');
     t.deepEquals(RET.opacity, '0.75', 'opacity ->');
     t.end();
 });
 test('1 ***** main: see a testDoc.html Elem', function (t) {
-    var e_aVerseCSD = nl_allVerses.item(2);
-    var RET = e_aVerseCSD;
+    var e_aVerse = nl_allVerses.item(2);
+    var RET = e_aVerse;
     C_Both(JSON.stringify(nl_allVerses.length ) + ' length.');// -> "" no opacity set yet LATER: look for the CSS set  opacity
     C_Both(JSON.stringify(t_csd) + ' default.');// -> "" no opacity set yet LATER: look for the CSS set  opacity
     t.equals(RET.innerText, 'chptr:1 verse:3 ndx:2', 'this Elem.innerText');
     t.end();
 });
 test('2 ***** main: evolve a testDoc.html CSD', function (t) {
-    var RET = e_aVerseCSD.style;
+    var RET = e_aVerse.style;
     t.equals( R.isEmpty(RET.opacity), true,"opacity isEmpty.");
     t.deepEquals(RET.opacity, '', 'opacity -> "".');
     // MUST FORCE the opacity property to NOT BE empty !!
-    RET = e_aVerseCSD.style.opacity = '1.0';// dummy
-    RET = R.evolve(trnsfrms)(e_aVerseCSD.style);//-> NOW evolve works!
+    RET = e_aVerse.style.opacity = '1.0';// dummy
+    RET = R.evolve(trnsfrms)(e_aVerse.style);//-> NOW evolve works!
     t.deepEquals(RET.opacity, '0.75', 'after not empty opacity -> 0.75');
     t.end();
 });
 test('3 ***** main: getComputerStyles ', function (t) {
-    var e_aVerseCSD = nl_allVerses.item(2);
-    var RET = window.getComputedStyle(e_aVerseCSD);
+    var e_aVerse = nl_allVerses.item(2);
+    var RET = window.getComputedStyle(e_aVerse);
     t.equals( R.isEmpty(RET.backgroundColor), false,"backgroundColor is NOT Empty.");
     t.equals(RET.backgroundColor, 'rgba(0, 0, 0, 0)', 'backgroundColor -> "rgba(0, 0, 0, 0)".');
     t.end();
 });
-test('4 ***** main: evolve a getComputerStyles ', function (t) {
-    var e_aVerseCSD = nl_allVerses.item(2);
-    var RET = window.getComputedStyle(e_aVerseCSD);
+test('4 ***** main: evolve a getComputerStyles.opacity ', function (t) {
+    var e_aVerse = nl_allVerses.item(2);
+    var RET = window.getComputedStyle(e_aVerse);
     t.equals( R.isEmpty(RET.opacity), false,"opacity is NOT Empty.");
     t.equals(RET.opacity, '1', 'opacity -> "1".');
     RET = R.evolve(trnsfrms)(RET);//-> NOW evolve works!
     t.deepEquals(RET.opacity, '0.75', 'evolved opacity -> 0.75');
     t.end();
 });
-
+test('5 ***** main: evolve a getComputerStyles.fontSize ', function (t) {
+    var e_aVerse = nl_allVerses.item(1);
+    var RET = window.getComputedStyle(e_aVerse);
+    t.equals( R.isEmpty(RET.fontSize), false,"fontSize is NOT Empty.");
+    t.equals(RET.fontSize, '20px', 'fontSize -> "20px".');
+    RET = R.evolve(trnsfrms)(RET);//-> NOW evolve works!
+    t.deepEquals(RET.fontSize, '15px', 'evolved fontSize -> 15px');
+    t.end();
+});
