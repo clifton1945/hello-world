@@ -40,8 +40,8 @@ const _set_trgtElem = R.curry(
     (csd, e_trgt)=> Object.assign(e_trgt.style, csd)
 );
 var test = require('tape');
-//GLOBALS
 var CUT, TST;
+//GLOBALS
 var t_csd;
 
 // test data
@@ -54,7 +54,7 @@ var trnsfrms = {
     fontSize: wt_fontSize_px,
 };
 // MAIN CodeUnderTest
-CUT = R.evolve(trnsfrms);
+// CUT = R.evolve(trnsfrms);
 
 test('0 ***** main: evolve a hard coded CSD', function (t) {
     t_csd = {id: 0, fontSize: '100%', opacity: '1.0', textAlign: 'center'};
@@ -104,7 +104,7 @@ test('5 ***** main: evolve a getComputerStyles.fontSize ', function (t) {
     t.deepEquals(computedStyle.fontSize, '15px', 'evolved fontSize -> 15px');
     t.end();
 });
-test('6 ***** main: assure I SEE <style>->#tstVerse{font-size: 30px;', function (t) {
+test('6 ***** main: assure I SEE style->#tstVerse{font-size: 30px;', function (t) {
     var e_aVerse = document.querySelector('#tstVerse');//->'chptr:2 verse:6 ndx:5'
     t.equals(e_aVerse.innerText, 'chptr:2 verse:6 ndx:5', 'tstVerse');
     var computedStyle = window.getComputedStyle(e_aVerse);
@@ -117,7 +117,7 @@ test('6 ***** main: assure I SEE <style>->#tstVerse{font-size: 30px;', function 
     C_Both(JSON.stringify(computedStyle.fontSize));
     t.end();
 });
-test('7 ***** main: evolve a <style>->#tstVerse{font-size: 30px;', function (t) {
+test('7 ***** main: evolve a style->#tstVerse{font-size: 30px;', function (t) {
     var e_aVerse = document.querySelector('#tstVerse');//->'chptr:2 verse:6 ndx:5'
     t.equals(e_aVerse.innerText, 'chptr:2 verse:6 ndx:5', 'tstVerse');
     var computedStyle = window.getComputedStyle(e_aVerse);
