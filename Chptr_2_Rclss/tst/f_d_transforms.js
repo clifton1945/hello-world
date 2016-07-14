@@ -1,6 +1,24 @@
 /**
  * f_d_transforms.js
- * 160714 @0840 -> a working stable test half way towards evolving transforms that evolve CscDs.
+ * 160714 @0905 -> THINKING:
+ *      There are Spaces involved to mutate a element's Csd Dict:
+ *      (0) an Elem_NL Space:
+ *          this NL may be whole aBookNL, aChptrNL, a RclssNL
+ *      (1) an Element Space in a NL:
+ *          this Element has  myEl, myChildN, myFamilySizeN
+ *          which are transformed in to its _scale, _offset, _format values
+ *      (2) an Elem_CsdD Space: D
+ *          this has a Dict of specific Csds: e.g. opacity, fontSize, ...
+ *          this has a Dict of specific CsdTrnsfrms: e.g. trnsfrm_opacity, trnsfrm_fontSize, ...
+ *
+ *      (3) the CsdD_Transform Space: e.g. f_scale, f_offset, f_format, ...
+ *          this is a Dict of CsdD Trnsfrm Functions::
+ *      (4) the Elem_Csd_Trnsfrm Space::
+ *          this is a compose of trnsfrms FOR a specific Element Space
+ *          e.g. _trnsfrm_opacity = R.compose(R.toString, _scaleN_, _offsetN, parseFloat);
+ *
+ *
+ * @0840 -> a working stable test half way towards evolving transforms that evolve CscDs.
  *      In this case a verse _trnsfrm_opacity() function modified the CsdD transformed by scaling and offsetting.
  *      Next is to evolve the transformation Dict and
  *  @0625 NEW f_d_transforms.js branched from f_evolve_dCSD.js
@@ -21,8 +39,8 @@ const _offsetN = R.add(stubOffset); // N -> N
  * _scale_opacity:: N:wt -> S:a -> S:wt x a
  * @param wt
  */
-var _scale_opacity = R.compose(R.toString, _scaleN_, parseFloat);
-var _offset_opacity = R.compose(R.toString, _offsetN, parseFloat);
+// var _scale_opacity = R.compose(R.toString, _scaleN_, parseFloat);
+// var _offset_opacity = R.compose(R.toString, _offsetN, parseFloat);
 var _trnsfrm_opacity = R.compose(R.toString, _scaleN_, _offsetN, parseFloat);
 
 /**
@@ -35,6 +53,7 @@ const transformsD =  {
     // opacity: _offset_opacity,
     opacity: _trnsfrm_opacity, // CUT
 }; // TODO  the keys are stable BUT re associate for whatever the new function values are
+
 
 /**
  *      f_evolve_dCSD:: F:{k:{v->v}} -> D:{k:v} -> D:{k:v}
