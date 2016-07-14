@@ -1,5 +1,6 @@
 /**
  * f_evolve_dCSD.js
+ * 160714  @0602 -> new day. LEARN to compose tranforms for use in f_evolve_dCSD()
  * 160713 -> @0900 WIP somehow apply scale wt to the evolve  transformers.
  *      STABLE because hardcoded.
  * 160712 -> @1415  WIP BROKEN how pass in the Mapper( key, function}s???
@@ -28,7 +29,7 @@ var scaler = update_scale(_scale_opacity, .5);
  * @type {{opacity: ((p1?:*)=>Function), fontSize: ((p1?:*)=>Function)}}
  * @private
  */
-var f_dMappers =  {
+const f_dMappers =  {
     opacity: _scale_opacity(.5),
     fontSize: _scale_fontSize_prcnt(.5)
 };
