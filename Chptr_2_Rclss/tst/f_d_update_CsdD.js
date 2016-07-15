@@ -1,7 +1,11 @@
 /**
- * f_evolve_dCSD.js
+ * f_d_update_CsdD.js -> update a Verse default Csd as a function of Space parameters.
+ * WAS f_evolve_dCSD.js
+ * TODO (0) ADD offset and maybe mirror transforms (1) REFACT scale / weight as functions of (ndx and faml.length)
+ * then map over all verses in Chptr Space
+ * then add Rclss Space transforms
  * 160715  @1625 -> test("1  ***** USING .lensProp && .over update_a trgt_CSDs_D ***** STABLE
- *      not using .evolve || revolve and all its hassel.
+ *      not using .evolve || revolve and all its hassle.
  *      now, just update the trgt_Csd_D with a wt or scale factor, then .lensProp and .over the change to the base CsdD
  *  @ 0800 -> STABLE test"0  ***** _revolveD trgt_CSDs_D USING a partialed_scale_opacity(.5, R.__) *****"
  *      REFACT _scale_opacity TO function w/ arity 2 allowing  new scale weight factor AND
