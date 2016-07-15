@@ -1,5 +1,5 @@
 /**
- * f_n_RclssNdx -> 160708 @ 0813  Test is broken because I changed the export from h.js
+ * f_n_RclssNdx -> 160708 @ 0813  Test is broke because I changed the export from h.js
  * 160707
  *  @0835 stable and tested I think. May no use in it entirety 
  *
@@ -20,7 +20,7 @@ const f_n_RclssNdx = R.curry(function f_n_RclssNdx(d_curScope, n_chptNdx) {
     return h.isPst(d_curScope)(n_chptNdx) ? n_chptNdx :
         h.isCur(d_curScope)(n_chptNdx) ? 1 + n_chptNdx - d_curScope.endNdx :
             h.isFut(d_curScope)(n_chptNdx) ? 2 + n_chptNdx  - d_curScope.endNdx - d_curScope.begNdx :
-                `f_n_RclssNdx() is broken. 
+                `f_n_RclssNdx() is broke. 
                 d_curScope dict keys must be "begNdx" && "endNdx" `
 });
 var test = require('tape');
