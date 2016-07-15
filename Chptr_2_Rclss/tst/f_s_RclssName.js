@@ -7,7 +7,6 @@
  *      CREATED sub dir: Chptr_2_Rclss
  *          which will hold code to INTENT: using R.evolve,
  *          CRAFT  Style transforms directly  FROM Chpt CSD: ndx, sibs TO Rclss CSD: ndx, sibs
- *  160705  was classByIndex_tests.js in project: C_Script_FP
  */
 
 /**
