@@ -1,7 +1,9 @@
 /**
  * f_d_update_CsdD.js -> update a Verse default Csd as a function of Space parameters.
- * WAS f_evolve_dCSD.js
- * TODO (0) ADD offset and maybe mirror transforms (1) REFACT scale / weight as functions of (ndx and faml.length)
+ * 160716 0715 -> begin to add _pre_offset to transformations.
+ *  @0645 -> REFACT: bringing into comparison both R.over and R.evole methods of updating CSDs.
+ *      WAS f_evolve_dCSD.js
+ *      TODO (0) ADD offset and maybe mirror transforms (1) REFACT scale / weight as functions of (ndx and faml.length)
  * then map over all verses in Chptr Space
  * then add Rclss Space transforms
  * 160715  @1625 -> test("1  ***** USING .lensProp && .over update_a trgt_CSDs_D ***** STABLE
@@ -31,42 +33,55 @@ module.exports = f_revolve_trgtDict;
 
 // ---------------------- test: f_evolve_dCSD
 let test = require('tape');
-var trgt_CSDs_D = {opacity: "1", fontSize: '100%'};
+var dflt_CSDs_D = {opacity: "1", fontSize: '100%'};
+var trgt_CSDs_D;
 var _trnsfrm_theseCSDs_D;
-var _pre_scaled_opacity;
-test("0  ***** USING .evolve (and my revolve) BUT still hardcoded pre_wted), _revolveD trgt_CSDs_D *****", function (t) {
+var _pre_offset, _pre_scaled, _pre_scaled_CSD;
+test("0  ***** USING .evolve (and my revolve) to update trgt_CSDs_D *****", function (t) {
     let RET;
-    let _wter = v => R.identity(v);
-    var pre_wted = _wter(.3);
-    let _pre_scaledN = R.multiply(pre_wted);// (N -> {*->N)
-    _pre_scaled_opacity = R.compose(R.toString, _pre_scaledN, parseFloat);//N:wt -> S:propVal -> S:
-    _trnsfrm_theseCSDs_D = {opacity: _pre_scaled_opacity}; // WORKS _pre_scaled_opacity is just one of many transforms
-    RET = f_revolve_trgtDict(trgt_CSDs_D, _trnsfrm_theseCSDs_D);
+    let _scaler = v => R.identity(v);
+    _pre_scaled = R.multiply(_scaler(.3));// (N -> {*->N)
+    // update opacity
+    _pre_scaled_CSD = R.compose(R.toString, _pre_scaled, parseFloat);//N:wt -> S:propVal -> S:
+
+    // The method of Transformation
+    _trnsfrm_theseCSDs_D = {opacity: _pre_scaled_CSD}; // WORKS _pre_scaled_CSD is just one of many transforms
+    var trgt_CSD_D = f_revolve_trgtDict(dflt_CSDs_D, _trnsfrm_theseCSDs_D);
+
     t.deepEquals(
-        RET.opacity, "0.3", ' EXP: opacity:"1" -> "0.3"');
+        trgt_CSD_D.opacity, "0.3", ' EXP: opacity:"1" -> "0.3"');
     t.end();
 });
-test("1  ***** USING .lensProp && .over update_a trgt_CSDs_D *****", function (t) {
+test("1  ***** USING .lensProp && .over  to update trgt_CSDs_D *****", function (t) {
     var RET;
-    var _wter = v => R.identity(v);
-    var _pre_scaled = R.multiply(_wter(.3));// (N -> {*->N)
-    var trgt_CSDs_D = {opacity: "1", fontSize: '100%'};
+    var _scaler = v => R.identity(v);
+
     // update opacity
-    var _pre_scaled_opacity = R.compose(R.toString, _pre_scaled, parseFloat);//N:wt -> S:propVal -> S:
+    _pre_scaled = R.multiply(_scaler(.3));// (N -> {*->N)
     var opacityLens = R.lensProp("opacity");
+    _pre_scaled_CSD = R.compose(R.toString, _pre_scaled, parseFloat);//N:wt -> S:propVal -> S:
+    // offset opacity
+    var _offsetter = o => R.identity(o);
+    _pre_offset = R.add(_offsetter('20%'));
+
+
+    // The method of Transformation
     //noinspection UnnecessaryLocalVariableJS
-    var trgt_opacity_CSD_D = R.over(opacityLens, _pre_scaled_opacity, trgt_CSDs_D);
+    trgt_CSDs_D = R.over(opacityLens, _pre_scaled_CSD, dflt_CSDs_D);
+
     //noinspection UnnecessaryLocalVariableJS
-    RET = trgt_opacity_CSD_D;
-    t.deepEquals(RET.opacity, "0.3", ' EXP: opacity:"1" -> "0.3"');
+    t.deepEquals(trgt_CSDs_D.opacity, "0.3", ' EXP: opacity:"1" -> "0.3"');
+
     // update fontSize
-    var _pre_scaled_fontSize = nScale => R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(nScale), parseFloat);
-    //N:wt -> S:propVal -> S:
+    _pre_scaled = R.multiply(_scaler(.3));// (N -> {*->N)
     var fontSizeLens = R.lensProp("fontSize");
+    _pre_scaled_CSD = R.compose(R.flip(R.concat)('%'), R.toString, _pre_scaled, parseFloat);
+
+    // The method of Transformation
     //noinspection UnnecessaryLocalVariableJS
-    var trgt_fontSize_CSD_D = R.over(fontSizeLens, _pre_scaled_fontSize(.6), trgt_CSDs_D);
+    trgt_CSDs_D = R.over(fontSizeLens, _pre_scaled_CSD, dflt_CSDs_D);
+
     //noinspection UnnecessaryLocalVariableJS
-    RET = trgt_fontSize_CSD_D;
-    t.deepEquals(RET.fontSize, "60%", ' EXP: fontSize:"100" -> "60%"');
+    t.deepEquals(trgt_CSDs_D.fontSize, "30%", ' EXP: fontSize:"100" -> "30%"');
     t.end();
 });
