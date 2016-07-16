@@ -1,9 +1,13 @@
 /**
  * f_d_update_CsdD.js -> update a Verse default Csd as a function of Space parameters.
- * 160716 0715 -> begin to add _pre_offset to transformations.
+ * 160716  @0916 STABLE but trying to consolidate code to just accept a scale factor and an offset
+ * IN // update opacity
+ * // COULD NOT ADD DEFAULT PARAMETERS -> f(a,b=1)(a*b)  BREAKS 160716
+ * // COULD NOT R.compose ->_pre_scaled = (fctr) => R.compose(R.multiply, f_scaler(fctr));//BREAKS (N -> {*->N)
+ *  0715 -> begin to add _pre_offset to transformations.
  *  @0645 -> REFACT: bringing into comparison both R.over and R.evole methods of updating CSDs.
  *      WAS f_evolve_dCSD.js
- *      TODO (0) ADD offset and maybe mirror transforms (1) REFACT scale / weight as functions of (ndx and faml.length)
+ *      WILL DO  (0) ADD offset and maybe mirror transforms (1) REFACT scale / weight as functions of (ndx and faml.length)
  * then map over all verses in Chptr Space
  * then add Rclss Space transforms
  * 160715  @1625 -> test("1  ***** USING .lensProp && .over update_a trgt_CSDs_D ***** STABLE
@@ -13,6 +17,7 @@
  *      REFACT _scale_opacity TO function w/ arity 2 allowing  new scale weight factor AND
  *      REBUILT evolve TO revolve: flipped to partial the nearly constant style property CSD dictionaries
  * 160714  @0602 -> new day. LEARN to compose transforms for use in f_evolve_dCSD()
+ *
  */
 "use strict";
 let R = require('ramda');
@@ -52,18 +57,21 @@ test("0  ***** USING .evolve (and my revolve) to update trgt_CSDs_D *****", func
         trgt_CSD_D.opacity, "0.3", ' EXP: opacity:"1" -> "0.3"');
     t.end();
 });
-test("1  ***** USING .lensProp && .over  to update trgt_CSDs_D *****", function (t) {
+test("1  ***** USING .lensProp && .over  to update trgt_CSDs_D ******", function (t) {
     var RET;
-    var _scaler = v => R.identity(v);
+    var _scaler =  s => R.identity(s);
+    var f_scaler = s => R.always(s);
+    var _offsetter = o => R.identity(o);
 
     // update opacity
-    _pre_scaled = R.multiply(_scaler(.3));// (N -> {*->N)
-    var opacityLens = R.lensProp("opacity");
-    _pre_scaled_CSD = R.compose(R.toString, _pre_scaled, parseFloat);//N:wt -> S:propVal -> S:
-    // offset opacity
-    var _offsetter = o => R.identity(o);
-    _pre_offset = R.add(_offsetter('20%'));
+    // COULD NOT ADD DEFAULT PARAMETERS -> f(a,b=1)(a*b)  BREAKS 160716
+    // COULD NOT R.compose ->_pre_scaled = (fctr) => R.compose(R.multiply, f_scaler(fctr));//BREAKS (N -> {*->N)
+    // _pre_scaled = (fctr) => R.multiply(_scaler(fctr), R.__);//OK (N -> {*->N)
+    _pre_scaled = (fctr) => R.multiply(_scaler(fctr));//OK (N -> {*->N)
+    _pre_offset = R.add(_offsetter('0'));
 
+    var opacityLens = R.lensProp("opacity");
+    _pre_scaled_CSD = R.compose(R.toString, _pre_scaled(.3), _pre_offset, parseFloat);//N:wt -> S:propVal -> S:
 
     // The method of Transformation
     //noinspection UnnecessaryLocalVariableJS
