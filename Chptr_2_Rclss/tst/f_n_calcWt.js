@@ -1,10 +1,9 @@
 /**
- * f_n_calcWt.js -> STABLE test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! "
- * 160718
+ * f_n_calcWt.js 160718
+ *  @1835 -> COMMENTED OUT test 0 to not see IN f_d_update_CsdD.js
  *  @1558 -> STABLE test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! "
  *  @1530 -> STABLE test ("*** 0 confirming calcWt(sObj, vObj) DOES "
- *  MAKE a calcWt function for use in  f_d_update_Csd_D.js
- * It IS a condensed contents of C:/Users/CLIF/Projects/WS_Prjs/C_Script_FP/src/objects.js.
+ * This file IS a condensed contents of C:/Users/CLIF/Projects/WS_Prjs/C_Script_FP/src/objects.js.
  * f_n_calcWt.js -> CALCULATE a weighting factor AS a function of Space parameters FOR a Verse default Csd.
  */
 "use strict";
@@ -58,7 +57,6 @@ const TST_StyleObj = {
         // }
     }
 };
-
 // var calcWt = (smlWt, lrgWt, ndx, ary) => {
 //     // this was a Rclss.fut calcWt method
 //     let len = ary.length - 1;
@@ -67,7 +65,6 @@ const TST_StyleObj = {
 //         ? lrgWt + (-delta / len * ndx )
 //         : lrgWt;  // always lrgWt
 // };
-
 // var calcWt = (sObj, vObj) => {
 //     //noinspection JSUnusedLocalSymbols
 //     let {smlWt, lrgWt} = sObj;
@@ -78,6 +75,16 @@ const TST_StyleObj = {
 //         : lrgWt;  // always lrgWt
 // };
 
+/**
+ *      calcWt():: ( D:spanCsd -> L:famlElem) -> N:ndxElem -> N: wter
+ *      USED: typically to weight element property CSD: e.g. opacity, fontSize, etc
+ *          the L:fam and N:ndx will be returned by indexedMaps typically
+ *
+ * @param sObj  -> style Property beg and end limits
+ * @param l_fam -> list of this elements family
+ * @param n_ndx -> the index of this elem in the family list
+ * @returns {*} -> an Element weight for this context.
+ */
 var calcWt = (sObj, l_fam, n_ndx) => {
     //noinspection JSUnusedLocalSymbols
     let {smlWt, lrgWt} = sObj;
@@ -89,12 +96,12 @@ var calcWt = (sObj, l_fam, n_ndx) => {
 // MODULES.EXPORT
 module.exports = calcWt;
 
-let test = require('tape');
-test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! ", function (t) {
-    const rng = {smlWt:5, lrgWt:9};
-    const ary = [0,1,2,3,4,5,6];
-    t.equals(calcWt(rng, ary, 0), 9, '5,9, ary, 0 -> 9');
-    t.equals(calcWt(rng, ary, 3), 7, '5,9, ary, 3 -> 7');
-    t.equals(calcWt(rng, ary, 6), 5, '5,9, ary, 6 -> 5');
-    t.end();
-});
+// let test = require('tape');
+// test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! ", function (t) {
+//     const rng = {smlWt:5, lrgWt:9};
+//     const ary = [0,1,2,3,4,5,6];
+//     t.equals(calcWt(rng, ary, 0), 9, '5,9, ary, 0 -> 9');
+//     t.equals(calcWt(rng, ary, 3), 7, '5,9, ary, 3 -> 7');
+//     t.equals(calcWt(rng, ary, 6), 5, '5,9, ary, 6 -> 5');
+//     t.end();
+// });
