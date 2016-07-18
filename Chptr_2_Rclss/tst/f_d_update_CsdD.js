@@ -1,10 +1,19 @@
 /**
  * f_d_update_CsdD.js -> update a Verse default Csd as a function of Space parameters.
+ * 160718 @ 1203 ->  ready to just REPLACE the present csd.value WITH a calculated weight FOR a given csd.key.
+ *      in doing so I am skipping test#0 and #2 and deleting the fontSize test
+ *  0650 ->  what do I want? How about for now - to get off the dime
+ *  (2)USE 4 parameters to set a verse style CSD : valBeg, valEnd, ndxMe, lenFam
+ *      with these the csd ~ valBeg +
+ *  (1)USE default property as the startValue
+ *      THEN ADD the calculated Weight to it:
+ *          this is typically ndx/(len-1) ** SEE f_n_Wter fo details of Rclss difference
+ *      WHICH has the following Problem: how set the endValue ??
+ *          without the endValue
  * 160716 @ 1657 ->  see test #2 w/ QUESTION:
  *           FIX -- do I need to run compose against the  current value of say this opacity?? Do not think so: just scale_x_1, offset_plus_0  and format should be enough
  * @1046 -> ADDED offset TO
- * STABLE:: t.deepEquals(trgt_CSDs_D.fontSize, "90%", ' EXP: fontSize:"100" -> "90%"');
-
+ * STABLE:: t.deepEquals(trgt_CSDs_D.fontSize, "90%", ' EXP: fontSize:"100" -> "90%"')
  *  @0916 STABLE but trying to consolidate code to just accept a scale factor and an offset
  * IN // update opacity
  * // COULD NOT ADD DEFAULT PARAMETERS -> f(a,b=1)(a*b)  BREAKS 160716
@@ -16,12 +25,6 @@
  * then map over all verses in Chptr Space
  * then add Rclss Space transforms
  * 160715  @1625 -> test("1  ***** USING .lensProp && .over update_a trgt_CSDs_D ***** STABLE
- *      not using .evolve || revolve and all its hassle.
- *      now, just update the trgt_Csd_D with a wt or scale factor, then .lensProp and .over the change to the base CsdD
- *  @ 0800 -> STABLE test"0  ***** _revolveD trgt_CSDs_D USING a partialed_scale_opacity(.5, R.__) *****"
- *      REFACT _scale_opacity TO function w/ arity 2 allowing  new scale weight factor AND
- *      REBUILT evolve TO revolve: flipped to partial the nearly constant style property CSD dictionaries
- * 160714  @0602 -> new day. LEARN to compose transforms for use in f_evolve_dCSD()
  *
  */
 "use strict";
@@ -47,7 +50,8 @@ var dflt_CSDs_D = {opacity: "1", fontSize: '100%'};
 var trgt_CSDs_D;
 var _trnsfrm_theseCSDs_D;
 var _pre_offset, opacity_scaled, opacity_scaled_CSD;
-test("0  ***** USING .evolve (and my revolve) to update trgt_CSDs_D *****", function (t) {
+test("0  ***** USING .evolve (and my revolve) to update trgt_CSDs_D *****", {skip:true},
+    function (t) {
     let RET;
     let _scaler = v => R.identity(v);
     opacity_scaled = R.multiply(_scaler(.3));// (N -> {*->N)
@@ -64,25 +68,19 @@ test("0  ***** USING .evolve (and my revolve) to update trgt_CSDs_D *****", func
 });
 test("1  ***** USING .lensProp&&.over to update trgt_CSDs_D ******", function (t) {
     var RET;
-    opacity_scaled = R.multiply;//OK (N -> {*->N)
     var opacityLens = R.lensProp("opacity");
-    opacity_scaled_CSD = scale_fctr => R.compose(R.toString, opacity_scaled(scale_fctr), parseFloat);//N:wt -> S:propVal -> S:
+    // CUT what if  opacity_scaled just REPLACED the key:value ??
+    opacity_scaled =  wt => R.always(wt);
+    // opacity_scaled = R.multiply;//OK (N -> {*->N)
+    opacity_scaled_CSD = scale_fctr => R.compose(R.toString, opacity_scaled(1234), parseFloat);//N:wt -> S:propVal -> S:
     trgt_CSDs_D = R.over(opacityLens, opacity_scaled_CSD("0.3"), dflt_CSDs_D); // CUT
+    // trgt_CSDs_D = R.over(opacityLens, opacity_scaled_CSD("0.3"), dflt_CSDs_D); // CUT
 
     t.deepEquals(trgt_CSDs_D.opacity, "0.3", ' EXP: opacity:"1" SCALED TO "0.3"');
-
-    // update fontSize
-    var fontSize_offset = R.add;
-    var fontSizeLens = R.lensProp("fontSize");
-    var fontSize_offset_CSD = (offset_val) => R.compose(R.flip(R.concat)('%'), R.toString, fontSize_offset(offset_val), parseFloat);
-    var trgt_CSDs_D = R.over(fontSizeLens, fontSize_offset_CSD(-10), dflt_CSDs_D);// CUT
-
-    //noinspection UnnecessaryLocalVariableJS
-    t.deepEquals(trgt_CSDs_D.fontSize, "90%", ' EXP: fontSize:"100" OFFSET TO "90%"');
-
     t.end();
 });
-test("2  ***** USING BOTH opacity_scale() and opacity_offset().lensProp&&.over to update opacity_scale_CSDs_D ******", function (t) {
+test("2  ***** USING BOTH opacity_scale() and opacity_offset().lensProp&&.over to update opacity_scale_CSDs_D ******", {skip:true},
+    function (t) {
     var RET;
 
     var opacityLens = R.lensProp("opacity");
