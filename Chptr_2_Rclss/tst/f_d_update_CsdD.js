@@ -72,7 +72,7 @@ test("1  ***** USING .lensProp&&.over to update trgt_CSDs_D ******", function (t
     // CUT what if  opacity_scaled just REPLACED the key:value ??
     opacity_scaled =  wt => R.always(wt);
     // opacity_scaled = R.multiply;//OK (N -> {*->N)
-    opacity_scaled_CSD = scale_fctr => R.compose(R.toString, opacity_scaled(1234), parseFloat);//N:wt -> S:propVal -> S:
+    opacity_scaled_CSD = scale_fctr => R.compose(R.toString, opacity_scaled(0.3), parseFloat);//N:wt -> S:propVal -> S:
     trgt_CSDs_D = R.over(opacityLens, opacity_scaled_CSD("0.3"), dflt_CSDs_D); // CUT
     // trgt_CSDs_D = R.over(opacityLens, opacity_scaled_CSD("0.3"), dflt_CSDs_D); // CUT
 

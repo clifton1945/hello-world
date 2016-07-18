@@ -1,9 +1,11 @@
 /**
- * f_n_calcWt.js -> CALCULATE a weighting factor AS a function of Space parameters FOR a Verse default Csd.
+ * f_n_calcWt.js -> STABLE test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! "
  * 160718
- *  @1530 -> STABLE: test ("*** 0 confirming calcWt(sObj, vObj) DOES "
+ *  @1558 -> STABLE test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! "
+ *  @1530 -> STABLE test ("*** 0 confirming calcWt(sObj, vObj) DOES "
  *  MAKE a calcWt function for use in  f_d_update_Csd_D.js
  * It IS a condensed contents of C:/Users/CLIF/Projects/WS_Prjs/C_Script_FP/src/objects.js.
+ * f_n_calcWt.js -> CALCULATE a weighting factor AS a function of Space parameters FOR a Verse default Csd.
  */
 "use strict";
 let R = require('ramda');
@@ -57,34 +59,42 @@ const TST_StyleObj = {
     }
 };
 
-var calcWt = (smlWt, lrgWt, ndx, ary) => {
-    // this was a Rclss.fut calcWt method
-    let len = ary.length - 1;
-    let delta = lrgWt - smlWt;
-    return (len > 0)
-        ? lrgWt + (-delta / len * ndx )
-        : lrgWt;  // always lrgWt
-};
+// var calcWt = (smlWt, lrgWt, ndx, ary) => {
+//     // this was a Rclss.fut calcWt method
+//     let len = ary.length - 1;
+//     let delta = lrgWt - smlWt;
+//     return (len > 0)
+//         ? lrgWt + (-delta / len * ndx )
+//         : lrgWt;  // always lrgWt
+// };
 
-calcWt = (sObj, vObj) => {
+// var calcWt = (sObj, vObj) => {
+//     //noinspection JSUnusedLocalSymbols
+//     let {smlWt, lrgWt} = sObj;
+//     let {ver, ndx, ary} = vObj;
+//     let len = ary.length - 1;
+//     return (len > 0)
+//         ? (-(lrgWt - smlWt) / len * ndx + lrgWt)
+//         : lrgWt;  // always lrgWt
+// };
+
+var calcWt = (sObj, l_fam, n_ndx) => {
     //noinspection JSUnusedLocalSymbols
     let {smlWt, lrgWt} = sObj;
-    let {ver, ndx, ary} = vObj;
-    let len = ary.length - 1;
+    let len = l_fam.length - 1;
     return (len > 0)
-        ? (-(lrgWt - smlWt) / len * ndx + lrgWt)
+        ? (-(lrgWt - smlWt) / len * n_ndx + lrgWt)
         : lrgWt;  // always lrgWt
 };
+// MODULES.EXPORT
+module.exports = calcWt;
 
 let test = require('tape');
-test ("*** 0 confirming calcWt(sObj, vObj) DOES ", function (t) {
+test ("*** 0 confirming new signature calcWt(sObj, l_fam, n-ndx) DOES !! ", function (t) {
     const rng = {smlWt:5, lrgWt:9};
-    const cntxt = {ver:'hi, i am me', ndx:3, ary:[0,1,2,3,4,5,6]};
-    cntxt.ndx = 0;
-    t.equals(calcWt(rng, cntxt), 9, '5,9,0,ary -> 9');
-    cntxt.ndx = 3;
-    t.equals(calcWt(rng, cntxt), 7, '5,9,3,ary -> 7');
-    cntxt.ndx = 6;
-    t.equals(calcWt(rng, cntxt), 5, '5,9,6,ary -> 5');
+    const ary = [0,1,2,3,4,5,6];
+    t.equals(calcWt(rng, ary, 0), 9, '5,9, ary, 0 -> 9');
+    t.equals(calcWt(rng, ary, 3), 7, '5,9, ary, 3 -> 7');
+    t.equals(calcWt(rng, ary, 6), 5, '5,9, ary, 6 -> 5');
     t.end();
 });
