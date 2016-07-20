@@ -1,12 +1,13 @@
 /**
  * f_d_update_CsdD.js
- * 160720   @0725 -> STABLE: 2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
+ * 160720 @0817 -> ADDED Math.rounding
+ *      @0725 -> STABLE: 2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
  *                   STABLE: 1 **** _trgt_opacityCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
  * 160718   @0950 -> STABLE: 1 **** USE calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
  *      still need refact to combine         _calcWt = and  _d_trgt_CSDs_D =
  *      @1830 -> ADDED calcWt FROM f_n_calcWt-compiled.js AND
  *      test("1  ***** USING calcWt WITH .lensProp&&.over to update trgt_CSDs_D ******" IS STABLE
- * f_d_update_CsdD.js -> update all Verse default Csds as a function of Space parameters.
+ * f_d_update_CsdD.js -> PROVIDE functions TO set all Verse Csds as a function of their Space parameters.
  */
 "use strict";
 let R = require('ramda');
@@ -37,7 +38,7 @@ var _d_trgt_CSDs_D;
 var dflt_CSDs_D = {opacity: "1", fontSize: '100%'};
 // NOW JUST Opacity
 var opacityLens = R.lensProp("opacity");// -> F:lens
-var _opacityWter = R.compose(R.toString, _calcWt); // N:ndx -> S:wt
+var _opacityWter = R.compose(R.toString, R.multiply(0.01), Math.round, R.multiply(100),  _calcWt); // N:ndx -> S:wt
 // NOW JUST fontSize
 // GENERIC
 var csdDict = R.identity(dflt_CSDs_D);
@@ -52,15 +53,14 @@ test(`IN f_d_update_CsdD.js
     {skip: false}, function (t) {
         t.deepEquals(_trgt_opacityCSDs_D(0), "0.9", ' ndx:0 EXP: opacity:"1" SET TO "0.9"');
         t.deepEquals(_trgt_opacityCSDs_D(6), "0.5", ' ndx:6 EXP: opacity:"1" SET TO "0.5"');
-        t.deepEquals(_trgt_opacityCSDs_D(3), "0.7", ' ndx;3 EXP: opacity:"1" SET TO "0.7"');
+        t.deepEquals(_trgt_opacityCSDs_D(4), "0.63", ' ndx;4 EXP: opacity:"1" SET TO "0.63"');
         t.end();
     });
 
 //CUT:: _trgt_fontSizeCSDs_D
 // NOW JUST fontSize
 var fontSizeLens = R.lensProp("fontSize");// -> F:lens
-var _fontSizeWter = R.compose(R.flip(R.concat)('%'), R.toString, R.multiply(100), _calcWt); // N:ndx -> S:wt
-
+var _fontSizeWter = R.compose(R.flip(R.concat)('%'), R.toString, Math.round, R.multiply(100), _calcWt); // N:ndx -> S:wt
 
 // GENERICcsdDict = R.identity(dflt_CSDs_D);
 csdDict = R.identity(dflt_CSDs_D);
@@ -74,7 +74,7 @@ test(`IN f_d_update_CsdD.js
     {skip: false}, function (t) {
         t.deepEquals(_trgt_fontSizeCSDs_D(0), "90%", ' ndx:0 EXP: fontSize:"100%" SET TO "90%"');
         t.deepEquals(_trgt_fontSizeCSDs_D(6), "50%", ' ndx:6 EXP: fontSize:"100%" SET TO "50%"');
-        t.deepEquals(_trgt_fontSizeCSDs_D(3), "70%", ' ndx;3 EXP: fontSize:"100%" SET TO "70%"');
+        t.deepEquals(_trgt_fontSizeCSDs_D(4), "63%", ' ndx;4 EXP: fontSize:"100%" SET TO "63%"');
         t.end();
     });
 
