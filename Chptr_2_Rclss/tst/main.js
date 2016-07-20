@@ -1,26 +1,7 @@
 /**
- *  main.js IN Chptr_2_Rclss/.../tst/
- *  160712 -> @0937 YEAH - I used an EVOLVED getComputedStyle Obj TO SET elent.style
- *          SEE test 7
- *      @0817 CONFIRMED a getComputedStyle csd IS a great base for transformer functions.
- *      @0617 holy smokes THIS WORKS SO WELL. Added transform: wt_fontSize_px
- *  -> getComputedStyles WORKS!!
- *      @0554 CSDs from getComputedStyles ARE RECOGNIZED BY evolve
- *      so I do not have to provide a dummy csd
- *      @0516 RET is now test local not global
- *  160711
- *      @1819 debugging WORKS NOW
- *      for tst/main.js and tst/index.html and main_bundle.js
- *          New WS version 2016.2
- *          ADDED Book to index.html
- *      @1222    div set class-'vers' FROM 'verse' IN Job_1_to_6.html to be compatible with testDoc.html
- *      @1152-> WIP #2 using html nodes.
- *      @0848-> STABLE testing evolve a CSD. evolve trnsfrms DO NOT WORK ON an empty style property!!!
- *      @0532 -> paradigm shift: add transforms!!
- *      Use one step at a time.
- *      DONE #1 1 dict, 1 property 1 transform evolve the property
- *      #2 1 HTML Elem, 1 Prop evolve w/ 1 transform'.
- *      #3 keep adding transforms
+ *  main.js -> SET each Verse CSD as a function of their Space parameters.
+ *  IN Chptr_2_Rclss/.../tst/
+ *  main.js -> SET each Verse CSD as a function of their Space parameters.
  */
 
 // requires
