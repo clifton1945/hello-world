@@ -16,9 +16,9 @@ let R = require('ramda');
  *      USED: typically to weight element property CSD: e.g. opacity, fontSize, etc
  *          the L:fam and N:ndx will be returned by indexedMaps typically
  *
- * @param sObj  -> style Property beg and end limits
- * @param l_fam -> list of this elements family
- * @param n_ndx -> the index of this elem in the family list
+ * @param sObj  -> {smlWt:a, lrgWt:a}   style Property beg and end limits
+ * @param l_fam -> [a] list of this elements family
+ * @param n_ndx -> a the index of this elem in the family list
  * @returns {*} -> an Element weight for this context.
  */
 var calcWt = function calcWt(sObj, l_fam, n_ndx) {
