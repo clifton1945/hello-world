@@ -1,6 +1,7 @@
 /**
  * f_d_update_CsdD.js
- * 160720 @0817 -> ADDED Math.rounding
+ * 160720 @0850 ->  exported calcWt already .curried SO REFACTED code
+ *      @0817 -> ADDED Math.rounding
  *      @0725 -> STABLE: 2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
  *                   STABLE: 1 **** _trgt_opacityCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
  * 160718   @0950 -> STABLE: 1 **** USE calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
@@ -11,19 +12,18 @@
  */
 "use strict";
 let R = require('ramda');
-let calcWt = require('./f_n_calcWt');//// (D, L, N) -> D
-let f_d_calcWt = R.curry(calcWt); // D -> L -> N -> D
+let calcWt = require('./f_n_calcWt');//// (D, L, N) -> D NOTE: calcWt COMES curried!
+// let f_d_calcWt = _calcWt; // D -> L -> N -> D
 // SMALL test of Concept
 var assert = require("assert");
 // CODE UNDER TEST: _calcWt()//N:ndx -> N:wt
-var f_calcWt = R.curry(calcWt); // (D, L, N) -> D
 var d = {smlWt:0.5, lrgWt:0.9};
 var l = [0, 1, 2, 3, 4, 5, 6];
 var n = 3;
 var _d = R.identity(d);
 var _l = R.identity(l);
 var _n = R.identity(n);
-var _calcWt = f_calcWt( _d, _l); // (F:(*->n) -> F:(*->n) -> N
+var _calcWt = calcWt( d, l); // (F:(*->n) -> F:(*->n) -> N
 assert.equal(_calcWt(0), 0.9, 'FAILED assert _calcWt(0)');
 assert.equal(_calcWt(6), 0.5, 'FAILED assert _calcWt(6)');
 assert.equal(_calcWt(3), 0.7, 'FAILED assert _calcWt(3');
