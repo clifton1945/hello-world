@@ -1,11 +1,11 @@
 /**
- * h.js 160708 @ 0805  MOVED f_d_set_key TO here FROM f_d_Chpt_curScope.js
- * Created by CLIF on 7/6/2016.\
+ * h.js
+ * 160722 @ 0735 -> ADDED myTap()
  * helper files
- *
+ * IN FILE: h.js
  */
 var R = require('ramda');
-var test = require('tape');
+// var test = require('tape');
 
 /**
  *      f_d_set_key:: S:key -> D:{key:val} -> N:val -> D:{key:val}
@@ -35,14 +35,15 @@ var isCur = (dict) => tweenBegEnd(dict);
 
 // *********** OLD BUT STILL IN USE
 const Doc_It = (txt) => document.querySelector(".console").textContent = txt;
-
 const C_It = (txt) => console.log(txt);
-
 const C_Both = (txt) => {
     C_It(txt);
     Doc_It(txt);
 };
-module.exports = {C_It, Doc_It, C_Both};
+
+var sayX = x => console.log('x is ' + x);
+const myTap = R.tap(sayX);
+module.exports = {myTap, C_It, Doc_It, C_Both};
 
 
 
