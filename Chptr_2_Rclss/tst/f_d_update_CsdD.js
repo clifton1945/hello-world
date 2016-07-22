@@ -1,90 +1,76 @@
 /**
- * f_d_trgt_CSDs_D::
- * 160720  @1730 -> REFACT
- *      @0850 ->  exported calcWt already .curried SO REFACTED code
- *      @0817 -> ADDED Math.rounding
- *      @0725 -> STABLE: 2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
- *                   STABLE: 1 **** _trgt_opacityCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
- * 160718   @0950 -> STABLE: 1 **** USE calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`
- *      still need refact to combine         _calcWt = and  _d_trgt_CSDs_D =
- *      @1830 -> ADDED calcWt FROM f_n_calcWt-compiled.js AND
- *      test("1  ***** USING calcWt WITH .lensProp&&.over to update trgt_CSDs_D ******" IS STABLE
- * in: f_d_update_CsdD.js -> PROVIDE functions TO set all Verse CSDs as a function of their Space parameters.
+ * f_set_trgt_CSDs_D::
+ * 160722  @1004 -> ADDING fontSize weighting and formatting and short assert tests
+ *  @ 0935 -> REFACT (1) using _n_calcWt=require.. -> _calcWt() (2) REFACTING the opacity formatter
+ * IN: f_d_update_CsdD.js -> PROVIDE functions TO set all Verse CSDs as a function of their Space parameters.
  */
 "use strict";
+
+// requires
 let R = require('ramda');
-var assert = require("assert");
+let assert = require('assert');
+let myTap = require('../src/h').myTap;
+let my_toFixed = require('../src/h').my_toFixed;
 
-//  CODE UNDER TEST: _calcWt()//N:ndx -> N:wt
-let f_n_calcWt = require('./f_n_calcWt');//// (D, L, N) -> D NOTE: calcWt COMES curried!
+// ---------------------- CODE UNDER TEST: f_set_trgt_CSDs_D
+const f_set_trgt_CSDs_D = R.curry((lens, dfltD, propValN) => R.set(lens, propValN, dfltD));// Lens->D->Fn -> CSD
 
-// TEST CONSTANTS
-var d = {smlWt: 0.5, lrgWt: 0.9};
-var l = [0, 1, 2, 3, 4, 5, 6];
-// var _d = R.identity(d);
-// var _l = R.identity(l);
-// var _calcWt = f_n_calcWt( _d, _l); // (F:(*->n) -> F:(*->n) -> N
-var _calcWt = f_n_calcWt(d, l); // N:ndx -> N:wt
-assert.equal(_calcWt(0), 0.9, 'FAILED assert _calcWt(0)');
-assert.equal(_calcWt(6), 0.5, 'FAILED assert _calcWt(6)');
-assert.equal(_calcWt(3), 0.7, 'FAILED assert _calcWt(3');
-
-// ---------------------- code under test: f_d_trgt_CSDs_D
-const f_d_trgt_CSDs_D = R.curry((lens, dfltD, calcWtF) => R.set(lens, calcWtF, dfltD));// Lens->D->Fn -> CSD
-
-let test = require('tape');
-// GENERIC csd  vars
-var _d_trgt_CSDs_D, csdDict, csdLens, csdWter;
-// CODE UNDER TEST
-// Lens: propName -> D:dfltCSDs -> F:{*-S) -> CSD: mutated
-
-// CSD constants
-var dflt_CSDs_D = {opacity: "1", fontSize: '100%'};
-// NOW JUST Opacity
+// The PROCESS of developing f_set_trgt_CSDs_D
+//************ first a simple confirm fn: f_set_trgt_CSDs_D WORKS
+//      USING a Property CSD: Opacity
 var opacityLens = R.lensProp("opacity");// -> F:lens
-var _opacityWter = R.compose(R.toString, R.multiply(0.01), Math.round, R.multiply(100), _calcWt); // N:ndx -> S:wt
-// GENERIC
-csdDict = R.identity(dflt_CSDs_D);
-csdLens = R.identity(opacityLens);
-csdWter = R.identity(_opacityWter);
-_d_trgt_CSDs_D = f_d_trgt_CSDs_D(csdLens, csdDict, csdWter); // N:ndx -> S:csdD
+var dflt_CSDs_D = {opacity: "1", fontSize: '100%'};
 
-//CUT:: _trgt_opacityCSDs_D
-var _trgt_opacityCSDs_D = _d_trgt_CSDs_D.opacity;
+//SO NOW I can define a narrower s
+// CODE UNDER TEST
+var stub_propValN = "0.987";
+var newCsdD1 = f_set_trgt_CSDs_D(opacityLens, dflt_CSDs_D)(stub_propValN);
 
-test(`IN f_d_update_CsdD.js
-1 **** _trgt_opacityCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`,
-    {skip: false}, function (t) {
-        t.deepEquals(_trgt_opacityCSDs_D(0), "0.9", ' ndx:0 EXP: opacity:"1" SET TO "0.9"');
-        t.deepEquals(_trgt_opacityCSDs_D(6), "0.5", ' ndx:6 EXP: opacity:"1" SET TO "0.5"');
-        t.deepEquals(_trgt_opacityCSDs_D(4), "0.63", ' ndx;4 EXP: opacity:"1" SET TO "0.63"');
-        t.end();
-    });
+// the Basic CONFIRMATION that f_set_trgt_CSDs_D WORKS
+assert.equal(newCsdD1.opacity, 0.987, 'opacity:: 1 -> .987. NOTE: NOT Formatted TO "0987" ');
 
-//CUT:: _trgt_fontSizeCSDs_D
-// NOW JUST fontSize
+//  NOW a little more real USING _n_calcWt -> _calcWt and FORMATTING THE calcWt
+const _n_calcWt = require('../src/calcWt');
+
+//  USE these two stub spanD and famL
+var spanD = {smlWt: 0.5, lrgWt: 0.9};
+var famL = [0, 1, 2, 3, 4, 5, 6];
+var _calcWt = _n_calcWt(spanD)(famL);
+
+// now ADD a formatted Opacity weight
+// var _opacityWter = R.compose(my_toFixed(3), myTap, _calcWt);// N:ndx -> S:wt
+var _opacityWter = R.compose(my_toFixed(3), _calcWt);// N:ndx -> S:wt
+assert.equal(_opacityWter(4), "0.633", '_opacityWter(4) -> "0.633"');
+
+// And shorten / partial f_set_trgt_CSDs_D() -> _set_trgt_opacityCsdD()
+const _set_trgt_opacityCsdD = ndxN => f_set_trgt_CSDs_D(opacityLens)(dflt_CSDs_D)(_opacityWter(ndxN));
+assert.equal(_set_trgt_opacityCsdD(0).opacity, "0.900", ' ndx:0 EXP: opacity:"1" SET TO "0.900"');
+
+// now ADD a formatted fontSize weight
+var _fontSizeWter = R.compose(
+    // myTap,
+    R.flip(R.concat)('%'),
+    // myTap,
+    my_toFixed(0),
+    R.multiply(100),
+    _calcWt); // N:ndx -> S:wt
+assert.equal(_fontSizeWter(4), "63%", '_fontSizeWter(4) -> "63%"');
+
+// And shorten / partial f_set_trgt_CSDs_D() -> _set_trgt_fontSizeCsdD()
 var fontSizeLens = R.lensProp("fontSize");// -> F:lens
-var _fontSizeWter = R.compose(R.flip(R.concat)('%'), R.toString, Math.round, R.multiply(100), _calcWt); // N:ndx -> S:wt
+const _set_trgt_fontSizeCsdD = ndxN => f_set_trgt_CSDs_D(fontSizeLens)(dflt_CSDs_D)(_fontSizeWter(ndxN));
+assert.equal(_set_trgt_fontSizeCsdD(0).fontSize, "90%", ' ndx:0 EXP: fontSize:"1" SET TO "90%"');
 
-// GENERIC  csdDict = R.identity(dflt_CSDs_D);
-csdDict = R.identity(dflt_CSDs_D);
-csdLens = R.identity(fontSizeLens);
-csdWter = R.identity(_fontSizeWter);
-_d_trgt_CSDs_D = f_d_trgt_CSDs_D(csdLens, csdDict, csdWter); // N:ndx -> S:csdD
-var _trgt_fontSizeCSDs_D = _d_trgt_CSDs_D.fontSize;
+// test(`IN f_d_update_CsdD.js
+// 2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`,
+//     {skip: false}, function (t) {
+//         t.deepEquals(_trgt_fontSizeCSDs_D(0), "90%", ' ndx:0 EXP: fontSize:"100%" SET TO "90%"');
+//         t.deepEquals(_trgt_fontSizeCSDs_D(6), "50%", ' ndx:6 EXP: fontSize:"100%" SET TO "50%"');
+//         t.deepEquals(_trgt_fontSizeCSDs_D(4), "63%", ' ndx;4 EXP: fontSize:"100%" SET TO "63%"');
+//         t.end();
+//     });
 
-test(`IN f_d_update_CsdD.js
-2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`,
-    {skip: false}, function (t) {
-        t.deepEquals(_trgt_fontSizeCSDs_D(0), "90%", ' ndx:0 EXP: fontSize:"100%" SET TO "90%"');
-        t.deepEquals(_trgt_fontSizeCSDs_D(6), "50%", ' ndx:6 EXP: fontSize:"100%" SET TO "50%"');
-        t.deepEquals(_trgt_fontSizeCSDs_D(4), "63%", ' ndx;4 EXP: fontSize:"100%" SET TO "63%"');
-        t.end();
-    });
-
-//noinspection UnnecessaryLocalVariableJS
-/**
- * -----------------------  EXPORTS --------------------
- */
-var _trgt_CSDs_D = f_d_trgt_CSDs_D;
-module.exports = {_trgt_CSDs_D, _trgt_fontSizeCSDs_D, _trgt_opacityCSDs_D};
+//  * -----------------------  EXPORTS --------------------
+//  */
+// var _trgt_CSDs_D = f_set_trgt_CSDs_D;
+// module.exports = {_trgt_CSDs_D, _trgt_fontSizeCSDs_D, _trgt_opacityCSDs_D};
