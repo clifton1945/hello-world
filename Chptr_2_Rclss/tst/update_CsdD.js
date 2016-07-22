@@ -1,7 +1,8 @@
 /**
  * update_CsdD.js
  * 160722   @1544 -> RENAMED
- *   _set_trgt_fontSizeCsdD, _set_trgt_opacityCsdD both working
+ *   _opacityWter :: Fn:calcWt -> N:ndx -> S:wt
+ *   _fontSizeWter :: Fn:calcWt -> N:ndx -> S:wt
  *  @1004 -> ADDING fontSize weighting and formatting and short assert tests
  *  @ 0935 -> REFACT (1) using _n_calcWt=require.. -> _calcWt() (2) REFACTING the opacity formatter
  * IN: f_d_update_CsdD.js -> PROVIDE functions TO set all Verse CSDs as a function of their Space parameters.

@@ -26,7 +26,7 @@ var f_n_calcWt = R.curry(function f_n_calcWt(spanD, famL, ndxN) {
     return len > 0 ? -(lrgWt - smlWt) / len * ndxN + lrgWt : lrgWt; // always lrgWt
 }); // D->L->N -> N;wt
 
-const _n_calcWt = R.curry(function _calcWt(spanD, famL) {
+const _n_calcWt = R.curry(function _n_calcWt(spanD, famL) {
     return f_n_calcWt(spanD, famL)
 });// N:ndx -> N:wt
 
@@ -37,5 +37,6 @@ var fn = _n_calcWt({smlWt:0.5, lrgWt:0.9})([0, 1, 2, 3, 4, 5, 6]);
 assert.equal(fn(0), 0.9, 'FAILED assert _calcWt(0)');
 assert.equal(fn(6), 0.5, 'FAILED assert _calcWt(6)');
 assert.equal(fn(4), 0.6333333333333333, 'FAILED assert _calcWt(4');
+
 // MODULES.EXPORT
-module.exports =  _n_calcWt;
+module.exports =  {_n_calcWt};
