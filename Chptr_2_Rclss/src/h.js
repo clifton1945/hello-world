@@ -1,10 +1,12 @@
 /**
  * h.js
- * 160722 @ 0735 -> ADDED myTap()
+ * 160722  @0904 ->  ADDED my_toFixed() w/  an assert
+ *  @ 0735 -> ADDED myTap()
  * helper files
  * IN FILE: h.js
  */
 var R = require('ramda');
+var assert = require('assert');
 // var test = require('tape');
 
 /**
@@ -43,7 +45,15 @@ const C_Both = (txt) => {
 
 var sayX = x => console.log('x is ' + x);
 const myTap = R.tap(sayX);
-module.exports = {myTap, C_It, Doc_It, C_Both};
+
+var my_toFixed = R.curry(function my_toFixed(digits, n) {
+    return n.toFixed(digits);
+});
+// var y = my_toFixed(3)(0.1537);
+// assert.equal(y, 0.154, 'my_toFixed(3)(0.1537) -> 0.154');
+
+
+module.exports = {myTap, C_It, Doc_It, C_Both, my_toFixed};
 
 
 
