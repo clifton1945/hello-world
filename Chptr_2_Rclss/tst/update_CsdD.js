@@ -1,7 +1,8 @@
 /**
  * update_CsdD.js
- * 160723   @0715 ->  trying Unsuccessfully to ADD f_calcWt parameter
- * @0648 _set_trgt_Csds::
+ * 160723  @0830 -> _set_trgt_Csds:: Fn:(* -> N:wt) -> N:ndx -> D:inCsd -> D:outCSD WORKS!
+ *  @0715 ->  trying Unsuccessfully to ADD f_calcWt parameter
+ *  @0648 _set_trgt_Csds::
  * 160722  @1910 introducing universal fn:  const _set_trgt_Csd_ BUT it needs to be FIXED
  *  @1544 -> RENAMED
  *   _opacityWter :: Fn:calcWt -> N:ndx -> S:wt
@@ -35,32 +36,52 @@ var stub ={};
  * @param f_calcWt
  * @param ndxN
  */
-const _set_trgt_opacityCsdD =  (f_calcWt, ndxN) => R.set(R.lensProp('opacity'), R.compose(_opacityFrmttr, f_calcWt)(ndxN), R.__);
-// asserts
+const _set_trgt_opacityCsdD =  R.curry(function (f_calcWt, ndxN, csdD) {
+    return R.set(R.lensProp('opacity'), R.compose(_opacityFrmttr, f_calcWt)(ndxN), csdD)
+});
+
+// /**
+//  *      _trgt_opacity:: N:ndx -> D:inCsd -> D:outCsd
+//  */
+// const _trgt_opacity = _set_trgt_opacityCsdD(_calcWt);
+// // asserts
 assert.equal(_set_trgt_opacityCsdD(_calcWt, 0)(stub).opacity, "0.900", ' ndx:0 EXP: opacity:"()" SET TO "0.900"');
+// assert.equal(_trgt_opacity(0)(stub).opacity, "0.900", ' ndx:0 EXP: opacity:"()" SET TO "0.900"');
 
 /**
  *      _set_trgt_fontSizeCsdD::  F:(*-> N) -> N:ndx -> D:inCsd -> D:outCsd
  * @param ndxN
  * @private
  */
-const _set_trgt_fontSizeCsdD = (f_calcWt, ndxN) => R.set(R.lensProp("fontSize"), R.compose(_fontSizeFrmttr, f_calcWt)(ndxN), R.__);
+const _set_trgt_fontSizeCsdD = R.curry(function(f_calcWt, ndxN, csdD) {
+    return R.set(R.lensProp("fontSize"), R.compose(_fontSizeFrmttr, f_calcWt)(ndxN), csdD)
+}); // F -> N -> D
+// /**
+//  *      _trgt_fontSize:: N:ndx -> D:inCsd -> D:outCsd
+//  */
+// const _trgt_fontSize = _set_trgt_fontSizeCsdD(_calcWt);
 //asserts
-assert.equal(_set_trgt_fontSizeCsdD(_calcWt, 0)({}).fontSize, "90%", ' ndx:0 EXP: fontSize:"{}" SET TO "90%"');
+// assert.equal(_trgt_fontSize(0, {}).fontSize, "90%", ' ndx:0 EXP: fontSize:"{}" SET TO "90%"');
 
-// NOW CHAIN THE TWO set_trgt
+// NOW CHAIN THE TWO:  _set_trgt_fontSizeCsdD, _set_trgt_opacityCsdD
 /**
- *      _set_trgt_Csds:: N:ndx -> D:inCsd -> D:outCSD
- *      USED to ADD fontSize and opacity
+ *      _set_trgt_Csds:: Fn:(* -> N:wt) -> N:ndx -> D:inCsd -> D:outCSD
+ *      USES: _trgt_Csds = _set_trgt_Csds(_calcWt) WHERE _calcWt IS a PARTIAL just needing N:ndx -> D:csd -> N:wt
+ *
+ * @param f_wter
  * @param ndxN
  * @private
  */
-// const _set_trgt_Csds = (f_calcWt, ndxN) => R.compose(_set_trgt_fontSizeCsdD(f_calcWt, ndxN), _set_trgt_opacityCsdD(f_calcWt, ndxN));
-// let trgt_Csds = _set_trgt_Csds(6)({backgroundColor: 'lightGreen'});
-// // asserts
-// assert.equal(trgt_Csds.fontSize, "50%", ' _set_trgt_Csds.fontSize -> "50%"');
-// assert.equal(trgt_Csds.opacity, "0.500", "_set_trgt_Csds.opacity -> '0.500' ");
-// assert.equal(trgt_Csds.backgroundColor, 'lightGreen', "_set_trgt_Csds.backgroundColor -> 'lightGreen' ");
+const _set_trgt_Csds =  R.curry(function (f_wter, ndxN) {
+    return R.compose(_set_trgt_fontSizeCsdD(f_wter)(ndxN), _set_trgt_opacityCsdD(f_wter)(ndxN));
+});
+const _trgt_Csds = _set_trgt_Csds(_calcWt);// N:ndx -> D:inCsd -> D:outCsd
+
+let trgt_Csds = _trgt_Csds(6)({backgroundColor: 'lightGreen'});
+// asserts
+assert.equal(trgt_Csds.fontSize, "50%", ' _set_trgt_Csds.fontSize -> "50%"');
+assert.equal(trgt_Csds.opacity, "0.500", "_set_trgt_Csds.opacity -> '0.500' ");
+assert.equal(trgt_Csds.backgroundColor, 'lightGreen', "_set_trgt_Csds.backgroundColor -> 'lightGreen' ");
 
 // test(`IN f_d_update_CsdD.js
 // 2 **** _trgt_fontSizeCSDs_D() USES calcWt(),.lensProp && trgt_CSDs_D() TO SET trgt_CSDs_D ****`,
@@ -74,4 +95,4 @@ assert.equal(_set_trgt_fontSizeCsdD(_calcWt, 0)({}).fontSize, "90%", ' ndx:0 EXP
  /**
   * -----------------------  EXPORTS --------------------
  */
-// module.exports = { _set_trgt_Csds};
+module.exports = { _set_trgt_Csds};
