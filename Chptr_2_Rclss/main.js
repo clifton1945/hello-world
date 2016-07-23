@@ -7,11 +7,11 @@
 
 // requires
 var R = require('ramda');
-var C_Both = require('../src/h').C_Both;
+var C_Both = require('src/h').C_Both;
 var assert = require('assert');
 var test = require('tape');
-var _n_calcWt = require('../src/calcWt')._n_calcWt;
-var _set_trgt_Csds = require('./update_CsdD')._set_trgt_Csds;
+var _n_calcWt = require('src/calcWt')._n_calcWt;
+var _set_trgt_Csds = require('./src/update_CsdD')._set_trgt_Csds;
 //GLOBALS
 
 // test data

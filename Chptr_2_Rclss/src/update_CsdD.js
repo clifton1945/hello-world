@@ -18,9 +18,9 @@
 let R = require('ramda');
 let assert = require('assert');
 // let myTap = require('../src/h').myTap;
-var _n_calcWt = require('../src/calcWt')._n_calcWt; //  (D, L) -> N:ndx -> N:wt
-let _opacityFrmttr = require('../src/csdFrmtters')._opacityFrmttr;//        N:ndx -> S:wt
-let _fontSizeFrmttr = require('../src/csdFrmtters')._fontSizeFrmttr; //     N:ndx -> S:wt
+var _n_calcWt = require('./calcWt')._n_calcWt; //  (D, L) -> N:ndx -> N:wt
+let _opacityFrmttr = require('./csdFrmtters')._opacityFrmttr;//        N:ndx -> S:wt
+let _fontSizeFrmttr = require('./csdFrmtters')._fontSizeFrmttr; //     N:ndx -> S:wt
 
 //  NEED TO PARTIAL _n_calcWt(spanD)(famL) -> _calcWt:: N:ndx -> N:wt  BY INVOKING the 2 of 3 params: current spanDict and family List ON required _n_calcWt.
 var spanD = {smlWt: 0.5, lrgWt: 0.9}; //        -> D
