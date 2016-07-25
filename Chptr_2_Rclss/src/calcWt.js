@@ -39,4 +39,13 @@ assert.equal(fn(6), 0.5, 'FAILED assert _calcWt(6)');
 assert.equal(fn(4), 0.6333333333333333, 'FAILED assert _calcWt(4');
 
 // MODULES.EXPORT
-module.exports =  {_n_calcWt};
+module.exports =  {_n_calcWt};/**
+*      calcWt():: ( D:spanCsd -> L:famlElem) -> N:ndxElem -> N: wter
+*      USED: typically to weight element property CSD: e.g. opacity, fontSize, etc
+*          the L:fam and N:ndx will be returned by indexedMaps typically
+*
+* @param sObj  -> {smlWt:a, lrgWt:a}   style Property beg and end limits
+* @param l_fam -> [a] list of this elements family
+* @param n_ndx -> a the index of this elem in the family list
+* @returns {*} -> an Element weight for this context.
+*/
