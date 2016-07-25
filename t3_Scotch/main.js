@@ -1,5 +1,6 @@
 /**
  * tst/t3_Scotch/main.js
+ * 160725 @0545  getting 'required not recognized error and no debug???
  * 160722 re looked at to understand that
  *  even with browserify bundle a node.js test of main.js shows >>
  *  ReferenceError: document is not defined
