@@ -10,7 +10,7 @@
 let R = require('ramda');
 
 /**
- *      calcWt():: ( D:spanCsd -> L:famlElem) -> N:ndxElem -> N: wter
+ *      f_n_calcWt():: ( D:spanCsd -> L:famlElem) -> N:ndxElem -> N: wter
  *      USED: typically to weight element property CSD: e.g. opacity, fontSize, etc
  *          the L:fam and N:ndx will be returned by indexedMaps typically
  *
@@ -24,22 +24,28 @@ var f_n_calcWt = R.curry(function f_n_calcWt(spanD, famL, ndxN) {
     var lrgWt = spanD.lrgWt;
     var len = famL.length - 1;
     return len > 0 ? -(lrgWt - smlWt) / len * ndxN + lrgWt : lrgWt; // always lrgWt
-}); // D->L->N -> N;wt
+}); // D->L->N -> N:wt
 
-const _n_calcWt = R.curry(function _n_calcWt(spanD, famL) {
-    return f_n_calcWt(spanD, famL)
+/**
+*      _n_calcWt:: D:lmntD -> L:fam -> Fn:(N:ndx -> N:wt)
+*      Partials f_n_calcWt
+ */
+const _n_calcWt = R.curry(function _n_calcWt(lmntD, famL) {
+    return f_n_calcWt(lmntD, famL)
 });// N:ndx -> N:wt
 
-var assert = require("assert");
 // CODE UNDER TEST: _n_calcWt()//N:ndx -> N:wt
-var fn = _n_calcWt({smlWt:0.5, lrgWt:0.9})([0, 1, 2, 3, 4, 5, 6]);
+var assert = require("assert");
 
+var fn = _n_calcWt({smlWt:0.5, lrgWt:0.9})([0, 1, 2, 3, 4, 5, 6]);
 assert.equal(fn(0), 0.9, 'FAILED assert _calcWt(0)');
 assert.equal(fn(6), 0.5, 'FAILED assert _calcWt(6)');
 assert.equal(fn(4), 0.6333333333333333, 'FAILED assert _calcWt(4');
-
+// CODE UNDER TEST:; _l_calcWt(D)-> (L -> N) -> N:wt
+// fn = _l_calcWt({smlWt:0.5, lrgWt:0.9});
+// assert.equal(fn(([0, 1, 2, 3, 4, 5, 6]))(4), 0.6333333333333333, 'FAILED assert _l_calcWt(4');
 // MODULES.EXPORT
-module.exports =  {_n_calcWt};/**
+module.exports =  {_n_calcWt, f_n_calcWt};/**
 *      calcWt():: ( D:spanCsd -> L:famlElem) -> N:ndxElem -> N: wter
 *      USED: typically to weight element property CSD: e.g. opacity, fontSize, etc
 *          the L:fam and N:ndx will be returned by indexedMaps typically
