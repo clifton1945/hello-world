@@ -39,15 +39,13 @@ var stub ={};
 const _set_trgt_opacityCsdD =  R.curry(function (f_calcWt, ndxN, csdD) {
     return R.set(R.lensProp('opacity'), R.compose(_opacityFrmttr, f_calcWt)(ndxN), csdD)
 });
-
 // /**
 //  *      _trgt_opacity:: N:ndx -> D:inCsd -> D:outCsd
 //  */
 // const _trgt_opacity = _set_trgt_opacityCsdD(_calcWt);
 // // asserts
-assert.equal(_set_trgt_opacityCsdD(_calcWt, 0)(stub).opacity, "0.900", ' ndx:0 EXP: opacity:"()" SET TO "0.900"');
+    assert.equal(_set_trgt_opacityCsdD(_calcWt, 0)(stub).opacity, "0.900", ' ndx:0 EXP: opacity:"()" SET TO "0.900"');
 // assert.equal(_trgt_opacity(0)(stub).opacity, "0.900", ' ndx:0 EXP: opacity:"()" SET TO "0.900"');
-
 /**
  *      _set_trgt_fontSizeCsdD::  F:(*-> N) -> N:ndx -> D:inCsd -> D:outCsd
  * @param ndxN
@@ -67,7 +65,6 @@ const _set_trgt_fontSizeCsdD = R.curry(function(f_calcWt, ndxN, csdD) {
 /**
  *      _set_trgt_Csds:: Fn:(* -> N:wt) -> N:ndx -> D:inCsd -> D:outCSD
  *      USES: _trgt_Csds = _set_trgt_Csds(_calcWt) WHERE _calcWt IS a PARTIAL just needing N:ndx -> D:csd -> N:wt
- *
  * @param f_wter
  * @param ndxN
  * @private
@@ -75,10 +72,15 @@ const _set_trgt_fontSizeCsdD = R.curry(function(f_calcWt, ndxN, csdD) {
 const _set_trgt_Csds =  R.curry(function (f_wter, ndxN) {
     return R.compose(_set_trgt_fontSizeCsdD(f_wter)(ndxN), _set_trgt_opacityCsdD(f_wter)(ndxN));
 });
+/**
+ *      _trgt_Csds:: N:ndx -> D:inCsd -> D:outCsd
+ *      USES: this weights the two csd properties: fontSize and opacity.
+ *      the _calcWt(N) IS REQUIRED to be arity 1, NOT the full f_n_calcWt arity 3: (D, N, L)
+ */
 const _trgt_Csds = _set_trgt_Csds(_calcWt);// N:ndx -> D:inCsd -> D:outCsd
 
-let trgt_Csds = _trgt_Csds(6)({backgroundColor: 'lightGreen'});
 // asserts
+let trgt_Csds = _trgt_Csds(6)({backgroundColor: 'lightGreen'});
 assert.equal(trgt_Csds.fontSize, "50%", ' _set_trgt_Csds.fontSize -> "50%"');
 assert.equal(trgt_Csds.opacity, "0.500", "_set_trgt_Csds.opacity -> '0.500' ");
 assert.equal(trgt_Csds.backgroundColor, 'lightGreen', "_set_trgt_Csds.backgroundColor -> 'lightGreen' ");

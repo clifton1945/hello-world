@@ -13,13 +13,14 @@
 var R = require('ramda');
 var C_Both = require('./src/h').C_Both;
 var _n_calcWt = require('./src/calcWt')._n_calcWt;
+// var _map_aSpace = require('./src/map_aSpace').fnX;
 var _map_aSpace = require('./src/map_aSpace')._map_aSpace;
 //GLOBALS
 
 // test data
 var nl_allVerses = document.querySelectorAll('.vers');
 // var e_aVerse = nl_allVerses.item(2);
-C_Both(JSON.stringify("In main.js"));
+C_Both(JSON.stringify("In main.js."));
 
 // MAIN CodeUnderTest
 var csdLimits = {smlWt:0.4, lrgWt:0.9};
