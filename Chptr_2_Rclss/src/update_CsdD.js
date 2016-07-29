@@ -35,7 +35,7 @@ const _trgt_Csds =  function _trgt_Csds(wtN) {
     // var y = _set_csdD_fontSize(wtN, R.__);
     // return R.compose(x, y);// N:wt -> D:inCsd  -> outCsd
     return R.compose(_set_csdD_opacity(wtN, R.__), _set_csdD_fontSize(wtN, R.__));// N:wt -> D:inCsd  -> outCsd
-};//  _trgt_Csds:: D:inCsd -> D:outCsd
+};//  _trgt_Csds:: N:wt -> D:inCsd -> D:outCsd
 
         //asserts
         var trgt_Csds;//     -> D:outCsd
