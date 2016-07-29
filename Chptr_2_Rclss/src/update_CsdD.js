@@ -1,5 +1,6 @@
 /**
  * update_CsdD.js
+ * 160729   @0815 -> REFACT  comment
  * 160728   @1910 -> STABLE tests
  *      @1735   -> BEGIN to use fn from csdValueS.js
  *      which will throw away most of t he code.
@@ -46,4 +47,4 @@ const _trgt_Csds =  function _trgt_Csds(wtN) {
 
 //   * -----------------------  EXPORTS --------------------
 //  */
-module.exports = {_trgt_Csds};//:: N:wt -> D:inCsd  -> outCsd
+module.exports = {_trgt_Csds};// _trgt_Csds:: N:wt -> D:inCsd  -> outCsd
