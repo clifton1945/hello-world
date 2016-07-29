@@ -1,6 +1,6 @@
 /**
- *  map_aSpace:: D -> L:elems -> L:elems
- *  160729  @1355 -> wip2 STABLE
+ *  _map_aSpace:: (f_the_csd, e, ndx_e, fam_e)
+ *  160729  @1500 -> STABLE as seen as index.html; removed output of map_aSpace
  *      @0820   -> OK
  *  160726  @0355   ->
  *  -> SET each Verse CSD as a function of their Space parameters
@@ -23,19 +23,17 @@ var nl_allVerses = document.querySelectorAll('.vers');
 var wip, _map_thisSpace;
 
 // MAIN CodeUnderTest
+var _calcWt; // N:ndx -> N:wt
+_calcWt = _n_calcWt(csdLimits)(nl_allVerses);// _calcWt:: N -> N
+var _frmttdCsdsD; // N:wtElem -> D:outCsdElem
+_frmttdCsdsD = _csds({});// _frmttdCsdsD:: N:ndx -> D:csd
+var _trgtCsdD = R.compose(_frmttdCsdsD, _calcWt); // N -> D
 
-var fn1; // N:ndx -> N:wt
-fn1 = _n_calcWt(csdLimits)(nl_allVerses);// fn1:: N -> N
-// wip = R.compose(fn1);// N -> N
-// _map_thisSpace = (e, ndx_e, fam_e) => console.log('m1->' + wip(ndx_e));
-
-var fn2; // D:inCsdElem -> N:wtElem -> D:outCsdElem
-fn2 = _csds({});// fn2:: N:ndx -> D:csd
-wip = R.compose(fn2, fn1); // N -> D
-_map_thisSpace = (e, ndx_e, fam_e) => console.log('wip2->' + wip(ndx_e).fontSize);
-var fn3; // E:elem -> D:csdElem -> E:elem
-// var fn4; // (N:ndx, L:famElem) -> E:elem
-// var fn5; // (elem, ndxElem, famElem) -> E:elem
+var f_map_thisSpace = R.curry(function (f_the_csd, e, ndx_e, fam_e) {
+    var x = Object.assign(e.style, f_the_csd(ndx_e));
+    // console.log('wip3 -> ' + x.opacity)
+});//
+_map_thisSpace = f_map_thisSpace(_trgtCsdD);
 
 console.log(JSON.stringify("OUT map_aSpace.js."));
 
