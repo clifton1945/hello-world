@@ -25,9 +25,11 @@ let _fontSizeFrmttr = require('./csdFrmtters')._fontSizeFrmttr; //     N:wt -> S
  */
 const f_a_frmt_value = function f_a_frmt_value(propFrmttr, wtN) { return propFrmttr(wtN)};// (Fn, N) -> S
 const _a_frmt_value = R.curry(f_a_frmt_value); //:: Fn:propFrmttr -> N:wt -> S:wt
-var a_frmt_value_opacity = _a_frmt_value(_opacityFrmttr);// N -> S
+        // confirm _a_frmt_value WORKS
+        var a_frmt_value_opacity = _a_frmt_value(_opacityFrmttr);// N -> S
         // asserts
         assert.equal(a_frmt_value_opacity(0.6), "0.600", 'a_frmt_value_opacity(.6) -> "0.600" from _a_frmt_value()');
+
 /**
  *      _a_csdValu:: (S, Fn) || S -> Fn  -> N -> D:inCsd -> D:outCsd
  * @param lensNameS

@@ -1,6 +1,7 @@
 /**
  * update_CsdD.js
- * 160729   @0815 -> REFACT  comment
+ * 160729   @1110 -> STABLE Tests. How add D:inCsd in after composed the two formats??
+ *  @0815 -> REFACT  comment
  * 160728   @1910 -> STABLE tests
  *      @1735   -> BEGIN to use fn from csdValueS.js
  *      which will throw away most of t he code.
@@ -31,16 +32,17 @@ var cut;
 var noop = 0;
 // // NOW CHAIN THE TWO:  _set_trgt_fontSize, _set_set_trgt_opacityCsdD
 
+// const _trgt_Csds =  function _trgt_Csds(in_csd, wtN) {
 const _trgt_Csds =  function _trgt_Csds(wtN) {
-    // var x = _set_csdD_opacity(wtN, R.__);
+    // var x = _set_csdD_opacity(wtN, R.__); // x:: N -> D -> D
     // var y = _set_csdD_fontSize(wtN, R.__);
-    // return R.compose(x, y);// N:wt -> D:inCsd  -> outCsd
+    // var z =  (in_csd) => R.compose(x, y);// D:inCsd  -> outCsd
+    // return z;// (D:in_csd) -> D:out_csd
     return R.compose(_set_csdD_opacity(wtN, R.__), _set_csdD_fontSize(wtN, R.__));// N:wt -> D:inCsd  -> outCsd
 };//  _trgt_Csds:: N:wt -> D:inCsd -> D:outCsd
-
-        //asserts
-        var trgt_Csds;//     -> D:outCsd
-        trgt_Csds = _trgt_Csds(0.5)({backgroundColor: 'lightGreen'});
+    //asserts
+    //     var trgt_Csds = _trgt_Csds({backgroundColor: 'lightGreen'})(0.5);
+        var trgt_Csds = _trgt_Csds(0.5)({backgroundColor: 'lightGreen'});
         assert.equal(trgt_Csds.fontSize, "50%", 'fontSize:: wt:.5 SET TO "50%" USING cut = _trgt_Csds({})');
         assert.equal(trgt_Csds.opacity, "0.500", 'opacity:: wt:.5 SET TO "0.500" USING cut = _trgt_Csds({})');
         assert.equal(trgt_Csds.backgroundColor, 'lightGreen', "_trgt_Csds.backgroundColor -> 'lightGreen' ");
