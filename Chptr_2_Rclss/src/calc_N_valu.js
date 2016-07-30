@@ -1,6 +1,7 @@
 /**
  * _calc_N_valu
- * 160730   @1000 -> RENAMED _calc_N_valu([D:csdSpan, L_fam]) -> N_elemNdx  --> N_valu
+ * 160730   @1224 -> quick test in main.js shows _calc_N_valu WORKS as a compose.
+ * @1000 -> RENAMED _calc_N_valu([D:csdSpan, L_fam]) -> N_elemNdx  --> N_valu
  *          will DEPRECATE _n_calc()
  * 160729   @0745 -> REFACT var names
  * _n_calcWt:: (D->L) -> N:elemNdx -> N:wt
@@ -37,11 +38,11 @@ const _calc_N_valu = R.partial(f_calc_N_valu);//:: L:[D_csdSpan, L_fam] -> N_ele
 // CODE UNDER TEST: _calc_N_valu:: N_ndx -> N_valu
 var stub = [0, 1, 2, 3, 4, 5, 6];
 var fn = _calc_N_valu([{smlWt:0.5, lrgWt:0.9}, stub]);
+
 var assert = require("assert");
-assert.equal(fn( 0), 0.9, 'exp: 0.9 FROM assert _calc_N_valu(0)');
+assert.equal(fn(0), 0.9, 'exp: 0.9 FROM assert _calc_N_valu(0)');
 assert.equal(fn(6), 0.5, 'exp: 0.5 FROM assert _calc_N_valu(6)');
 assert.equal(fn(4), 0.6333333333333333, 'exp: 0.633... FROM assert _calc_N_valu(4)');
-
 
 //************************** probably DEPRECATE 160730 ********************
 /**
@@ -71,7 +72,6 @@ const _n_calcWt = R.curry(function _n_calcWt(lmntD, L_fam) {
 
 // CODE UNDER TEST: _n_calcWt()//N:elemNdx -> N:wt
 // var assert = require("assert");
-
 fn = _n_calcWt({smlWt:0.5, lrgWt:0.9})([0, 1, 2, 3, 4, 5, 6]);
 assert.equal(fn(0), 0.9, 'FAILED assert _calcWt(0)');
 assert.equal(fn(6), 0.5, 'FAILED assert _calcWt(6)');
@@ -79,10 +79,8 @@ assert.equal(fn(4), 0.6333333333333333, 'FAILED assert _calcWt(4');
 
 // MODULES.EXPORT
 // _calc_Nvalu():: ( D:spanCsd -> L:famElem) -> N:elemNdx -> N: wter
-// _n_calcWt:: D:lmntD -> L:fam -> Fn:(N:elemNdx -> N:wt)
+// _calc_N_valu = R.partial(f_calc_N_valu);//:: L:[D_csdSpan, L_fam] -> N_elemNdx -> N_valu
 module.exports =  {_calc_N_valu, _n_calcWt};// where _n_calcWt will be deprecated.
-
-
 
 /**
 *      calcWt():: ( D:spanCsd -> L:famlElem) -> N:elemNdx -> N: wter
