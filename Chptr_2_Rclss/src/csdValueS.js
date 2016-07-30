@@ -1,10 +1,11 @@
 /**
- * csdValueS.js
- * 160730   @1350 STABLE revamped as composition given N_valu from _calc_N_valu()
+ * csdValueS  HAS _a_CSD_valu_opacity() AND _a_CSD_valu_fontSize()
+ * 160730   @1355 -> STABLE &&  RENAMED
+ *      @1350 STABLE revamped as composition given N_valu from _calc_N_valu()
  *      @1330  WIP. revamp as composition given N_valu from _calc_N_valu()
  *  the process pipe: for a CSD_S_name
  *      N_valu -> _frmt_CSD_op(S_name_frmttr) -> S_valu -> _set_CSD_valu(S_nameLens, {}) -> CSD_valu
- * 160723   @1715 -> STABLE  module.exports = { _a_csdValu_opacity, _a_csdValu_fontSize}
+ * 160723   @1715 -> STABLE  module.exports = { _a_CSD_valu_opacity, _a_CSD_valu_fontSize}
  * IN THE END -> csdValueS.js produces Fn:: N:wt -> D:inCsd -> D:outCsd
  */
 "use strict";
@@ -25,17 +26,14 @@ var stub_L_fam = [0, 1, 2, 3, 4, 5, 6];
 const set_CSD_opacityValu = R.set(_opacityLens, R.__, {});// S_valu -> CSD_valu
 const set_CSD_fontSizeValu = R.set(_fontSizeLens, R.__, {});// S_valu -> CSD_valu
 
-/**
- *  NOW PRE FORMED opacity and fontSize
- */
-const _a_csdValu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);
-const _a_csdValu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//      N:wt -> D:inD -> D:outD
+const _a_CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);
+const _a_CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//      N:wt -> D:inD -> D:outD
     //asserts
-    assert.equal(_a_csdValu_opacity(.6).opacity,"0.600", '_a_csdValu_opacity');
-    assert.equal(_a_csdValu_fontSize(.6).fontSize,"60%", '_a_csdValu_fontSize');
+    assert.equal(_a_CSD_valu_opacity(.6).opacity,"0.600", '_a_CSD_valu_opacity');
+    assert.equal(_a_CSD_valu_fontSize(.6).fontSize,"60%", '_a_CSD_valu_fontSize');
 
 
 /**
  * -----------------------  EXPORTS --------------------
  */
-module.exports = { _a_csdValu_opacity, _a_csdValu_fontSize};
+module.exports = { _a_CSD_valu_opacity, _a_CSD_valu_fontSize};
