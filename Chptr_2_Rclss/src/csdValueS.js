@@ -1,12 +1,12 @@
 /**
- * csdValueS  HAS _a_CSD_valu_opacity() AND _a_CSD_valu_fontSize()
+ * set_CSD_values  HAS _a_CSD_valu_opacity() AND _a_CSD_valu_fontSize()
  * 160730   @1355 -> STABLE &&  RENAMED
  *      @1350 STABLE revamped as composition given N_valu from _calc_N_valu()
  *      @1330  WIP. revamp as composition given N_valu from _calc_N_valu()
  *  the process pipe: for a CSD_S_name
  *      N_valu -> _frmt_CSD_op(S_name_frmttr) -> S_valu -> _set_CSD_valu(S_nameLens, {}) -> CSD_valu
  * 160723   @1715 -> STABLE  module.exports = { _a_CSD_valu_opacity, _a_CSD_valu_fontSize}
- * IN THE END -> csdValueS.js produces Fn:: N:wt -> D:inCsd -> D:outCsd
+ * IN THE END -> set_CSD_values.js produces Fn:: N:wt -> D:inCsd -> D:outCsd
  */
 "use strict";
 
