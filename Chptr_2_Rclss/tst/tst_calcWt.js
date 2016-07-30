@@ -8,7 +8,7 @@ let R = require('ramda');
 // CODE UNDER TEST: CREATE __calcWt = _n_calcWt(D, L):: N:ndx -> N:wt
 var spanD1 = {smlWt:0.5, lrgWt:0.9}; //NOTE::  THIS d is 0.5 & 0.9
 var famL1 = [0, 1, 2, 3, 4, 5, 6];
-let _n_calcWt = require('../src/calcWt')._n_calcWt;
+let _n_calcWt = require('../src/calc_N_valu')._n_calcWt;
 var _calcWt = _n_calcWt(spanD1)(famL1);
 
 // SMALL test of Concept
@@ -23,7 +23,7 @@ test (`IN f_n_calcWt.js
 *** 0 confirming new signature f_n_calcWt(sObj, l_fam, n-ndx) WORKS `,
     {skip:false}, function (t) {
 // CODE UNDER TEST:NEW require fn()//N:ndx -> N:wt
-    let _n_calcWt = require('../src/calcWt')._n_calcWt;
+    let _n_calcWt = require('../src/calc_N_valu')._n_calcWt;
     var spanD2 = {smlWt:5, lrgWt:9};
     var famL2 = [0,1,2,3,4,5,6];
     let _calcWt = _n_calcWt(spanD2, famL2);

@@ -12,7 +12,7 @@
 var R = require('ramda');
 var assert = require('assert');
 var C_Both = require('./h').C_Both;
-var _n_calcWt = require('./calcWt')._n_calcWt;//    _n_calcWt:: D:lmntD -> L:fam -> Fn:(N:elemNdx -> N:elemWt)
+var _n_calcWt = require('./calc_N_valu')._n_calcWt;//    _n_calcWt:: D:lmntD -> L:fam -> Fn:(N:elemNdx -> N:elemWt)
 var _csds = require('./update_CsdD')._csds;//       _csds:: D:inCsd -> (N:wt) ->  D:outCSD
 //GLOBALS
 console.log(JSON.stringify("IN map_aSpace.js."));
