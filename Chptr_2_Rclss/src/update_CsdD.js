@@ -1,15 +1,18 @@
 /**
- * update_CsdD.js
- * 160729   @1300   -> STABLE Tests. How add D:inCsd in after composed the two formats??
+ * _N_valu_set:: (D->L) ->N -> N
+ * _N_valu_set(D_csdLmtsL: L_elemList, N_elemNdx):: -> N_valu
+ * 160729       @1500
+ *  @1300   -> STABLE Tests. How add D:inCsd in after composed the two formats??
  *  @0815 -> REFACT  comment
- * 160728   @1910 -> STABLE tests
- *      @1735   -> BEGIN to use fn from csdValueS.js
- *      which will throw away most of t he code.
+ *
  *  IN THE END module.exports = {_trgt_Csds};//:: N:wt -> D:inCsd  -> outCsd
  */
 "use strict";
 
 // requires
+
+
+
 let R = require('ramda');
 let assert = require('assert');
 let _set_csdD_opacity = R.curry(require('./_CSD_values_set')._a_csdValu_opacity);//        N:wt -> D:inD -> D:outD
