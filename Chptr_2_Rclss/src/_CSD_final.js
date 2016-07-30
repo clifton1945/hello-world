@@ -20,13 +20,13 @@ let _CSD_valu_fontSize = R.curry(require('./_CSD_values_set')._CSD_valu_fontSize
  * @param CSD_init
  * @param N_valu
  */
-const _CSD_final = function _CSD_final(CSD_init, N_valu) {
+const _CSD_final = R.curry(function _CSD_final(CSD_init, N_valu) {
     return R.mergeAll(
         [CSD_init,
             _CSD_valu_opacity(N_valu),
             _CSD_valu_fontSize(N_valu)
-    ])
-};
+        ])
+});
 module.exports = {_CSD_final};// _CSD_final:: CSD_in  -> N_valu ->  CSD_final
 
 //asserts

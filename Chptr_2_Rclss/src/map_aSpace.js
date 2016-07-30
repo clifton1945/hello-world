@@ -12,9 +12,11 @@
 var R = require('ramda');
 var assert = require('assert');
 var C_Both = require('./h').C_Both;
-var _n_calcWt = require('./_N_valu_set')._n_calcWt;//    _n_calcWt:: D:lmntD -> L:fam -> Fn:(N:elemNdx -> N:elemWt)
-var _csds = require('./_CSD_final')._csds;//       _csds:: D:inCsd -> (N:wt) ->  D:outCSD
+var _N_valu_set = require('./_N_valu_set')._N_valu_set;//    _N_valu_set(L:[D_csdSpan, L_fam]):: N_elemNdx -> N_valu
+var _CSD_partial = require('./_CSD_final')._CSD_final;//       _CSD_partial:: D:inCsd -> (N:wt) ->  D:outCSD
+//FIX  do not use partial if it is not R.partialled needing a parameter of type L
 //GLOBALS
+
 console.log(JSON.stringify("IN map_aSpace.js."));
 // TEST CONSTANTS
 var csdLimits = {smlWt:0.4, lrgWt:0.9};
@@ -22,18 +24,20 @@ var nl_allVerses = document.querySelectorAll('.vers');
 var wip, _map_thisSpace;
 
 // MAIN CodeUnderTest
-var _calcWt = _n_calcWt(csdLimits)(nl_allVerses);           // _calcWt:: N:ndx -> N:elemWt
-var _frmttdCsdsD = _csds({});                               // _frmttdCsdsD:: N:elemWt -> D:outCsdElem
-var _trgtCsdD = R.compose(_frmttdCsdsD, _calcWt);           // N -> D
+var _N_valu = _N_valu_set([csdLimits, nl_allVerses]);           // _N_valu:: N:ndx -> N:elemWt
+// var _CSD_final = _CSD_partial({});
+var _CSD_final = R.compose(_CSD_partial({}), _N_valu); // N_ndx ->  CSD_final         //FIX
 
-var f_map_thisSpace = R.curry(function (f_the_csd, e, ndx_e, fam_e) {
-    var x = Object.assign(e.style, f_the_csd(ndx_e));
-    // console.log('wip3 -> ' + x.opacity)
+var fn = R.curry(function (e, ndx_e, fam_e) {
+    var CSD_final  = _CSD_final(ndx_e);
+    var x = Object.assign(e.style, CSD_final);
+    console.log('wip3 -> ' + x.opacity);
+    return x
 });//
-_map_thisSpace = f_map_thisSpace(_trgtCsdD);
+// _map_thisSpace:: (e, ndx_e, fam_e) ->  ??????
+_map_thisSpace = fn;
+module.exports =  {_map_thisSpace};
 
 console.log(JSON.stringify("OUT map_aSpace.js."));
 
-// _map_thisSpace:: (e, ndx_e, fam_e) ->  ??????
-module.exports =  {_map_thisSpace};
 //
