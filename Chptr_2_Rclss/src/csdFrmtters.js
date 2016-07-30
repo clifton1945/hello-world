@@ -1,5 +1,5 @@
 /**
- * csdFrmttrs::
+ * csdFrmttrs:: N:valu -> S:valu. two CSSStyleDeclaration specific formatters
  * 160728   @0617 -> refact parameter Name: TO wt FROM ndx.
  *      Reflecting the next REFACT in update_CsdD.js: REMOVING dependence on passing _calcWt; just use a Wt,
  * 160722   @1805 -> REMOVED _calcWt. This exports just the Formatters; NAME CHANGED from  csdWters.js
@@ -12,7 +12,7 @@
 // requires
 var R = require('ramda');
 var assert = require('assert');
-var myTap = require('./h').myTap;
+// var myTap = require('./h').myTap;
 var my_toFixed = require('./h').my_toFixed;
 
 /**
