@@ -15,32 +15,33 @@ let _opacityFrmttr = require('./csdFrmtters')._opacityFrmttr;//        N:wt -> S
 let _fontSizeFrmttr = require('./csdFrmtters')._fontSizeFrmttr; //     N:wt -> S:wt
 
 //  TEST DATA
-
+// BASE && HELPER FUNCTIONS
 /**
- * _a_frmt_value:: (Fn:propFrmttr, N:wt) || Fn:propFrmttr -> N:wt -> S:wt
+ *          _a_frmttd_value:: (Fn:propFrmttr, N:wt) || Fn:propFrmttr -> N:wt -> S:wt
  *
  * @param propFrmttr
  * @param wtN
  * @returns wtS
  */
-const f_a_frmt_value = function f_a_frmt_value(propFrmttr, wtN) { return propFrmttr(wtN)};// (Fn, N) -> S
-const _a_frmt_value = R.curry(f_a_frmt_value); //:: Fn:propFrmttr -> N:wt -> S:wt
-        // confirm _a_frmt_value WORKS
-        var a_frmt_value_opacity = _a_frmt_value(_opacityFrmttr);// N -> S
+const f_a_frmttd_value = function f_a_frmttd_value(propFrmttr, wtN) { return propFrmttr(wtN)};// (Fn, N) -> S
+const _a_frmttd_value = R.curry(f_a_frmttd_value); //:: Fn:propFrmttr -> N:wt -> S:wt
+        // confirm _a_frmttd_value WORKS
+        var a_frmt_value_opacity = _a_frmttd_value(_opacityFrmttr);// N -> S
         // asserts
-        assert.equal(a_frmt_value_opacity(0.6), "0.600", 'a_frmt_value_opacity(.6) -> "0.600" from _a_frmt_value()');
+        assert.equal(a_frmt_value_opacity(0.6), "0.600", 'a_frmt_value_opacity(.6) -> "0.600" from _a_frmttd_value()');
 
 /**
- *      _a_csdValu:: (S, Fn) || S -> Fn  -> N -> D:inCsd -> D:outCsd
+ *      _a_csdValu:: ((S, Fn) || S -> Fn) -> N -> D:inCsd  ->  D:outCsd
+ *      USE: sets S:property lensName
  * @param lensNameS
  * @param f_frmt
  * @param wtN
  */
-const f_a_csdValu = function (lensNameS, f_frmt, wtN) {
-    return R.set(R.lensProp(lensNameS), _a_frmt_value(f_frmt)(wtN))};// (S, F, N) -> F:(D -> D:csd)
+const f_a_csdValu = function f_a_csdValu (lensNameS, f_frmt, wtN) {
+    return R.set(R.lensProp(lensNameS), _a_frmttd_value(f_frmt)(wtN))};// (S, F, N) -> F:(D -> D:csd)
 const _a_csdValu = R.curry(f_a_csdValu);//      S -> Fn -> N  -> F:(D -> D:csd)
 /**
- *
+ *  NOW PRE FORMED opacity and fontSize
  */
 const _a_csdValu_opacity = _a_csdValu('opacity', _opacityFrmttr);//         N:wt -> D:inD -> D:outD
 const _a_csdValu_fontSize = _a_csdValu('fontSize', _fontSizeFrmttr);//      N:wt -> D:inD -> D:outD

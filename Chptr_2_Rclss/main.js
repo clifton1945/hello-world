@@ -15,7 +15,7 @@ C_Both(JSON.stringify("IN main.js."));
 
 // test data
 var nl_allVerses = document.querySelectorAll('.vers');
-var csdLimits = {smlWt:0.4, lrgWt:0.9};
+var csdLimits = {smlWt:0.1, lrgWt:0.8};
 
 // MAIN CodeUnderTest
 var myMap = R.addIndex(R.map);

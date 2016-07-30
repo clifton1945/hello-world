@@ -21,16 +21,6 @@ var famL = [0, 1, 2, 3, 4, 5, 6]; //            ->L
 var stub ={}; //
 var cut;
 
-// CONFIRM _set_csdD_opacity() AND  _set_csdD_fontSize() FROM './csdValueS'
-        //asserts
-        cut = _set_csdD_opacity(.9);
-        assert.equal(cut({}).opacity, '0.900', 'opacity:: wt:.9 SET TO "0.900" USING _set_csdD_opacity()');
-
-        //asserts
-        cut = _set_csdD_fontSize(.5);
-        assert.equal(cut({}).fontSize, "50%", 'fontSize:: wt:.5 SET TO "50%" USING _set_csdD_fontSize()');
-var noop = 0;
-
 // NOW CHAIN THE TWO:  _set_trgt_fontSize, _set_set_trgt_opacityCsdD
 // TO result in _trgt_Csds:: N:wt -> D:inCsd -> D:outCsd
 //  BUT NOW I need

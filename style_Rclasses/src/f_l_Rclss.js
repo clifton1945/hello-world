@@ -26,12 +26,12 @@ var R = require('ramda');
  */
 var f_l_Rclss = (l_elem, d_scope) => {
     RET = [];
-    var CUT1 = R.splitAt(d_scope.end)(l_elem);// N:end -> L:chptr -> L[La, Lb]
+    var CUT1 = R.splitAt(d_scope.end)(l_elem);      // N:end -> L:chptr -> L[La, Lb]
     var fut = CUT1[1];                              // Lb:l_fut
-    var CUT2 = R.splitAt(d_scope.beg)(CUT1[0]);    // N:beg -> La -> L[Lc, Ld]
+    var CUT2 = R.splitAt(d_scope.beg)(CUT1[0]);     // N:beg -> La -> L[Lc, Ld]
     var cur = CUT2[1];                              // Ld:cur
     var pst = CUT2[0];                              // Lc:pst
-    return [pst, cur, fut];                           // L:[Lc,Ld,Lb]
+    return [pst, cur, fut];                         // L:[Lc,Ld,Lb]
 };
 module.exports = f_l_Rclss;
 
