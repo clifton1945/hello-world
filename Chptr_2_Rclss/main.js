@@ -12,7 +12,7 @@
 // requires
 var R = require('ramda');
 var C_Both = require('./src/h').C_Both;
-var _n_calcWt = require('./src/calc_N_valu')._n_calcWt;
+var _n_calcWt = require('./src/_N_valu_set')._n_calcWt;
 var _map_thisSpace = require('./src/map_aSpace')._map_thisSpace;
 //GLOBALS
 C_Both(JSON.stringify("IN main.js."));
@@ -26,7 +26,7 @@ let myMap = R.addIndex(R.map);
 var done = myMap(_map_thisSpace)(nl_allVerses);
 
 //quick test in main.js shows _calc_N_valu WORKS as a compose.
-let _calc_N_valu = require('./src/calc_N_valu')._calc_N_valu;
+let _calc_N_valu = require('./src/_N_valu_set')._calc_N_valu;
 let fn = function fn ( el, nd, fam) {
     //R.partial(f_calc_N_valu);//:: L:[D_csdSpan, L_fam] -> N_elemNdx -> N_valu
     var x = R.compose(_calc_N_valu([csdLimits, fam]))(nd); //WORKS
