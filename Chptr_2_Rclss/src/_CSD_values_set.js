@@ -1,12 +1,9 @@
 /**
- * _CSD_values_set  HAS _a_CSD_valu_opacity() AND _a_CSD_valu_fontSize()
- * 160730   @1416   -> STABLE &&  RENAMED brought CSDfRMTTERS.JS into THIS
+ * _CSD_values_set:: N_valu -> CSD_valu Two values a_CSD_valu_opacity() AND _a_CSD_valu_fontSize()
+ * 160730   @1530   -> STABLE &&  RENAMED brought CSD fRMTTERS.JS into THIS
  *      @1350 STABLE revamped as composition given N_valu from _calc_N_valu()
  *      @1330  WIP. revamp as composition given N_valu from _calc_N_valu()
- *  the process pipe: for a CSD_S_name
- *      N_valu -> _frmt_CSD_op(S_name_frmttr) -> S_valu -> _set_CSD_valu(S_nameLens, {}) -> CSD_valu
- * 160723   @1715 -> STABLE  module.exports = { _a_CSD_valu_opacity, _a_CSD_valu_fontSize}
- * IN THE END -> _CSD_values_set.js produces Fn:: N:wt -> D:inCsd -> D:outCsd
+ * IN THE END -> _CSD_values_set.js fn(N:wt)  ->  CSD_valu
  */
 "use strict";
 
@@ -43,8 +40,8 @@ const set_CSD_fontSizeValu = R.set(_fontSizeLens, R.__, {});// S_valu -> CSD_val
 /**
  * -----------------------  EXPORTS --------------------
  */
-const _a_CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);//    N:wt -> D:inD -> D:outD
-const _a_CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//    N:wt -> D:inD -> D:outD
+const _a_CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);//    N:wt -> CSD_valu_opacity
+const _a_CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//    N:wt -> CSD_valu_fontSize
 module.exports = {_a_CSD_valu_opacity, _a_CSD_valu_fontSize};
 
 //asserts
