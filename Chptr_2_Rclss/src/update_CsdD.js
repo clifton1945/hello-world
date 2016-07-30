@@ -12,8 +12,8 @@
 // requires
 let R = require('ramda');
 let assert = require('assert');
-let _set_csdD_opacity = R.curry(require('./csdValueS')._a_csdValu_opacity);//        N:wt -> D:inD -> D:outD
-let _set_csdD_fontSize = R.curry(require('./csdValueS')._a_csdValu_fontSize); //      N:wt -> D:inD -> D:outD
+let _set_csdD_opacity = R.curry(require('./_CSD_values_set')._a_csdValu_opacity);//        N:wt -> D:inD -> D:outD
+let _set_csdD_fontSize = R.curry(require('./_CSD_values_set')._a_csdValu_fontSize); //      N:wt -> D:inD -> D:outD
 
 //  TEST DATA
 var lmtsD = {smlWt: 0.5, lrgWt: 0.9}; //        -> D: init_csdD limits
