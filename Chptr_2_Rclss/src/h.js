@@ -52,8 +52,10 @@ var my_toFixed = R.curry(function my_toFixed(digits, n) {
 // var y = my_toFixed(3)(0.1537);
 // assert.equal(y, 0.154, 'my_toFixed(3)(0.1537) -> 0.154');
 
-
-module.exports = {myTap, C_It, Doc_It, C_Both, my_toFixed};
+const assign_DivStyle = R.curry(function assign_DivStyle (div, csd) {
+    return Object.assign(div.style, csd)
+});// DIV ->  CSD  ->  DIV
+module.exports = {assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
 
 
 
