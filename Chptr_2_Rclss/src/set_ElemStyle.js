@@ -27,9 +27,10 @@ var merge_CSDs = require('./merge_CSDs').merge_CSDs;// merge_CSDs:: CSD_in  -> N
 console.log(JSON.stringify("IN set_ElemStyle.js."));
 
 // TEST CONSTANTS
-var csdLimitsD = {smlWt:0.4, lrgWt:0.9};
+var csdLimitsD = {smlWt:0.4, lrgWt:0.7};
 var nl_allVerses = document.querySelectorAll('.vers');
-var baseCSD = {backgroundColor: 'lightGreen'};
+// var baseCSD = {backgroundColor: 'lightGreen'};
+var baseCSD = {};
 
 // var wip, set_ElemStyle;
 
