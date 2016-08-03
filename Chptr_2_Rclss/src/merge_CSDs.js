@@ -24,7 +24,8 @@ const merge_CSDs = R.curry(function merge_CSDs(CSD_init, N_valu) {
     return R.mergeAll(
         [CSD_init,
             _CSD_valu_opacity(N_valu),
-            _CSD_valu_fontSize(N_valu)
+            _CSD_valu_fontSize(N_valu),
+            {lineHeight: '70%'},
         ])
 });
 module.exports = {merge_CSDs};// merge_CSDs:: CSD_in  -> N_valu ->  CSD_final
