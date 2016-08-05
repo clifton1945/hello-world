@@ -9,7 +9,7 @@
 "use strict";
 // requires
 var R = require('ramda');
-// var C_Both = require('./src/h').C_Both;
+var C_Both = require('./src/h').C_Both;
 var set_ElemStyle = require('./src/set_ElemStyle').set_ElemStyle;//
 //GLOBALS
 // C_Both(JSON.stringify("IN main.js."));
