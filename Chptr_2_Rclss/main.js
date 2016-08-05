@@ -27,10 +27,11 @@ let nl_allVerses;
 nl_allVerses = R.reverse(document.querySelectorAll('.pst_para span'));
 CSD_L(nl_allVerses);
 // NOTE: skip '.cur_vers span'
-nl_allVerses = document.querySelectorAll('.fut_vers span');
-CSD_L(nl_allVerses);
-nl_allVerses = document.querySelectorAll('.fut_para span');
-CSD_L(nl_allVerses);
-
+// FIX  TESTING JUST ONE nl_allVerses = document.querySelectorAll('.fut_vers span');
+var noop =1;
+// CSD_L(nl_allVerses);
+// nl_allVerses = document.querySelectorAll('.fut_para span');
+// CSD_L(nl_allVerses);
+//
 // C_Both(JSON.stringify("OUT main.js."));
 //

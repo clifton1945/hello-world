@@ -43,7 +43,7 @@ const C_Both = (txt) => {
     Doc_It(txt);
 };
 
-var sayX = x => console.log('x is ' + x);
+var sayX = x => console.log('tap:');
 const myTap = R.tap(sayX);
 
 var my_toFixed = R.curry(function my_toFixed(digits, n) {

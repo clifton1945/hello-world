@@ -3,7 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <title>2Nephi31_2 WIP adding -spans </title>
-    160803 @0900 WIP a start needing a lot of how to use CSS..
+    160805  @0835
+        -> WIP reduce lineHeight today in pst
+        -> AND confirm set_ElemStyle(0 compose works correctly
+    someday -> WIP Choices: hard code style for learning
 
     <style>
         .console {
@@ -22,16 +25,20 @@
             font-weight: bold
         }
 
+        /* looks good but constant
+        line spacing looks poor
+        with small fontSize
+        */
         .pst_para span {
             display: inline-block;
-            line-height: 80%;
+            line-height: 70%;
             background-color: rgba(255, 246, 78, 0.1);
         }
 
-        .cur_para span {
+        /*  .cur_para span {
             display: block;
             background-color: rgba(57, 255, 6, 0.05);
-        }
+        } */
 
         .fut_vers span {
             /*.fut_vers {*/

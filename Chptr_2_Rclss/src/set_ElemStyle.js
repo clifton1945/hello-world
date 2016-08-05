@@ -12,7 +12,10 @@
 var R = require('ramda');
 var assert = require('assert');
 var h = require('./h');
+var tapThis = h.myTap;
+var assignStyle =  h.assign_DivStyle;
 
+console.log(JSON.stringify("IN set_ElemStyle.js."));
 /**
  *        set_N_valu(L:[D_csdSpan, L_fam]):: N_elemNdx -> N_valu
  */
@@ -22,15 +25,14 @@ var f_set_N_valu = require('./set_N_valu').f_set_N_valu;// D -> N -> L  ->  N
  * @type {_finalCSD}
  * @private
  */
-var merge_CSDs = require('./merge_CSDs').merge_CSDs;// merge_CSDs:: CSD_in  -> N_valu ->  finalCSD
-
-console.log(JSON.stringify("IN set_ElemStyle.js."));
+var merge_CSDs = R.curry(require('./merge_CSDs').merge_CSDs);// merge_CSDs:: CSD_in  -> N_valu ->  finalCSD
 
 // TEST CONSTANTS
 var csdLimitsD = {smlWt:0.4, lrgWt:0.7};
 var nl_allVerses = document.querySelectorAll('.vers');
 // var baseCSD = {backgroundColor: 'lightGreen'};
-var baseCSD = {};
+// var baseCSD = {lineHeight: 1};
+let baseCSD = {};
 
 // var wip, set_ElemStyle;
 
@@ -38,8 +40,12 @@ var baseCSD = {};
 var set_ElemStyle = R.curry(function (e, ndxN_e, famL_e) {
     // first step by step
     var _set_N_valu = f_set_N_valu(csdLimitsD, famL_e); // equivalent of partial w/o [list of args]
-    var ret =  R.compose(h.assign_DivStyle(e), merge_CSDs(baseCSD), _set_N_valu)(ndxN_e); // L:[CSD[0], CSD[1]...CSD[N-1]]
-    console.log('wip3 -> ' + ret.opacity);
+    // var nvalu = _set_N_valu(ndxN_e);
+    // var csds = merge_CSDs(baseCSD)(nvalu);
+    // var ret = assignStyle(e)(csds);// L:[CSD[0], CSD[1]...CSD[N-1]]
+    var ret =  R.compose(h.assign_DivStyle(e), merge_CSDs(baseCSD),  _set_N_valu)(ndxN_e); // L:[CSD[0], CSD[1]...CSD[N-1]]
+    console.log('lineHeight -> ' + ret.lineHeight);
+    console.log('opacity -> ' + ret.opacity);
     return ret
 });//
 // set_ElemStyle:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated
