@@ -44,8 +44,8 @@ var set_ElemStyle = R.curry(function (e, ndxN_e, famL_e) {
     // var csds = merge_CSDs(baseCSD)(nvalu);
     // var ret = assignStyle(e)(csds);// L:[CSD[0], CSD[1]...CSD[N-1]]
     var ret =  R.compose(h.assign_DivStyle(e), merge_CSDs(baseCSD),  _set_N_valu)(ndxN_e); // L:[CSD[0], CSD[1]...CSD[N-1]]
-    console.log('lineHeight -> ' + ret.lineHeight);
-    console.log('opacity -> ' + ret.opacity);
+    // console.log('lineHeight -> ' + ret.lineHeight);
+    // console.log('opacity -> ' + ret.opacity);
     return ret
 });//
 // set_ElemStyle:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated

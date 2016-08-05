@@ -24,14 +24,12 @@ let myMap = R.addIndex(R.map);
 var CSD_L = myMap(set_ElemStyle);
 let nl_allVerses;
 
-nl_allVerses = R.reverse(document.querySelectorAll('.pst_para span'));
+nl_allVerses = R.reverse(document.querySelectorAll('.pst_div span'));
 CSD_L(nl_allVerses);
-// NOTE: skip '.cur_vers span'
-// FIX  TESTING JUST ONE nl_allVerses = document.querySelectorAll('.fut_vers span');
-var noop =1;
-// CSD_L(nl_allVerses);
-// nl_allVerses = document.querySelectorAll('.fut_para span');
-// CSD_L(nl_allVerses);
-//
-// C_Both(JSON.stringify("OUT main.js."));
-//
+nl_allVerses = document.querySelectorAll('.fut_div span');
+// var noop =1;
+CSD_L(nl_allVerses);
+nl_allVerses = document.querySelectorAll('.fut_para span');
+CSD_L(nl_allVerses);
+
+C_Both(JSON.stringify("OUT main.js."));
