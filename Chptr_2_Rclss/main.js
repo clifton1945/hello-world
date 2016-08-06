@@ -10,14 +10,9 @@
 // requires
 var R = require('ramda');
 var C_Both = require('./src/h').C_Both;
-var set_ElemStyle = require('./src/set_ElemStyle').set_ElemStyle;//
+var set_ElemStyle = require('./src/set_ElemCSD').set_ElemStyle;//
 //GLOBALS
 // C_Both(JSON.stringify("IN main.js."));
-
-// test data for index.html
-// let nl_allVerses = document.querySelectorAll('.vers');
-// test data for 2Nephi31_.html
-// NO GOOD it is  html not js~ var tstDoc = require('./dat/2Nephi31_.html');
 
 // MAIN CodeUnderTest
 let myMap = R.addIndex(R.map);

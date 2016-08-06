@@ -1,5 +1,6 @@
 /**
- *  set_ElemStyle:: (f_the_csd, e, ndx_e, fam_e)
+ // *  set_ElemCSD:: (f_the_csd, e, ndx_e, fam_e)
+ // *  160806  @0707   -> name change FROM set_ElementStyle
  *  160729  @1500 -> STABLE as seen as index.html; removed output of map_aSpace
  *      @0820   -> OK
  *  160726  @0355   ->
@@ -15,7 +16,7 @@ var h = require('./h');
 var tapThis = h.myTap;
 var assignStyle =  h.assign_DivStyle;
 
-console.log(JSON.stringify("IN set_ElemStyle.js."));
+console.log(JSON.stringify("IN set_ElemCSD.js."));
 /**
  *        set_N_valu(L:[D_csdSpan, L_fam]):: N_elemNdx -> N_valu
  */
@@ -36,7 +37,7 @@ let baseCSD = {};
 
 // var wip, set_ElemStyle;
 
-// MAIN CodeUnderTest
+// MAIN Export
 var set_ElemStyle = R.curry(function (e, ndxN_e, famL_e) {
     // first step by step
     var _set_N_valu = f_set_N_valu(csdLimitsD, famL_e); // equivalent of partial w/o [list of args]
@@ -51,6 +52,6 @@ var set_ElemStyle = R.curry(function (e, ndxN_e, famL_e) {
 // set_ElemStyle:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated
 module.exports =  {set_ElemStyle};
 
-console.log(JSON.stringify("OUT set_ElemStyle.js."));
+console.log(JSON.stringify("OUT set_ElemCSD.js."));
 
 //

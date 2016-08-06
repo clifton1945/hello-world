@@ -1,15 +1,16 @@
 /**
  * \src\refresh_Rclsses.js  -> L:elem->D:d_scope->L:[[pst],[cur],[pst]]
  * 160806   @0640   -> adapt to Chptr_2_Rclss project
- * was \style_Rclss\src\f_l_Rclss.js
+ * was \style_Rclss\src\refresh_Rclsses.js
  *  USE:   L:elem -> D:d_scope -> L:[[pst],[cur],[pst]]
  */
 
 var R = require('ramda');
 
 /**
- *      f_l_Rclss:: L:elem->D:d_scope->L:[[pst],[cur],[pst]] a L of the current chapters three Rclss verses.
- *      RESETS the 3 Rclss contents for a new d_scope.
+ *      refresh_Rclsses:: L:elem-> D:d_scope-> L:[[pst],[cur],[pst]]
+ *      returns a L of the current read chapters list of Rclss verses.
+ *      RESETS the 3 Rclss contents GIVEN a new d_scope.
  *      the params ARE FLIPPED because
  *      the Scope dict CHANGES a lot: each key event
  *      BUT
@@ -19,7 +20,7 @@ var R = require('ramda');
  * @param d_scope
  * @return {*}
  */
-var f_l_Rclss = (l_elem, d_scope) => {
+var refresh_Rclsses = (l_elem, d_scope) => {
     RET = [];
     var CUT1 = R.splitAt(d_scope.end)(l_elem);      // N:end -> L:chptr -> L[La, Lb]
     var fut = CUT1[1];                              // Lb:l_fut
@@ -28,52 +29,50 @@ var f_l_Rclss = (l_elem, d_scope) => {
     var pst = CUT2[0];                              // Lc:pst
     return [pst, cur, fut];                         // L:[Lc,Ld,Lb]
 };
-module.exports = f_l_Rclss;
+module.exports = refresh_Rclsses;
 
 
 // // test data
-test = require('tape');
+// test = require('tape');
+assert = require('assert');
 var stubList = [0, 1, 2, 3, 4, 5, 6, 7, 8];// pretend these are verse INDEXES
-var RET;//, EXP, CUT, limits, SKIP={skip:false};
+var RET;
 //
-test(`exp f_l_Rclss.length -> 3 un flattened, 9 flattened.`, function (t) {
-    RET = f_l_Rclss(stubList, {beg: 111, end: 222});
-    t.equal(RET.length, 3, 'w/o flattening exp 3 lists of verses:pst.cur,fut');
-    t.equal(R.flatten(RET).length, 9, 'w/ flattening exp all 9 verses.');
-    t.end();
-});
-test(`EXP pst,cur,end FOR ${JSON.stringify({beg: 0, end: 2})}`,
-    function (t) {
-        RET = f_l_Rclss(stubList, {beg: 0, end: 2});
+// test(`exp refresh_Rclsses.length -> 3 un flattened, 9 flattened.`, function (t) {
+    RET = refresh_Rclsses(stubList, {beg: 111, end: 222});
+        assert.equal(RET.length, 3, 'w/o flattening exp 3 lists of verses:pst.cur,fut');
+        assert.equal(R.flatten(RET).length, 9, 'w/ flattening exp all 9 verses.');
+
+// test(`EXP pst,cur,end FOR ${JSON.stringify({beg: 0, end: 2})}`,
+    RET = refresh_Rclsses(stubList, {beg: 0, end: 2});
         EXP = 0;
-        t.equal(RET[0].length, EXP, ` > pst:${EXP}`);
+        assert.equal(RET[0].length, EXP, ` > pst:${EXP}`);
         EXP = 2;
-        t.equal(RET[1].length, EXP, ` > cur:${EXP}`);
+        assert.equal(RET[1].length, EXP, ` > cur:${EXP}`);
         EXP = 7;
-        t.equal(RET[2].length, EXP, ` > fut:${EXP}`);
-        t.end();
-    });
+        assert.equal(RET[2].length, EXP, ` > fut:${EXP}`);
+
 // limits = {beg: 3, end: 6};
 // test(`EXP pst,cur,end FOR ${JSON.stringify({beg: 3, end: 6})}`,
 //     function (t) {
-//         RET = f_l_Rclss(stubList, {beg: 3, end: 6});
+//         RET = refresh_Rclsses(stubList, {beg: 3, end: 6});
 //         EXP = 3;
-//         t.equal(RET[0].length, EXP, ` > pst:${EXP}`);
+//         assert.equal(RET[0].length, EXP, ` > pst:${EXP}`);
 //         EXP = 3;
-//         t.equal(RET[1].length, EXP, ` > cur:${EXP}`);
+//         assert.equal(RET[1].length, EXP, ` > cur:${EXP}`);
 //         EXP = 3;
-//         t.equal(RET[2].length, EXP, ` > fut:${EXP}`);
+//         assert.equal(RET[2].length, EXP, ` > fut:${EXP}`);
 //         t.end();
 //     });
 // limits = {beg: 7, end: 9};
 // test(`EXP pst,cur,end FOR ${JSON.stringify({beg: 7, end: 9})}`,
 //     function (t) {
-//         RET = f_l_Rclss(stubList, {beg: 7, end: 9});
+//         RET = refresh_Rclsses(stubList, {beg: 7, end: 9});
 //         EXP = 7;
-//         t.equal(RET[0].length, EXP, ` > pst:${EXP}`);
+//         assert.equal(RET[0].length, EXP, ` > pst:${EXP}`);
 //         EXP = 2;
-//         t.equal(RET[1].length, EXP, ` > cur:${EXP}`);
+//         assert.equal(RET[1].length, EXP, ` > cur:${EXP}`);
 //         EXP = 0;
-//         t.equal(RET[2].length, EXP, ` > fut:${EXP}`);
+//         assert.equal(RET[2].length, EXP, ` > fut:${EXP}`);
 //         t.end();
 //     });
