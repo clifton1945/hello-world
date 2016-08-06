@@ -28,7 +28,7 @@ var f_set_N_valu = require('./set_N_valu').f_set_N_valu;// D -> N -> L  ->  N
 var merge_CSDs = R.curry(require('./merge_CSDs').merge_CSDs);// merge_CSDs:: CSD_in  -> N_valu ->  finalCSD
 
 // TEST CONSTANTS
-var csdLimitsD = {smlWt:0.4, lrgWt:0.85};
+var csdLimitsD = {smlWt:0.5, lrgWt:0.85};
 var nl_allVerses = document.querySelectorAll('.vers');
 // var baseCSD = {backgroundColor: 'lightGreen'};
 // var baseCSD = {lineHeight: 1};
