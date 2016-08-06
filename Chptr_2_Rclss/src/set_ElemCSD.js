@@ -1,12 +1,7 @@
 /**
- // *  set_ElemCSD:: (f_the_csd, e, ndx_e, fam_e)
- // *  160806  @0707   -> name change FROM set_ElementStyle
- *  160729  @1500 -> STABLE as seen as index.html; removed output of map_aSpace
- *      @0820   -> OK
- *  160726  @0355   ->
- *  -> SET each Verse CSD as a function of their Space parameters
- *  map_aSpace.js   -> SET each Verse CSD as a function of their Space parameters
- *  IN FILE: map_aSpace.js
+ *  set_ElemCSD:: (f_the_csd, e, ndx_e, fam_e)
+ *  160806  @0707   -> name change FROM set_ElementStyle
+ *  IN FILE: set_ElemCSD.js -> SET each Verse CSD as a function of their Space parameters
  */
 "use strict";
 // requires

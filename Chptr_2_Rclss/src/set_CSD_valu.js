@@ -63,7 +63,7 @@ module.exports = {_CSD_valu_lineHeight, _CSD_valu_opacity, _CSD_valu_fontSize};/
 
 //asserts
 var stub_N_ndx = 0;
-var stub_L_fam = [0, 1, 2, 3, 4, 5, 6];
+// var stub_L_fam = [0, 1, 2, 3, 4, 5, 6];
         assert.equal(_CSD_valu_lineHeight(.8).lineHeight, "60%", '_CSD_valu_lineHeight: 0.8 * 3/4*100');
         assert.equal(_CSD_valu_opacity(.6).opacity, "0.600", '_CSD_valu_opacity');
         assert.equal(_CSD_valu_fontSize(.6).fontSize, "60%", '_CSD_valu_fontSize: 0.6 * 100');
