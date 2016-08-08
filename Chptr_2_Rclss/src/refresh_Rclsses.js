@@ -9,13 +9,13 @@
 var R = require('ramda');
 
 /**
- *      refresh_Rclsses:: L:elem-> D:d_scope-> L:[[pst],[cur],[pst]]
+ *      refresh_Rclsses:: L:elem-> D:d_scope-> L:[[pst],[cur],[fut]]
  *      returns a L of the current read chapters list of Rclss verses.
  *      RESETS the 3 Rclss contents GIVEN a new d_scope.
- *      the params ARE FLIPPED because
- *      the Scope dict CHANGES a lot: each key event
- *      BUT
- *      the Chptr Elem list IS static for the most part
+ *          the params ARE FLIPPED because
+ *              the Scope dict CHANGES a lot: each key event
+ *          BUT
+ *            the Chptr Elem list IS static for the most part
  *              UNTIL there is a new Chapter
  * @param l_elem
  * @param d_scope

@@ -12,6 +12,7 @@ var tapThis = h.myTap;
 var assignStyle =  h.assign_DivStyle;
 
 console.log(JSON.stringify("IN set_ElemCSD.js."));
+
 /**
  *        set_N_valu(L:[D_csdSpan, L_fam]):: N_elemNdx -> N_valu
  */
@@ -25,9 +26,9 @@ var merge_CSDs = R.curry(require('./merge_CSDs').merge_CSDs);// merge_CSDs:: CSD
 
 // TEST CONSTANTS
 var csdLimitsD = {smlWt:0.5, lrgWt:0.85};
-var nl_allVerses = document.querySelectorAll('.vers');
+// var nl_allVerses = document.querySelectorAll('.vers');
+var nl_allVerses = document.querySelectorAll('span');
 // var baseCSD = {backgroundColor: 'lightGreen'};
-// var baseCSD = {lineHeight: 1};
 let baseCSD = {};
 
 // var wip, set_ElemStyle;
@@ -43,10 +44,9 @@ var set_ElemStyle = R.curry(function (e, ndxN_e, famL_e) {
     // console.log('lineHeight -> ' + ret.lineHeight);
     // console.log('opacity -> ' + ret.opacity);
     return ret
-});//
-// set_ElemStyle:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated
-module.exports =  {set_ElemStyle};
+});// set_ElemStyle:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated
+
+// var set_ElemCSD = set_ElemStyle;//:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated
+module.exports =  set_ElemStyle;
 
 console.log(JSON.stringify("OUT set_ElemCSD.js."));
-
-//
