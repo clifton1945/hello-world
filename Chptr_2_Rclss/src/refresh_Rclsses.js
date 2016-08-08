@@ -1,5 +1,6 @@
 /**
- * \src\refresh_Rclsses.js  -> L:elem->D:d_scope->L:[[pst],[cur],[pst]]
+ * \src\refresh_Rclsses.js  -> L:elem->D:d_scope->L:[[pst],[cur],[fut]]
+ * 160808   0645    -> CLEANUP
  * 160806   @0640   -> adapt to Chptr_2_Rclss project
  * was \style_Rclss\src\refresh_Rclsses.js
  *  USE:   L:elem -> D:d_scope -> L:[[pst],[cur],[pst]]
