@@ -1,16 +1,26 @@
-// /**
-//  *  main.js
-//  *  160808  @02040 -> WIP update_L_RClss_NLs(with a new current limits)
-//  *      TRANSFORMS the three Rclss span NodeLists.
-//  *      THEN the 3 Rclss div classes are reset using innerHTML.
-//  *  160803  @0830 -> APPLYING set_ElemCSD TO 4 Rclss divs IN 2Nephi31_.html.
-//  *  IN FILE: main.js -> SET each Verse CSD as a function of its Space parameters.
-//  */
-//
+/**
+ *  main.js
+ *  160808  @1810  R.lenses WORKS !!!
+ *      @02040 -> WIP update_L_RClss_NLs(with a new current limits)
+ *      TRANSFORMS the three Rclss span NodeLists.
+ *      THEN the 3 Rclss div classes are reset using innerHTML.
+ *  160803  @0830 -> APPLYING set_ElemCSD TO 4 Rclss divs IN 2Nephi31_.html.
+ *  IN FILE: main.js -> SET each Verse CSD as a function of its Space parameters.
+ */
+
 "use strict";
 // requires
 var R = require('ramda');
 var C_Both = require('./src/h').C_Both;
+
+
+// A TEST !!! 160809 @1840
+var tst_div = document.querySelector('.cur_div');// -> div.pst_div
+var RC_curLens = R.lensProp("innerHTML");
+var CUT = R.view(RC_curLens)(tst_div);// D_doc -> S
+var RET = R.set(RC_curLens, R.toLower(CUT))(tst_div);
+C_Both(RET.innerHTML); //HEY this works !!
+
 
 /**
  *          ----- main helper functions -----
@@ -23,15 +33,13 @@ var RET, EXP;
 
 // hard coded current Node Lists
 var aChptr_NL = document.querySelectorAll('span'); // -> NL:[span, span...]
-// default aChptr_NL Rclsses::  17+5+31->53
+// default aChptr_NL Rclsses::  lengths 17+2+34->53
 
 /**
  * -------------  update the3 Rclss NodeLists: pst_, cur_, fut_NL
  */
-var stub_D_ndxLmits = {beg: 17, end: 22};
-var [pst_NL, cur_NL, fut_NL ] =  update_L_RClss_NLs(aChptr_NL, stub_D_ndxLmits);
-
-// NL->D -> L w/ lengths 17+2+34->53  IS hardcoded default
+var stub_D_ndxLmits = {beg: 17, end: 22};// lengths will be :  17+5+31->53
+var [pst_NL, cur_NL, fut_NL ] =  update_L_RClss_NLs(aChptr_NL, stub_D_ndxLmits);// NL->D -> L{NL, NL, NL]
 // some tests
 RET = aChptr_NL.length;
 EXP = 53;
@@ -59,7 +67,7 @@ var cur_div = document.querySelector('.cur_div');
 var fut_div = document.querySelector('.fut_div');
 
 /**
- * -------  TRANSFORM the _NL lists ->  S:innerHTML  -----------
+ * -------  REPLACE the 3 RClss div.innerHTML w/ new  S:innerHTML  -----------
  */
 
 var inner_cur0 = cur_div.innerHTML;//  TEST: -> SEE innerHTML -> S
