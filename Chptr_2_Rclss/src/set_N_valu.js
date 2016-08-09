@@ -1,5 +1,5 @@
 /**
- * set_N_valu:: (D,L)->N -> N.  (D_csdLmtsL: L_elemList), N_elemNdx):: -> N_valu
+ * set_N_valu:: (D,L)->N -> N.  (D_csdLmtsL: L_elemFaml), N_elemNdx):: -> N_valu
  * 160730   1518 -> removed _n_calcWt()
  *          AND just recognized that the D_csdLmts ARE A FUNCTION of Rclss. I'll need REFACT then.
  *  @1224 -> quick test in main.js shows set_N_valu WORKS as a compose.
@@ -10,7 +10,7 @@
 let R = require('ramda');
 
 /**
- *      f_set_N_valu(D_csdLmtsL: L_elemList, N_elemNdx):: -> N_valu
+ *      f_set_N_valu(D_csdLmts: L_elemFaml, N_elemNdx):: -> N_valu
  *      USED: typically used to weight element property CSD: e.g. opacity, fontSize, etc
  *      typically the L:fam and N:elemNdx will be returned by indexedMaps.
  * @param D_csdSpan   -> {smlWt:a, lrgWt:a}   style Property beg and end limits
@@ -36,7 +36,7 @@ const set_N_valu = R.partial(f_set_N_valu);//:: L:[D_csdSpan, L_fam] -> N_elemNd
 
 // MODULES.EXPORT
 // set_N_valu([D_csdSpan, L_fam]):: N_elemNdx -> N_valu
-module.exports = {set_N_valu, f_set_N_valu};
+module.exports = {set_N_valu, f_set_N_valu};//::(D_csdLmits, L_elemFaml, N_elemNdx) -> N_valu
 
 // CODE UNDER TEST: set_N_valu:: N_ndx -> N_valu
 var csdLimitsD = {smlWt: 0.5, lrgWt: 0.9};

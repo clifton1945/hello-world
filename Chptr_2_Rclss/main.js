@@ -1,33 +1,38 @@
-/**
- *  main.js
- *  160808  @02040 -> WIP refresh_Rclsses(with a new current limits)
- *      TRANSFORMS the three Rclss span NodeLists.
- *      THEN the 3 Rclss div classes are reset using innerHTML.
- *  160803  @0830 -> APPLYING set_ElemCSD TO 4 Rclss divs IN 2Nephi31_.html.
- *  IN FILE: main.js -> SET each Verse CSD as a function of its Space parameters.
- */
-
+// /**
+//  *  main.js
+//  *  160808  @02040 -> WIP update_L_RClss_NLs(with a new current limits)
+//  *      TRANSFORMS the three Rclss span NodeLists.
+//  *      THEN the 3 Rclss div classes are reset using innerHTML.
+//  *  160803  @0830 -> APPLYING set_ElemCSD TO 4 Rclss divs IN 2Nephi31_.html.
+//  *  IN FILE: main.js -> SET each Verse CSD as a function of its Space parameters.
+//  */
+//
 "use strict";
 // requires
 var R = require('ramda');
 var C_Both = require('./src/h').C_Both;
-// main helper functions
-var set_ElemStyle = require('./src/set_ElemCSD');
-var refresh_Rclsses = require('./src/refresh_Rclsses');
+
+/**
+ *          ----- main helper functions -----
+ */
+var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
+var set_ElemStyle = require('./src/set_anElem_CSD');//
 //GLOBALS
 C_Both("IN  main.js.");
 var RET, EXP;
 
-// hard coded default Node Lists
-var aChptr_NL = document.querySelectorAll('span');
-// var RclssL = [pst_div, cur_div, fut_div ]);// default::  17+5+31->53
+// hard coded current Node Lists
+var aChptr_NL = document.querySelectorAll('span'); // -> NL:[span, span...]
+// default aChptr_NL Rclsses::  17+5+31->53
 
+/**
+ * -------------  update the3 Rclss NodeLists: pst_, cur_, fut_NL
+ */
+var stub_D_ndxLmits = {beg: 17, end: 22};
+var [pst_NL, cur_NL, fut_NL ] =  update_L_RClss_NLs(aChptr_NL, stub_D_ndxLmits);
 
-
-// USE refresh_Rclss  IN Tests - > NOW APPLY refresh_Rclss:: L->D -> L TO aChptr_NL WITH this a_limts_DD
-var a_limts_D = {beg: 17, end: 22};
-
-var [pst_NL, cur_NL, fut_NL ] =  refresh_Rclsses(aChptr_NL, a_limts_D);// NL->D -> L w/ lengths 17+2+34->53  IS hardcoded default
+// NL->D -> L w/ lengths 17+2+34->53  IS hardcoded default
+// some tests
 RET = aChptr_NL.length;
 EXP = 53;
 assert.deepEqual(RET, EXP, `aChptr_NL.length IS:${RET}. EXP:${EXP}`);
@@ -41,24 +46,47 @@ RET = fut_NL.length;
 EXP = 31;
 assert.deepEqual(RET, EXP, `fut_NL.length IS:${RET}. EXP:${EXP}`);
 
-var pst_divNL = document.querySelectorAll('.pst_div span');
-var cur_divNL = document.querySelectorAll('.cur_div span');
+/**
+ * ----------- NEXT transform 3 Rclss NodeList into a new Chptr.innerHTML String -------
+ */
 
-var pst_div = document.querySelector('.pst_div');
-var cur_div  = document.querySelector('.cur_div');
-var fut_div  = document.querySelector('.fut_div');
+/**
+ *  --------------- SET the -> Rclss ..._divs ------------
+ * @type {Element}
+ */
+var pst_div = document.querySelector('.pst_div');// -> div.pst_div
+var cur_div = document.querySelector('.cur_div');
+var fut_div = document.querySelector('.fut_div');
 
-// WIP  trying to figure out how to transform the ..._NL lists
-var inner_cur0 = cur_div.innerHTML;
-cur_div.innerHTML = `<span> ${cur_NL[4].innerHTML}</span>
-<span> ${cur_NL[3].innerHTML}</span>
-<span> ${cur_NL[2].innerHTML}</span>
-<span> ${cur_NL[1].innerHTML}</span>`
-;  // this works   FIX BACKWARDS ON PURPOSE now transform the ..._NL NodelLists to an equivalent innerHTML
-// cso map(f:)L:[l,l,l...]) -> S. where fn:: el=> compose( append_toS, add_span:: S, extract_innerHTML:: el->el.innerHTML)(el)
-var inner_cur1 = cur_div.innerHTML;
+/**
+ * -------  TRANSFORM the _NL lists ->  S:innerHTML  -----------
+ */
 
+var inner_cur0 = cur_div.innerHTML;//  TEST: -> SEE innerHTML -> S
+
+var pst_test = R.map(function (el) {
+    return '<span>' + el.innerHTML + '</span>';
+})(pst_NL);
+var cur_test = R.map(function (el) {
+    return '<span>' + el.innerHTML + '</span>';
+})(cur_NL);
+var fut_test = R.map(function (el) {
+    return '<span>' + el.innerHTML + '</span>';
+})(fut_NL);
+
+pst_div.innerHTML = R.reduce((a, b)=>a + b, '')(pst_test);// L -> S
+cur_div.innerHTML = R.reduce((a, b)=>a + b, '')(cur_test);
+fut_div.innerHTML = R.reduce((a, b)=>a + b, '')(fut_test);
+// tests:   see results
+var inner_cur1 = cur_div.innerHTML;// S -> S
+var aChptr_NL1 = document.querySelectorAll('span');// -> NL:[span, span...]
+
+/**
+ * --------------  Map all Spans with set_ElemStyle//:: (E:e, N:ndx_e, L:fam_e) ->  E: mutated
+ */
 var myMap = R.addIndex(R.map);
+//noinspection JSUnusedLocalSymbols
+var out = myMap(set_ElemStyle)(aChptr_NL1);
 
-
+// END
 C_Both(JSON.stringify("OUT main.js."));

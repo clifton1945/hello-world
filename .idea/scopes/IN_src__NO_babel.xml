@@ -1,0 +1,3 @@
+<component name="DependencyValidationManager">
+  <scope name="IN_src__NO_babel" pattern="file[Brwsrfy]:Chptr_2_Rclss/src/*.js&amp;&amp;!file:*-compiled.js&amp;&amp;!file:.map" />
+</component>

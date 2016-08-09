@@ -59,7 +59,7 @@ const _CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);//    N
 const _CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//    N_valu -> CSD_valu_fontSize
 const _CSD_valu_lineHeight = R.compose(set_CSD_lineHeightValu, _lineHeightFrmttr);//    N_valu -> CSD_valu_lineHeight
 
-module.exports = {_CSD_valu_lineHeight, _CSD_valu_opacity, _CSD_valu_fontSize};//  N_valu -> CSD_valu_opacity || _fontSize || lineHeight
+module.exports = {_CSD_valu_lineHeight, _CSD_valu_opacity, _CSD_valu_fontSize};//::  (N_valu) -> CSD_valu_opacity || _fontSize || lineHeight
 
 //asserts
 var stub_N_ndx = 0;
