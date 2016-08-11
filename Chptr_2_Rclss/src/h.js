@@ -55,8 +55,26 @@ var my_toFixed = R.curry(function my_toFixed(digits, n) {
 const assign_DivStyle = R.curry(function assign_DivStyle (div, csd) {
     return Object.assign(div.style, csd)
 });// DIV ->  CSD  ->  DIV
-module.exports = {assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
 
+
+/**
+ *  --- _mySlice(d_lmits) -> L -> L_subset
+ * @param d_lmits
+ * @private
+ */
+const _mySlice = d_lmits => {
+    var {beg, nxt} = d_lmits;// unpack
+    return R.slice(beg, nxt)
+};//:: D_lmit
+
+/**
+ *    --- ELEM_has_outerHTML_STR:: El -> S_outerHTML
+ * @param el
+ * @private
+ */
+const ELEM_has_outerHTML_STR = el => el.outerHTML;//:: E_a -> S_a
+
+module.exports = {ELEM_has_outerHTML_STR, _mySlice, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
 
 
 
