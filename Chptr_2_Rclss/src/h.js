@@ -1,7 +1,8 @@
 /**
  * h.js
- * 160812   @0910 ADDED: get_outerHTML_Str(), set_RClss_TO_()
- *      @0543   -> replaced _mySlice es6 code w/ es5 babel code
+ * 160812   @1008 mySlice now NOT _mySlice
+ *      @0910 ADDED: get_outerHTML_Str(), set_RClss_TO_()
+ *      @0543   -> replaced mySlice es6 code w/ es5 babel code
  * 160722  @0904 ->  ADDED my_toFixed() w/  an assert
  *  @ 0735 -> ADDED myTap()
  * helper files
@@ -60,11 +61,11 @@ const assign_DivStyle = R.curry(function assign_DivStyle (div, csd) {
 
 
 /**
- *  --- _mySlice(d_lmits) -> L -> L_subset
+ *  --- mySlice(d_lmits) -> L -> L_subset
  * @param d_lmits
  * @private
  */
-var _mySlice = function _mySlice(d_lmits) {
+var mySlice = function mySlice(d_lmits) {
     var beg = d_lmits.beg;
     var nxt = d_lmits.nxt; // unpack
 
@@ -90,7 +91,7 @@ const set_RClss_TO_ = d_rcRange => {
 /**
  *  --------------- module.exports ------------------
  */
-module.exports = {set_RClss_TO_, get_outerHTML_Str, _mySlice, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
+module.exports = {set_RClss_TO_, get_outerHTML_Str, mySlice, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
 
 
 

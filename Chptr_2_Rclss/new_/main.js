@@ -6,8 +6,6 @@
  *      -> USED set_one_DIV_RClss() TO SET RClssDIV.innerHTML!!
  *      <br
  *      @0410   -> pulled get_LIST_of_outerHTML_STRs OUT OF set_one_DIV_RClss()
- *  160811  @1645 -> set_one_DIV_RClss() IS NEARLY FINISHED   WORKING w/o final set a DIV class
- *  so I can actually make a good get_LIST_of_outerHTML_STRs
  *  IN FILE: /tst/newMain_tests.js
  */
 
@@ -29,7 +27,7 @@ var mySlice = h._mySlice;
  * @param d_rcLmits
  * @private
  */
-var set_RClss_TO_ = h.set_RC_TO_;
+var set_RClss_TO_ = h.set_RClss_TO_;
 /**
  *      --- get_outerHTML_Str:: El -> S_outerHTML
  * @param el
@@ -45,7 +43,7 @@ const get_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN
 // var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
 //var set_ElemStyle = require('../src/set_anElem_CSD');//
 //GLOBALS
-C_Both("IN  newMain_tests.js.");
+C_Both("IN  new_/main.js.");
 
 // test data
 var RET, TST, EXP;
@@ -58,37 +56,37 @@ var stub_rclmits = {beg: 0, nxt: 5};
 /**
  *  ---     --- TESTS ---
  */
-// CAN return one Chptr SPAN as an outerHTML String:: El -> S
-RET = get_outerHTML_Str(stub_one_Span);//D -> S
-TST = R.slice(9, 17, RET);
-EXP = '3 Yea, a';
-t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-
-// CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
-RET = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
-
-// CONFIRM isArrayLike
-t.ok(R.isArrayLike(RET));
-// CONFIRM one of the list is a STR
-t.ok(R.is(String, RET[0]));
-//CONFIRM a list validity
-RET = RET[2];//-> STR
-TST = R.slice(9, 17, RET);
-EXP = '3 Yea, a';
-t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
+// // CAN return one Chptr SPAN as an outerHTML String:: El -> S
+// RET = get_outerHTML_Str(stub_one_Span);//D -> S
+// TST = R.slice(9, 17, RET);
+// EXP = '3 Yea, a';
+// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
+//
+// // CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
+// RET = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
+//
+// // CONFIRM isArrayLike
+// t.ok(R.isArrayLike(RET));
+// // CONFIRM one of the list is a STR
+// t.ok(R.is(String, RET[0]));
+// //CONFIRM a list validity
+// RET = RET[2];//-> STR
+// TST = R.slice(9, 17, RET);
+// EXP = '3 Yea, a';
+// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
 
 // TEST: set_RClss_TO_
-RET = set_RClss_TO_({beg: 0, nxt: 5})(get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
-
-// CONFIRM isArrayLike
-t.ok(R.isArrayLike(RET));
-t.ok(R.is(String, RET[0]), 'this is NOT a STR');
-//CONFIRMED
-// RET -> List[2] IS Valid
-RET = RET[2];// LOOK AT One_outerHTML_STR. RET -> List[2] IS Valid
-TST = R.slice(9, 17, RET);
-EXP = '3 Yea, a';
-t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
+// RET = set_RClss_TO_({beg: 0, nxt: 5})(get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
+//
+// // CONFIRM isArrayLike
+// t.ok(R.isArrayLike(RET));
+// t.ok(R.is(String, RET[0]), 'this is NOT a STR');
+// //CONFIRMED
+// // RET -> List[2] IS Valid
+// RET = RET[2];// LOOK AT One_outerHTML_STR. RET -> List[2] IS Valid
+// TST = R.slice(9, 17, RET);
+// EXP = '3 Yea, a';
+// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
 
 // /**
 //  *  --- LIST_reducedTO_one_DIV_outerHTML_STR:: [S,S, ...] -> S
@@ -125,7 +123,7 @@ fut_div.innerHTML = set_one_DIV_RClss({beg:7, nxt:30})(LIST1);
 // OK NOW and finally, set a RClssDIV.outerHTML BY HAND
 
 
-C_Both("OUT newMain_tests.js.");
+C_Both("OUT new_/main.js.");
 // // hard coded current Node Lists
 // var A = stub_Chptr_DIV.children;//:; -> HTMLCollection[53]
 // var B = stub_Chptr_DIV.children.item(5);// -> span
