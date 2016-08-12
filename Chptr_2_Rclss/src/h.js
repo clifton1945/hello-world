@@ -1,5 +1,6 @@
 /**
  * h.js
+ * 160812   @0543   -> replaced _mySlice es6 code w/ es5 babel code
  * 160722  @0904 ->  ADDED my_toFixed() w/  an assert
  *  @ 0735 -> ADDED myTap()
  * helper files
@@ -62,10 +63,12 @@ const assign_DivStyle = R.curry(function assign_DivStyle (div, csd) {
  * @param d_lmits
  * @private
  */
-const _mySlice = d_lmits => {
-    var {beg, nxt} = d_lmits;// unpack
-    return R.slice(beg, nxt)
-};//:: D_lmit
+var _mySlice = function _mySlice(d_lmits) {
+    var beg = d_lmits.beg;
+    var nxt = d_lmits.nxt; // unpack
+
+    return R.slice(beg, nxt);
+}; //:: D_lmit
 
 /**
  *    --- ELEM_has_outerHTML_STR:: El -> S_outerHTML
