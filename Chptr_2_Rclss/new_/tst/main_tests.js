@@ -43,6 +43,9 @@ var set_ElemStyle = require('../src/set_anElem_CSD');//
 //GLOBALS
 C_Both("IN  newMain_tests.js.");
 
+//GLOBALS
+C_Both("IN  new_/tst/main_tests.js.");
+
 // test data
 var RET, TST, EXP;
 var stub_Chptr_DIV = document.querySelector('.Chptr_31');//:: div.Chptr_31
@@ -54,53 +57,44 @@ var stub_rclmits = {beg: 0, nxt: 5};
 /**
  *  ---     --- TESTS ---
  */
+// // CAN return one Chptr SPAN as an outerHTML String:: El -> S
+// RET = get_outerHTML_Str(stub_one_Span);//D -> S
+// TST = R.slice(9, 17, RET);
+// EXP = '3 Yea, a';
+// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
+//
+// // CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
+// RET = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
+//
+// // CONFIRM isArrayLike
+// t.ok(R.isArrayLike(RET));
+// // CONFIRM one of the list is a STR
+// t.ok(R.is(String, RET[0]));
+// //CONFIRM a list validity
+// RET = RET[2];//-> STR
+// TST = R.slice(9, 17, RET);
+// EXP = '3 Yea, a';
+// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
 
-// CAN return one Chptr SPAN as an outerHTML String:: El -> S
-RET = get_outerHTML_Str(stub_one_Span);//D -> S
-TST = R.slice(9, 17, RET);
-EXP = '3 Yea, a';
-t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
+// TEST: set_RClss_TO_
+// RET = set_RClss_TO_({beg: 0, nxt: 5})(get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
+//
+// // CONFIRM isArrayLike
+// t.ok(R.isArrayLike(RET));
+// t.ok(R.is(String, RET[0]), 'this is NOT a STR');
+// //CONFIRMED
+// // RET -> List[2] IS Valid
+// RET = RET[2];// LOOK AT One_outerHTML_STR. RET -> List[2] IS Valid
+// TST = R.slice(9, 17, RET);
+// EXP = '3 Yea, a';
+// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
 
-/**
- *  --- LIST_trsfrmedTO_LIST_of_outerHTML_STRs:: L_Elems -> L_STR
- *  @private
- */
-const LIST_trsfrmedTO_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN_outerHTML_STR
-
-// CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
-RET = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
-
-// CONFIRM isArrayLike
-t.ok(R.isArrayLike(RET));
-// CONFIRM one of the list is a STR
-t.ok(R.is(String, RET[0]));
-//CONFIRM a list validity
-RET = RET[2];//-> STR
-TST = R.slice(9, 17, RET);
-EXP = '3 Yea, a';
-t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-
-
-
-// TEST A
-RET = set_RClss_TO_({beg: 0, nxt: 5})(LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
-
-// CONFIRM isArrayLike
-t.ok(R.isArrayLike(RET));
-t.ok(R.is(String, RET[0]), 'this is NOT a STR');
-//CONFIRMED
-// RET -> List[2] IS Valid
-RET = RET[2];// LOOK AT One_outerHTML_STR. RET -> List[2] IS Valid
-TST = R.slice(9, 17, RET);
-EXP = '3 Yea, a';
-t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-
-/**
- *  --- LIST_reducedTO_one_DIV_outerHTML_STR:: [S,S, ...] -> S
- *  USE: reduces n SPAN.outerHTML Strings to one String.
- *  @private
- */
-const LIST_reducedTO_one_DIV_outerHTML_STR = R.reduce(R.concat, '');
+// /**
+//  *  --- LIST_reducedTO_one_DIV_outerHTML_STR:: [S,S, ...] -> S
+//  *  USE: reduces n SPAN.outerHTML Strings to one String.
+//  *  @private
+//  */
+// const LIST_reducedTO_one_DIV_outerHTML_STR = R.reduce(R.concat, '');
 
 /**
  *  --- set_one_DIV_RClss:: L -> D -> S
@@ -109,13 +103,13 @@ const LIST_reducedTO_one_DIV_outerHTML_STR = R.reduce(R.concat, '');
  * @private
  */
 const set_one_DIV_RClss = d_rcLmits => R.compose(
-    LIST_reducedTO_one_DIV_outerHTML_STR,
+    R.reduce(R.concat, ''),
     set_RClss_TO_(d_rcLmits)
 );
 
-//TEST
+//TEST:: set_oneDIV_RClss
 var rclmits = {beg:0, nxt:1};
-var LIST1 = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
+var LIST1 = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
 RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
 t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 
@@ -123,14 +117,14 @@ t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 var pst_div = document.querySelector('.pst_div');
 var cur_div = document.querySelector('.cur_div');
 var fut_div = document.querySelector('.fut_div');
-pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:4})(LIST1);
-cur_div.innerHTML = set_one_DIV_RClss({beg:4, nxt:6})(LIST1);
-fut_div.innerHTML = set_one_DIV_RClss({beg:6, nxt:30})(LIST1);
+pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:5})(LIST1);
+cur_div.innerHTML = set_one_DIV_RClss({beg:5, nxt:7})(LIST1);
+fut_div.innerHTML = set_one_DIV_RClss({beg:7, nxt:30})(LIST1);
 
 // OK NOW and finally, set a RClssDIV.outerHTML BY HAND
 
 
-C_Both("OUT newMain_tests.js.");
+C_Both("OUT new_/tst/main_tests.js.");
 // // hard coded current Node Lists
 // var A = stub_Chptr_DIV.children;//:; -> HTMLCollection[53]
 // var B = stub_Chptr_DIV.children.item(5);// -> span
@@ -142,5 +136,4 @@ C_Both("OUT newMain_tests.js.");
 // var H = R.slice(4,6)(stub_Chptr_DIV.children)[1].outerHTML;//-> S: "<span>And these ...
 // var I = R.slice(4,6)(stub_Chptr_DIV.children).toString();//-> S: "[object HTML...
 // var J = JSON.stringify(R.slice(4,6)(stub_Chptr_DIV.children));//-> S: "[{},{}]"
-
 

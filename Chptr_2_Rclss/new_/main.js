@@ -1,7 +1,8 @@
 /**
  *  new_/main.js -> UPDATES the 3 RClss DIVS. They are now stand alone DIVS and the Chptr_31 DIV is :hidden
- *  160812  @0930 REFACTFn Names and requires
- *  @0512
+ *  160812  @1225 ->   set_one_DIV_RClss() WORKS READY FOR weight CSD AND set Eleme
+ *      @0930 REFACTFn Names and requires
+ *      @0512
  *      -> ADDED the 3 RClss DIVs OUTSIDE of div.Chptr_31.
  *      -> USED set_one_DIV_RClss() TO SET RClssDIV.innerHTML!!
  *      <br
@@ -14,14 +15,15 @@
 var R = require('ramda');
 var t = require('assert');
 var h = require('../src/h');
-var C_Both = h.C_Both;
-var mySlice = h._mySlice;
 
+// var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
+//var set_ElemStyle = require('../src/set_anElem_CSD');//
 
 /**
  *          ----- main helper functions -----
  */
-
+var C_Both = h.C_Both;
+var mySlice = h._mySlice;
 /**
  *      --- set_RClss_TO_::D_Lmits -> L_S_spans -> L_S_spans
  * @param d_rcLmits
@@ -40,18 +42,15 @@ var get_outerHTML_Str = h.get_outerHTML_Str;// E_a -> S_a
  */
 const get_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN_outerHTML_STR
 
-// var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
-//var set_ElemStyle = require('../src/set_anElem_CSD');//
 //GLOBALS
 C_Both("IN  new_/main.js.");
 
 // test data
 var RET, TST, EXP;
-var stub_Chptr_DIV = document.querySelector('.Chptr_31');//:: div.Chptr_31
-var stub_HTMLColl_of_SPANS = stub_Chptr_DIV.children;//-> HTMLCollection
-var stub_one_Span = stub_HTMLColl_of_SPANS[2];
-var stub_rclmits = {beg: 0, nxt: 5};
-
+// var stub_Chptr_DIV = document.querySelector('.Chptr_31');//:: div.Chptr_31
+// var stub_HTMLColl_of_SPANS = stub_Chptr_DIV.children;//-> HTMLCollection
+// var stub_one_Span = stub_HTMLColl_of_SPANS[2];
+// var stub_rclmits = {beg: 0, nxt: 5};
 
 /**
  *  ---     --- TESTS ---
@@ -74,7 +73,6 @@ var stub_rclmits = {beg: 0, nxt: 5};
 // TST = R.slice(9, 17, RET);
 // EXP = '3 Yea, a';
 // t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-
 // TEST: set_RClss_TO_
 // RET = set_RClss_TO_({beg: 0, nxt: 5})(get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
 //
@@ -107,32 +105,27 @@ const set_one_DIV_RClss = d_rcLmits => R.compose(
 );
 
 //TEST:: set_oneDIV_RClss
-var rclmits = {beg:0, nxt:1};
-var LIST1 = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
-RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
-t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
+// var rclmits = {beg:0, nxt:1};
 
-// OK NOW set a RClssDIV.innerHTML BY HAND
+// CONSTANTS
 var pst_div = document.querySelector('.pst_div');
 var cur_div = document.querySelector('.cur_div');
 var fut_div = document.querySelector('.fut_div');
+var LIST0 = document.querySelectorAll('.Chptr_31 span');
+
+
+var LIST1 = get_LIST_of_outerHTML_STRs(LIST0); // KEEP SEPARATE it does not change much
+
 pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:5})(LIST1);
 cur_div.innerHTML = set_one_DIV_RClss({beg:5, nxt:7})(LIST1);
-fut_div.innerHTML = set_one_DIV_RClss({beg:7, nxt:30})(LIST1);
+fut_div.innerHTML = set_one_DIV_RClss({beg:7, nxt:52})(LIST1);
 
 // OK NOW and finally, set a RClssDIV.outerHTML BY HAND
 
 
 C_Both("OUT new_/main.js.");
-// // hard coded current Node Lists
-// var A = stub_Chptr_DIV.children;//:; -> HTMLCollection[53]
-// var B = stub_Chptr_DIV.children.item(5);// -> span
-// var C = stub_Chptr_DIV.children.item(5).innerHTML;//:: -> S:
-// var D = R.slice(4,6)(stub_Chptr_DIV.children);//::-> Array[2]
-// var E = R.slice(4,6)(stub_Chptr_DIV.children).outerHTML;//::-> undefined
-// var F = R.slice(4,6)(stub_Chptr_DIV.children)[1];//-> span
-// var G = R.slice(4,6)(stub_Chptr_DIV.children)[1].innerHTML;//-> S: "And these...
-// var H = R.slice(4,6)(stub_Chptr_DIV.children)[1].outerHTML;//-> S: "<span>And these ...
-// var I = R.slice(4,6)(stub_Chptr_DIV.children).toString();//-> S: "[object HTML...
-// var J = JSON.stringify(R.slice(4,6)(stub_Chptr_DIV.children));//-> S: "[{},{}]"
+
+// RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
+// t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
+// OK NOW set a RClssDIV.innerHTML BY HAND
 
