@@ -1,7 +1,10 @@
 /**
  *  newMain_tests.js
- *  160812  @0410   -> pulled LIST_trsfrmedTO_LIST_of_outerHTML_STRs OUT OF set_one_DIV_RClss()
-
+ *  160812  @0512
+ *      -> ADDED the 3 RClss DIVs OUTSIDE of div.Chptr_31.
+ *      -> USED set_one_DIV_RClss() TO SET RClssDIV.innerHTML!!
+ *      <br
+ *      @0410   -> pulled LIST_trsfrmedTO_LIST_of_outerHTML_STRs OUT OF set_one_DIV_RClss()
  *  160811  @1645 -> set_one_DIV_RClss() IS NEARLY FINISHED   WORKING w/o final set a DIV class
  *  so I can actually make a good LIST_trsfrmedTO_LIST_of_outerHTML_STRs
  *  IN FILE: /tst/newMain_tests.js
@@ -110,12 +113,19 @@ const set_one_DIV_RClss = d_rcLmits => R.compose(
 );
 
 //TEST
-var rclmits = stub_rclmits;
+var rclmits = {beg:0, nxt:1};
 var LIST1 = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
 RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
 t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 
-// OK NOW and finally, set a RClssDIV.outerHTML
+// OK NOW and finally, set a RClssDIV.outerHTML BY HAND
+var pst_div = document.querySelector('.pst_div');
+var cur_div = document.querySelector('.cur_div');
+var fut_div = document.querySelector('.fut_div');
+pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
+cur_div.innerHTML = set_one_DIV_RClss({beg:1, nxt:4})(LIST1);
+fut_div.innerHTML = set_one_DIV_RClss({beg:4, nxt:30})(LIST1);
+
 
 
 C_Both("OUT newMain_tests.js.");
