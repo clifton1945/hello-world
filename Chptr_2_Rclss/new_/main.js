@@ -1,12 +1,13 @@
 /**
- *  mainn_tests.js
- *  160812  @0512
+ *  new_/main.js -> UPDATES the 3 RClss DIVS. They are now stand alone DIVS and the Chptr_31 DIV is :hidden
+ *  160812  @0930 REFACTFn Names and requires
+ *  @0512
  *      -> ADDED the 3 RClss DIVs OUTSIDE of div.Chptr_31.
  *      -> USED set_one_DIV_RClss() TO SET RClssDIV.innerHTML!!
  *      <br
- *      @0410   -> pulled LIST_trsfrmedTO_LIST_of_outerHTML_STRs OUT OF set_one_DIV_RClss()
+ *      @0410   -> pulled get_LIST_of_outerHTML_STRs OUT OF set_one_DIV_RClss()
  *  160811  @1645 -> set_one_DIV_RClss() IS NEARLY FINISHED   WORKING w/o final set a DIV class
- *  so I can actually make a good LIST_trsfrmedTO_LIST_of_outerHTML_STRs
+ *  so I can actually make a good get_LIST_of_outerHTML_STRs
  *  IN FILE: /tst/newMain_tests.js
  */
 
@@ -24,22 +25,22 @@ var mySlice = h._mySlice;
  */
 
 /**
- *  --- set_RClss_TO_::D_Lmits -> L_S_spans -> L_S_spans
+ *      --- set_RClss_TO_::D_Lmits -> L_S_spans -> L_S_spans
  * @param d_rcLmits
  * @private
  */
 var set_RClss_TO_ = h.set_RC_TO_;
 /**
- *    --- get_outerHTML_Str:: El -> S_outerHTML
+ *      --- get_outerHTML_Str:: El -> S_outerHTML
  * @param el
  * @private
  */
 var get_outerHTML_Str = h.get_outerHTML_Str;// E_a -> S_a
 /**
- *  --- LIST_trsfrmedTO_LIST_of_outerHTML_STRs:: L_Elems -> L_STR
+ *      --- get_LIST_of_outerHTML_STRs:: L_Elems -> L_STR
  *  @private
  */
-const LIST_trsfrmedTO_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN_outerHTML_STR
+const get_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN_outerHTML_STR
 
 // var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
 //var set_ElemStyle = require('../src/set_anElem_CSD');//
@@ -64,7 +65,7 @@ EXP = '3 Yea, a';
 t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
 
 // CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
-RET = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
+RET = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
 
 // CONFIRM isArrayLike
 t.ok(R.isArrayLike(RET));
@@ -77,7 +78,7 @@ EXP = '3 Yea, a';
 t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
 
 // TEST: set_RClss_TO_
-RET = set_RClss_TO_({beg: 0, nxt: 5})(LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
+RET = set_RClss_TO_({beg: 0, nxt: 5})(get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
 
 // CONFIRM isArrayLike
 t.ok(R.isArrayLike(RET));
@@ -104,12 +105,12 @@ t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
  */
 const set_one_DIV_RClss = d_rcLmits => R.compose(
     R.reduce(R.concat, ''),
-    set_RClss_TO_(d_rcLmits)//
+    set_RClss_TO_(d_rcLmits)
 );
 
 //TEST:: set_oneDIV_RClss
 var rclmits = {beg:0, nxt:1};
-var LIST1 = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
+var LIST1 = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
 RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
 t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 
@@ -117,9 +118,9 @@ t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 var pst_div = document.querySelector('.pst_div');
 var cur_div = document.querySelector('.cur_div');
 var fut_div = document.querySelector('.fut_div');
-pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:4})(LIST1);
-cur_div.innerHTML = set_one_DIV_RClss({beg:4, nxt:6})(LIST1);
-fut_div.innerHTML = set_one_DIV_RClss({beg:6, nxt:30})(LIST1);
+pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:5})(LIST1);
+cur_div.innerHTML = set_one_DIV_RClss({beg:5, nxt:7})(LIST1);
+fut_div.innerHTML = set_one_DIV_RClss({beg:7, nxt:30})(LIST1);
 
 // OK NOW and finally, set a RClssDIV.outerHTML BY HAND
 
