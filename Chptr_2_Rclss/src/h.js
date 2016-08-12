@@ -1,6 +1,7 @@
 /**
  * h.js
- * 160812   @0543   -> replaced _mySlice es6 code w/ es5 babel code
+ * 160812   @0910 ADDED: get_outerHTML_Str(), set_RClss_TO_()
+ *      @0543   -> replaced _mySlice es6 code w/ es5 babel code
  * 160722  @0904 ->  ADDED my_toFixed() w/  an assert
  *  @ 0735 -> ADDED myTap()
  * helper files
@@ -71,13 +72,25 @@ var _mySlice = function _mySlice(d_lmits) {
 }; //:: D_lmit
 
 /**
- *    --- ELEM_has_outerHTML_STR:: El -> S_outerHTML
+ *    --- get_outerHTML_Str:: El -> S_outerHTML
  * @param el
  * @private
  */
-const ELEM_has_outerHTML_STR = el => el.outerHTML;//:: E_a -> S_a
+const get_outerHTML_Str = el => el.outerHTML;//:: E_a -> S_a
 
-module.exports = {ELEM_has_outerHTML_STR, _mySlice, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
+/**
+ *  --- set_RClss_TO_::D_Range -> L_S_spans -> L_S_spans
+ * @param d_rcRange
+ * @private
+ */
+const set_RClss_TO_ = d_rcRange => {
+    return mySlice(d_rcRange, R.__);
+};// D_Range -> L_S_spans -> L_S_spans
+
+/**
+ *  --------------- module.exports ------------------
+ */
+module.exports = {set_RClss_TO_, get_outerHTML_Str, _mySlice, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
 
 
 
