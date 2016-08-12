@@ -1,8 +1,10 @@
 /**
- // *  newMain_tests.js
- // *  160811  @1645 -> set_one_DIV_RClss() IS NEARLY FINISHED   WORKING w/o final set a DIV class
- // *  so I can actually make a good LIST_trsfrmedTO_LIST_of_outerHTML_STRs
- // *  IN FILE: /tst/newMain_tests.js
+ *  newMain_tests.js
+ *  160812  @0410   -> pulled LIST_trsfrmedTO_LIST_of_outerHTML_STRs OUT OF set_one_DIV_RClss()
+
+ *  160811  @1645 -> set_one_DIV_RClss() IS NEARLY FINISHED   WORKING w/o final set a DIV class
+ *  so I can actually make a good LIST_trsfrmedTO_LIST_of_outerHTML_STRs
+ *  IN FILE: /tst/newMain_tests.js
  */
 
 "use strict";
@@ -104,12 +106,13 @@ const LIST_reducedTO_one_DIV_outerHTML_STR = R.reduce(R.concat, '');
  */
 const set_one_DIV_RClss = d_rcLmits => R.compose(
     LIST_reducedTO_one_DIV_outerHTML_STR,
-    LIST_setTO_a_RClss_LIST_with(d_rcLmits),
-    LIST_trsfrmedTO_LIST_of_outerHTML_STRs
+    LIST_setTO_a_RClss_LIST_with(d_rcLmits)
 );
 
 //TEST
-RET = set_one_DIV_RClss(stub_rclmits)(stub_HTMLColl_of_SPANS);
+var rclmits = stub_rclmits;
+var LIST1 = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
+RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
 t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 
 // OK NOW and finally, set a RClssDIV.outerHTML
