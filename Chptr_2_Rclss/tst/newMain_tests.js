@@ -18,22 +18,15 @@ var t = require('assert');
 var h = require('../src/h');
 var C_Both = h.C_Both;
 var mySlice = h._mySlice;
-var ELEM_has_outerHTML_STR = h.ELEM_has_outerHTML_STR;// E_a -> S_a
+var get_outerHTML_Str = h.get_outerHTML_Str;// E_a -> S_a
 
 /**
  *          ----- main helper functions -----
  */
 // var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
-// var set_ElemStyle = require('./src/set_anElem_CSD');//
+var set_ElemStyle = require('../src/set_anElem_CSD');//
 //GLOBALS
 C_Both("IN  newMain_tests.js.");
-
-// /**
-//  *    --- get_one_outerHTML_STR:: El -> S_outerHTML
-//  * @param el
-//  * @private
-//  */
-// const get_one_outerHTML_STR = el=>el.outerHTML;//:: E_a -> S_a
 
 // test data
 var RET, TST, EXP;
@@ -48,7 +41,7 @@ var stub_rclmits = {beg: 0, nxt: 5};
  */
 
 // CAN return one Chptr SPAN as an outerHTML String:: El -> S
-RET = ELEM_has_outerHTML_STR(stub_one_Span);//D -> S
+RET = get_outerHTML_Str(stub_one_Span);//D -> S
 TST = R.slice(9, 17, RET);
 EXP = '3 Yea, a';
 t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
@@ -57,7 +50,7 @@ t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
  *  --- LIST_trsfrmedTO_LIST_of_outerHTML_STRs:: L_Elems -> L_STR
  *  @private
  */
-const LIST_trsfrmedTO_LIST_of_outerHTML_STRs = R.map(ELEM_has_outerHTML_STR);// L_SPANS -> L_SPAN_outerHTML_STR
+const LIST_trsfrmedTO_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN_outerHTML_STR
 
 // CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
 RET = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
@@ -118,14 +111,15 @@ var LIST1 = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);
 RET = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
 t.ok(R.is(String, RET), 'DIV_RClss STR IS NOT a STR');
 
-// OK NOW and finally, set a RClssDIV.outerHTML BY HAND
+// OK NOW set a RClssDIV.innerHTML BY HAND
 var pst_div = document.querySelector('.pst_div');
 var cur_div = document.querySelector('.cur_div');
 var fut_div = document.querySelector('.fut_div');
-pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:1})(LIST1);
-cur_div.innerHTML = set_one_DIV_RClss({beg:1, nxt:4})(LIST1);
-fut_div.innerHTML = set_one_DIV_RClss({beg:4, nxt:30})(LIST1);
+pst_div.innerHTML = set_one_DIV_RClss({beg:0, nxt:4})(LIST1);
+cur_div.innerHTML = set_one_DIV_RClss({beg:4, nxt:6})(LIST1);
+fut_div.innerHTML = set_one_DIV_RClss({beg:6, nxt:30})(LIST1);
 
+// OK NOW and finally, set a RClssDIV.outerHTML BY HAND
 
 
 C_Both("OUT newMain_tests.js.");

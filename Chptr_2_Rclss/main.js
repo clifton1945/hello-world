@@ -1,6 +1,7 @@
 /**
- *  Chptr_2_Rclss/main.js -> set_one_DIV_RClss() UPDATES the 3 RClss DIVS. They are now stand alone DIVS and the Chptr_31 DIV is :hidden
- *  160812  @1225 ->   set_one_DIV_RClss() WORKS READY FOR weight CSD AND set Eleme
+ *  Chptr_2_Rclss/main.js -> set_one_DIV_RClss() STABLE , no tests
+ *  160812  @1150 -> REMOVED commented out remaining test
+ *      @1125 ->   set_one_DIV_RClss() WORKS READY FOR weight CSD AND set Eleme
  *      @0930 REFACTFn Names and requires
  *      @0512
  *      -> ADDED the 3 RClss DIVs OUTSIDE of div.Chptr_31.
@@ -52,47 +53,6 @@ var RET, TST, EXP;
 // var stub_HTMLColl_of_SPANS = stub_Chptr_DIV.children;//-> HTMLCollection
 // var stub_one_Span = stub_HTMLColl_of_SPANS[2];
 // var stub_rclmits = {beg: 0, nxt: 5};
-
-/**
- *  ---     --- TESTS ---
- */
-// // CAN return one Chptr SPAN as an outerHTML String:: El -> S
-// RET = get_outerHTML_Str(stub_one_Span);//D -> S
-// TST = R.slice(9, 17, RET);
-// EXP = '3 Yea, a';
-// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-//
-// // CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
-// RET = get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
-//
-// // CONFIRM isArrayLike
-// t.ok(R.isArrayLike(RET));
-// // CONFIRM one of the list is a STR
-// t.ok(R.is(String, RET[0]));
-// //CONFIRM a list validity
-// RET = RET[2];//-> STR
-// TST = R.slice(9, 17, RET);
-// EXP = '3 Yea, a';
-// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-// TEST: set_RClss_TO_
-// RET = set_RClss_TO_({beg: 0, nxt: 5})(get_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS));
-//
-// // CONFIRM isArrayLike
-// t.ok(R.isArrayLike(RET));
-// t.ok(R.is(String, RET[0]), 'this is NOT a STR');
-// //CONFIRMED
-// // RET -> List[2] IS Valid
-// RET = RET[2];// LOOK AT One_outerHTML_STR. RET -> List[2] IS Valid
-// TST = R.slice(9, 17, RET);
-// EXP = '3 Yea, a';
-// t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
-
-// /**
-//  *  --- LIST_reducedTO_one_DIV_outerHTML_STR:: [S,S, ...] -> S
-//  *  USE: reduces n SPAN.outerHTML Strings to one String.
-//  *  @private
-//  */
-// const LIST_reducedTO_one_DIV_outerHTML_STR = R.reduce(R.concat, '');
 
 /**
  *  --- set_one_DIV_RClss:: L -> D -> S
