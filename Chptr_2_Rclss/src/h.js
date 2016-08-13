@@ -1,10 +1,11 @@
 /**
  * h.js
- *  160813 @0900  REFACTED Generalized a few names.
- * 160812   @1008 L_to_L_by_D_beg_nxt now NOT _L_to_L_by_D_beg_nxt
+ *  160813  @1600 -> Generalized a few more.
+ *      @0900  REFACTED Generalized a few names.
+ * 160812   @1008 L_TO_L_BY_D_beg_nxt now NOT _L_TO_L_BY_D_beg_nxt
  *      @0910 ADDED: Elm_TO_Elm_outerHTML(), set_RClss_TO_()
- *      @0543   -> replaced L_to_L_by_D_beg_nxt es6 code w/ es5 babel code
- * 160722  @0904 ->  ADDED my_toFixed() w/  an assert
+ *      @0543   -> replaced L_TO_L_BY_D_beg_nxt es6 code w/ es5 babel code
+ * 160722  @0904 ->  ADDED N_TO_N_Fixed_BY_N() w/  an assert
  *  @ 0735 -> ADDED myTap()
  * helper files
  * IN FILE: h.js
@@ -26,16 +27,16 @@ const _d_set_key = R.curry(
     (key, dict, val)=> R.set(R.lensProp(key), val, dict)
 );
 
-var ltBeg = (dict)=>(i)=> R.lt(i, dict.begNdx);//D -> N -> Bool
-var gtEnd = (dict)=>(i)=> R.gt(i, dict.endNdx);//D -> N -> Bool
-var tweenBegEnd = (dict)=>(i)=> R.gte(i, dict.begNdx) && R.lte(i, dict.endNdx);//D -> N -> Bool
-/**
- *      isPst:: D:curRclssScope -> N:aChptNdx -> Bool:
- * @param dict Keys: beg, end values N
- */
-var isPst = (dict) => ltBeg(dict); //: D:scope->Nlt:i -> Bool
-var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
-var isCur = (dict) => tweenBegEnd(dict);
+// var ltBeg = (dict)=>(i)=> R.lt(i, dict.begNdx);//D -> N -> Bool
+// var gtEnd = (dict)=>(i)=> R.gt(i, dict.endNdx);//D -> N -> Bool
+// var tweenBegEnd = (dict)=>(i)=> R.gte(i, dict.begNdx) && R.lte(i, dict.endNdx);//D -> N -> Bool
+// /**
+//  *      isPst:: D:curRclssScope -> N:aChptNdx -> Bool:
+//  * @param dict Keys: beg, end values N
+//  */
+// var isPst = (dict) => ltBeg(dict); //: D:scope->Nlt:i -> Bool
+// var isFut = (dict) => gtEnd(dict); //: N:i -> Bool
+// var isCur = (dict) => tweenBegEnd(dict);
 
 // module.exports = {_d_set_key};
 
@@ -50,23 +51,24 @@ const C_Both = (txt) => {
 var sayX = x => console.log('tap:');
 const myTap = R.tap(sayX);
 
-var my_toFixed = R.curry(function my_toFixed(digits, n) {
+var N_TO_N_Fixed_BY_N = R.curry(function N_TO_N_Fixed_BY_N(digits, n) {
     return n.toFixed(digits);
 });
-// var y = my_toFixed(3)(0.1537);
-// assert.equal(y, 0.154, 'my_toFixed(3)(0.1537) -> 0.154');
-
-const assign_DivStyle = R.curry(function assign_DivStyle (div, csd) {
-    return Object.assign(div.style, csd)
-});// DIV ->  CSD  ->  DIV
-
+assert.equal( N_TO_N_Fixed_BY_N(3)(0.1537), 0.154, 'N_TO_N_Fixed_BY_N(3)(0.1537) -> 0.154');
 
 /**
- *  --- L_to_L_by_D_beg_nxt(d_lmits) -> L -> L_subset
+ *      --- Elm_TO_Elm_style_BY_CSD:: Elm -> CSD -> Elm
+ */
+const Elm_TO_Elm_style_BY_CSD = R.curry(function Elm_TO_Elm_style_BY_CSD (div, csd) {
+    return Object.assign(div.style, csd)
+});// Elm ->  CSD  ->  Elm
+
+/**
+ *  --- L_TO_L_BY_D_beg_nxt(d_lmits) -> L -> L_subset
  * @param d_lmits -> {beg:N, nxt:N}
  * @private
  */
-var L_to_L_by_D_beg_nxt = function L_to_L_by_D_beg_nxt(d_lmits) {
+var L_TO_L_BY_D_beg_nxt = function L_TO_L_BY_D_beg_nxt(d_lmits) {
     var beg = d_lmits.beg;
     var nxt = d_lmits.nxt; // unpack
     return R.slice(beg, nxt);
@@ -79,20 +81,10 @@ var L_to_L_by_D_beg_nxt = function L_to_L_by_D_beg_nxt(d_lmits) {
  */
 const Elm_TO_Elm_outerHTML = el => el.outerHTML;//:: E_a -> S_a
 
-// /**
-//  *  --- set_RClss_TO_::D_Range -> L_S_spans -> L_S_spans
-//  * @param d_rcRange
-//  * @private
-//  */
-// const set_RClss_TO_ = d_rcRange => {
-//     return L_to_L_by_D_beg_nxt(d_rcRange, R.__);
-// };// D_Range -> L_S_spans -> L_S_spans
-
 /**
  *  --------------- module.exports ------------------
  */
-module.exports = {Elm_TO_Elm_outerHTML, L_to_L_by_D_beg_nxt, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
-// REMOVED set_RClss_TO_  module.exports = {set_RClss_TO_, Elm_TO_Elm_outerHTML, L_to_L_by_D_beg_nxt, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
+module.exports = {Elm_TO_Elm_outerHTML, L_TO_L_BY_D_beg_nxt, Elm_TO_Elm_style_BY_CSD, myTap, C_It, Doc_It, C_Both, N_TO_N_Fixed_BY_N};
 
 
 

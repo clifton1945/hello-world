@@ -14,34 +14,19 @@ var h = require('./h');
 //var set_ElemStyle = require('../src/set_anElem_CSD');//
 
 /**
- *                  ----- main helper functions -----
+ *                  ----- main functions -----
  */
 /**
  *          --- L_Spans_TO_L_RclssSpans_BY_::D_Lmits -> L_S_spans -> L_S_spans
  * @param d_rcLmits
  * @private
  */
-var L_Spans_TO_L_RclssSpans_BY_ = h.L_to_L_by_D_beg_nxt;//::(d_lmits) -> L -> L_subset
+var L_Spans_TO_L_RclssSpans_BY_ = h.L_TO_L_BY_D_beg_nxt;//::(d_lmits) -> L -> L_subset
 /**
  *          --- L_RclssSpans_TO_one_Sof_Rclss_Spans:: L -> S
  *  reduces each Rclss Span to one outerHTML like Str.
  */
 const L_RclssSpans_TO_one_Sof_Rclss_Spans = R.reduce(R.concat, '');
-
-/**
- *      --- Elm_TO_S_Elm_outerHTML:: El -> S_outerHTML
- * @param el
- * @private
- */
-var Elm_TO_Elm_outerHTML = h.Elm_TO_Elm_outerHTML;// E_a -> S_a
-
-/**
- *      --- L_Spans_TO_L_Span_outerHTML_Str:: L_Elems -> L_STR
- *  @private
- */
-exports.L_Spans_TO_L_Span_outerHTML_Str = R.map(Elm_TO_Elm_outerHTML);// L_SPANS -> L_SPAN_outerHTML_STR
-
-//GLOBALS
 
 /**
  *  --- L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_:: L -> D -> S
@@ -53,4 +38,18 @@ exports.L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_ = d_rcLmits => R.compose(
     L_RclssSpans_TO_one_Sof_Rclss_Spans,
     L_Spans_TO_L_RclssSpans_BY_(d_rcLmits)
 );
-// module.exports = {L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_};
+
+/**
+ *          --- Elm_TO_S_Elm_outerHTML:: El -> S_outerHTML
+ * @param el
+ * @private
+ */
+var Elm_TO_Elm_outerHTML = h.Elm_TO_Elm_outerHTML;// E_a -> S_a
+/**
+ *      --- L_Spans_TO_L_Span_outerHTML_Str:: L_Elems -> L_STR
+ *  @private
+ */
+exports.L_Spans_TO_L_Span_outerHTML_Str = R.map(Elm_TO_Elm_outerHTML);// L_SPANS -> L_SPAN_outerHTML_STR
+
+//GLOBALS
+
