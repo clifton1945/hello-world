@@ -18,7 +18,7 @@ var t = require('assert');
 var h = require('../src/h');
 var C_Both = h.C_Both;
 var mySlice = h._mySlice;
-var get_outerHTML_Str = h.get_outerHTML_Str;// E_a -> S_a
+var Elm_TO_Elm_outerHTML = h.Elm_TO_Elm_outerHTML;// E_a -> S_a
 
 /**
  *          ----- main helper functions -----
@@ -41,7 +41,7 @@ var stub_rclmits = {beg: 0, nxt: 5};
  */
 
 // CAN return one Chptr SPAN as an outerHTML String:: El -> S
-RET = get_outerHTML_Str(stub_one_Span);//D -> S
+RET = Elm_TO_Elm_outerHTML(stub_one_Span);//D -> S
 TST = R.slice(9, 17, RET);
 EXP = '3 Yea, a';
 t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
@@ -50,7 +50,7 @@ t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
  *  --- LIST_trsfrmedTO_LIST_of_outerHTML_STRs:: L_Elems -> L_STR
  *  @private
  */
-const LIST_trsfrmedTO_LIST_of_outerHTML_STRs = R.map(get_outerHTML_Str);// L_SPANS -> L_SPAN_outerHTML_STR
+const LIST_trsfrmedTO_LIST_of_outerHTML_STRs = R.map(Elm_TO_Elm_outerHTML);// L_SPANS -> L_SPAN_outerHTML_STR
 
 // CAN RETURN a List/Array of Chptr SPANs AS outerHTML Strings:: L_SPANS -> L_SPAN_outerHTML_STR
 RET = LIST_trsfrmedTO_LIST_of_outerHTML_STRs(stub_HTMLColl_of_SPANS);// L_Elems -> L_SPAN_STR
