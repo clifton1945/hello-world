@@ -1,13 +1,14 @@
 /**
- * FILE: new_/set_RClss_Divs.js
- * 160813   @0900 exports  L_Spans_TO_L_Span_outerHTML_Str() && L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_()
+ * FILE: set_RClss_Divs.js
+ * 160813   @0921 MOVER to Chptr_2_Rclss/src from new_
+ * @0900 exports  L_Spans_TO_L_Span_outerHTML_Str() && L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_()
  *  for general use. In this case new_/main
  */
 
 "use strict";
 var R = require('ramda');
 var t = require('assert');
-var h = require('../../src/h');
+var h = require('./h');
 
 // var update_L_RClss_NLs = require('./src/update_L_RClss_NLs');//
 //var set_ElemStyle = require('../src/set_anElem_CSD');//
