@@ -1,5 +1,7 @@
 /**
- * set_RClss_Divs.js:; furnishes two functions
+ * FILE: new_/set_RClss_Divs.js
+ * 160813   @0900 exports  L_Spans_TO_L_Span_outerHTML_Str() && L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_()
+ *  for general use. In this case new_/main
  */
 
 "use strict";
