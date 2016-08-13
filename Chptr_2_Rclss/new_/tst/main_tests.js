@@ -29,11 +29,11 @@ var mySlice = h._mySlice;
  */
 var set_RClss_TO_ = require('./src/set_RClss_range');
 /**
- *    --- get_outerHTML_Str:: El -> S_outerHTML
+ *    --- Elm_TO_Elm_outerHTML:: El -> S_outerHTML
  * @param el
  * @private
  */
-var get_outerHTML_Str = h.get_outerHTML_Str;// E_a -> S_a
+var Elm_TO_Elm_outerHTML = h.Elm_TO_Elm_outerHTML;// E_a -> S_a
 
 /**
  *          ----- main helper functions -----
@@ -58,7 +58,7 @@ var stub_rclmits = {beg: 0, nxt: 5};
  *  ---     --- TESTS ---
  */
 // // CAN return one Chptr SPAN as an outerHTML String:: El -> S
-// RET = get_outerHTML_Str(stub_one_Span);//D -> S
+// RET = Elm_TO_Elm_outerHTML(stub_one_Span);//D -> S
 // TST = R.slice(9, 17, RET);
 // EXP = '3 Yea, a';
 // t.equal(TST, EXP, `EXP:["${EXP}"], NOT:["${TST}"]`);
