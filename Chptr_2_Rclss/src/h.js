@@ -1,8 +1,9 @@
 /**
  * h.js
- * 160812   @1008 mySlice now NOT _mySlice
- *      @0910 ADDED: get_outerHTML_Str(), set_RClss_TO_()
- *      @0543   -> replaced mySlice es6 code w/ es5 babel code
+ *  160813 @0900  REFACTED Generalized a few names.
+ * 160812   @1008 L_to_L_by_D_beg_nxt now NOT _L_to_L_by_D_beg_nxt
+ *      @0910 ADDED: Elm_TO_Elm_outerHTML(), set_RClss_TO_()
+ *      @0543   -> replaced L_to_L_by_D_beg_nxt es6 code w/ es5 babel code
  * 160722  @0904 ->  ADDED my_toFixed() w/  an assert
  *  @ 0735 -> ADDED myTap()
  * helper files
@@ -61,37 +62,37 @@ const assign_DivStyle = R.curry(function assign_DivStyle (div, csd) {
 
 
 /**
- *  --- mySlice(d_lmits) -> L -> L_subset
- * @param d_lmits
+ *  --- L_to_L_by_D_beg_nxt(d_lmits) -> L -> L_subset
+ * @param d_lmits -> {beg:N, nxt:N}
  * @private
  */
-var mySlice = function mySlice(d_lmits) {
+var L_to_L_by_D_beg_nxt = function L_to_L_by_D_beg_nxt(d_lmits) {
     var beg = d_lmits.beg;
     var nxt = d_lmits.nxt; // unpack
-
     return R.slice(beg, nxt);
 }; //:: D_lmit
 
 /**
- *    --- get_outerHTML_Str:: El -> S_outerHTML
+ *    --- Elm_TO_Elm_outerHTML:: El -> S_outerHTML
  * @param el
  * @private
  */
-const get_outerHTML_Str = el => el.outerHTML;//:: E_a -> S_a
+const Elm_TO_Elm_outerHTML = el => el.outerHTML;//:: E_a -> S_a
 
-/**
- *  --- set_RClss_TO_::D_Range -> L_S_spans -> L_S_spans
- * @param d_rcRange
- * @private
- */
-const set_RClss_TO_ = d_rcRange => {
-    return mySlice(d_rcRange, R.__);
-};// D_Range -> L_S_spans -> L_S_spans
+// /**
+//  *  --- set_RClss_TO_::D_Range -> L_S_spans -> L_S_spans
+//  * @param d_rcRange
+//  * @private
+//  */
+// const set_RClss_TO_ = d_rcRange => {
+//     return L_to_L_by_D_beg_nxt(d_rcRange, R.__);
+// };// D_Range -> L_S_spans -> L_S_spans
 
 /**
  *  --------------- module.exports ------------------
  */
-module.exports = {set_RClss_TO_, get_outerHTML_Str, mySlice, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
+module.exports = {Elm_TO_Elm_outerHTML, L_to_L_by_D_beg_nxt, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
+// REMOVED set_RClss_TO_  module.exports = {set_RClss_TO_, Elm_TO_Elm_outerHTML, L_to_L_by_D_beg_nxt, assign_DivStyle, myTap, C_It, Doc_It, C_Both, my_toFixed};
 
 
 
