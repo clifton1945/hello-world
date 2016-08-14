@@ -1,5 +1,8 @@
 /**
- * set_CSD_valu:: N_valu -> CSD_valu. Now included a_CSD_valu_lineHeight(),  a_CSD_valu_opacity() AND _CSD_valu_fontSize()
+ * set_CSD_valu:: N_wt -> CSD_init ->_CSD_opacity() ->CSD_fontSize
+ * 160813   @2045   -> ready to REFACT this as noted above: N->D->D ->D
+ *  with two helper Fn: CSD::(lens, frmter) -> N_wt -> CSD
+ *  a HTMLElement has a .style PROPERTY has a CSSStyleDeclaration OBJECT
  * 160805   @1025   -> ADDED _lineHeight transforms as fn(N_valu) here. some REFACT is other files.
  * 160730   @1530   -> STABLE &&  RENAMED brought CSD FRMTTERS.JS into THIS
  *      @1350 STABLE revamped as composition given N_valu from _calc_N_valu()
@@ -12,7 +15,7 @@
 var R = require('ramda');
 var assert = require('assert');
 // var myTap = require('./h').myTap;
-var my_toFixed = require('./h').my_toFixed;
+var _N_Fixed_BY_N = require('./h').N_TO_N_Fixed_BY_N;
 
 /**
  *      _lineHeightFrmttr:: N_valu -> S_valu
@@ -22,14 +25,14 @@ var my_toFixed = require('./h').my_toFixed;
  // * @param f_calcWt
  * @private
  */
-const _lineHeightFrmttr = R.compose(R.flip(R.concat)('%'), my_toFixed(0), R.multiply(75));// N_valu -> S_valu
+const _lineHeightFrmttr = R.compose(R.flip(R.concat)('%'), _N_Fixed_BY_N(0), R.multiply(75));// N_valu -> S_valu
 /**
  *      _opacityFrmttr:: N_valu -> S_valu
  *      formats opacity N_valu. Typically from a previous _calcWt call.
  // * @param f_calcWt
  * @private
  */
-const _opacityFrmttr = my_toFixed(3);// N_valu -> S_valu
+const _opacityFrmttr = _N_Fixed_BY_N(3);// N_valu -> S_valu
 /**
  *      _fontSizeFrmttr:: N_valu -> S_valu
  *       formats opacity N_valu. Typically from a previous _calcWt call.
@@ -37,12 +40,11 @@ const _opacityFrmttr = my_toFixed(3);// N_valu -> S_valu
  * @param f_calcWt
  * @private
  */
-const _fontSizeFrmttr = R.compose(R.flip(R.concat)('%'), my_toFixed(0), R.multiply(100)); // N_valu -> S_valu
+const _fontSizeFrmttr = R.compose(R.flip(R.concat)('%'), _N_Fixed_BY_N(0), R.multiply(100)); // N_valu -> S_valu
 
 let _opacityLens = R.lensProp('opacity');//         -> Lens
 let _fontSizeLens = R.lensProp('fontSize');//       -> Lens
-let _lineHeightLens = R.lensProp('lineHeight');//    -> Lens
-//  TEST DATA
+// let _lineHeightLens = R.lensProp('lineHeight');//    -> Lens
 
 // BASE && HELPER FUNCTIONS
 /**
@@ -50,21 +52,18 @@ let _lineHeightLens = R.lensProp('lineHeight');//    -> Lens
  */
 const set_CSD_opacityValu = R.set(_opacityLens, R.__, {});// S_valu -> CSD_valu
 const set_CSD_fontSizeValu = R.set(_fontSizeLens, R.__, {});// S_valu -> CSD_valu
-const set_CSD_lineHeightValu = R.set(_lineHeightLens, R.__, {});// S_valu -> CSD_valu
+// const set_CSD_lineHeightValu = R.set(_lineHeightLens, R.__, {});// S_valu -> CSD_valu
 
+
+const _CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);//    N_valu -> CSD_valu_opacity
+const _CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//    N_valu -> CSD_valu_fontSize
+// const _CSD_valu_lineHeight = R.compose(set_CSD_lineHeightValu, _lineHeightFrmttr);//    N_valu -> CSD_valu_lineHeight
 /**
  * -----------------------  EXPORTS --------------------
  */
-const _CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);//    N_valu -> CSD_valu_opacity
-const _CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//    N_valu -> CSD_valu_fontSize
-const _CSD_valu_lineHeight = R.compose(set_CSD_lineHeightValu, _lineHeightFrmttr);//    N_valu -> CSD_valu_lineHeight
-
-module.exports = {_CSD_valu_lineHeight, _CSD_valu_opacity, _CSD_valu_fontSize};//::  (N_valu) -> CSD_valu_opacity || _fontSize || lineHeight
+module.exports = {_CSD_valu_opacity, _CSD_valu_fontSize};//::  (N_valu) -> CSD_...
 
 //asserts
-var stub_N_ndx = 0;
-// var stub_L_fam = [0, 1, 2, 3, 4, 5, 6];
-        assert.equal(_CSD_valu_lineHeight(.8).lineHeight, "60%", '_CSD_valu_lineHeight: 0.8 * 3/4*100');
         assert.equal(_CSD_valu_opacity(.6).opacity, "0.600", '_CSD_valu_opacity');
         assert.equal(_CSD_valu_fontSize(.6).fontSize, "60%", '_CSD_valu_fontSize: 0.6 * 100');
 
