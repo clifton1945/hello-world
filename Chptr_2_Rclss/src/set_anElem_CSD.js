@@ -14,15 +14,15 @@ var assignStyle =  h.assign_DivStyle;
 console.log(JSON.stringify("IN set_anElem_CSD.js."));
 
 /**
- *        set_N_valu(L:[D_csdSpan, L_fam]):: N_elemNdx -> N_valu
+ *        set_N_wt(L:[D_csdSpan, L_fam]):: N_elemNdx -> N_valu
  */
-var f_set_N_valu = require('./set_N_valu').f_set_N_valu;// D -> N -> L  ->  N
+var f_set_N_wt = require('./set_N_wt').f_set_N_wt;// D -> N -> L  ->  N
 /**
  *            _finalCSD};// _finalCSD:: CSD_in  -> N_valu ->  finalCSD
  * @type {_finalCSD}
  * @private
  */
-var weight_merge_CSD_valus = R.curry(require('./weight_merge_CSD_valus').weight_merge_CSD_valus);// weight_merge_CSD_valus:: CSD_in  -> N_valu ->  finalCSD
+var weight_merge_CSD_valus = R.curry(require('./DEPR_weight_merge_CSD_valus').weight_merge_CSD_valus);// weight_merge_CSD_valus:: CSD_in  -> N_valu ->  finalCSD
 
 // TEST CONSTANTS
 var csdLimitsD = {smlWt:0.4, lrgWt:0.90};
@@ -36,11 +36,11 @@ let baseCSD = {};
 // MAIN Export
 var set_anElem_CSD = R.curry(function (e, ndxN_e, famL_e) {
     // first step by step
-    var _set_N_valu = f_set_N_valu(csdLimitsD, famL_e); // equivalent of partial w/o [list of args]
-    // var nvalu = _set_N_valu(ndxN_e);
+    var _set_N_wt = f_set_N_wt(csdLimitsD, famL_e); // equivalent of partial w/o [list of args]
+    // var nvalu = _set_N_wt(ndxN_e);
     // var csds = weight_merge_CSD_valus(baseCSD)(nvalu);
     // var ret = assignStyle(e)(csds);// L:[CSD[0], CSD[1]...CSD[N-1]]
-    var ret =  R.compose(h.assign_DivStyle(e), weight_merge_CSD_valus(baseCSD),  _set_N_valu)(ndxN_e); // L:[CSD[0], CSD[1]...CSD[N-1]]
+    var ret =  R.compose(h.assign_DivStyle(e), weight_merge_CSD_valus(baseCSD),  _set_N_wt)(ndxN_e); // L:[CSD[0], CSD[1]...CSD[N-1]]
     // console.log('lineHeight -> ' + ret.lineHeight);
     // console.log('opacity -> ' + ret.opacity);
     return ret

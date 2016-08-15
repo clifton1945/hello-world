@@ -1,5 +1,6 @@
 /**
  * \src\update_L_RClss_NLs.js  NL -> D -> L[NL, NL, NL]
+ * 160815   @1319   DEPR
  * 160809   @1750  lots of renames
  * 160808   0645    -> CLEANUP
  * 160806   @0640   -> adapt to Chptr_2_RClss project
