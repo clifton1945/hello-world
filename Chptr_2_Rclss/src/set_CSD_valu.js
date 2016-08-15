@@ -1,20 +1,14 @@
 /**
- * set_CSD_valu:: N_wt -> CSD_init ->_CSD_opacity() ->CSD_fontSize
- * 160813   @2045   -> ready to REFACT this as noted above: N->D->D ->D
- *  with two helper Fn: CSD::(lens, frmter) -> N_wt -> CSD
- *  a HTMLElement has a .style PROPERTY has a CSSStyleDeclaration OBJECT
- * 160805   @1025   -> ADDED _lineHeight transforms as fn(N_valu) here. some REFACT is other files.
- * 160730   @1530   -> STABLE &&  RENAMED brought CSD FRMTTERS.JS into THIS
- *      @1350 STABLE revamped as composition given N_valu from _calc_N_valu()
- *      @1330  WIP. revamp as composition given N_valu from _calc_N_valu()
- * IN THE END -> set_CSD_valu.js fn(N_valu)  ->  CSD_valu
+ * set_CSD_valu:: N_wt -> CSD_init ->_CSD_opacity(N) ->CSD_fontSize(N)  ->  CSD
+ * 160815   @0950   -> exports _CSD_to_CSD_weighted_w_(N_wt)->(CSD) -> CSD
+ *  AND tests are in tst/set_CSD_valu_tests.js
+ *  where _CSD_to_CSD_weighted_w_ is new
+ * IN THE END -> set_CSD_valu.js exports _CSD_to_CSD_weighted_w_()
  */
 "use strict";
 
 // requires
 var R = require('ramda');
-var assert = require('assert');
-// var myTap = require('./h').myTap;
 var _N_Fixed_BY_N = require('./h').N_TO_N_Fixed_BY_N;
 
 /**
@@ -46,24 +40,22 @@ let _opacityLens = R.lensProp('opacity');//         -> Lens
 let _fontSizeLens = R.lensProp('fontSize');//       -> Lens
 // let _lineHeightLens = R.lensProp('lineHeight');//    -> Lens
 
-// BASE && HELPER FUNCTIONS
+//              NEW BASE FUNCTIONS
+const _CSD_opacity_w_ =  N => R.set(_opacityLens, _opacityFrmttr(N));// N -> CSD -> CSD
+const _CSD_fontSize_w_ = N => R.set(_fontSizeLens, _fontSizeFrmttr(N));// N -> CSD -> CSD
 /**
- *       set_CSD_opacityValu => (_opacityLens, R.__, {})::  (S_valu) -> CSD_valu
+ *      ---- CSD_to_CSD_weighted_w_:: (N) -> (CSD)  ->  CSD
+ *  weights CSD.keys [opacity: and fontSize:] ADDING them to a NOT OPTIONAL D
+ *  CSD:: CSSStyleDeclaration
+ * @param N_wt
+ * @param CSD
+ * @constructor
  */
-const set_CSD_opacityValu = R.set(_opacityLens, R.__, {});// S_valu -> CSD_valu
-const set_CSD_fontSizeValu = R.set(_fontSizeLens, R.__, {});// S_valu -> CSD_valu
-// const set_CSD_lineHeightValu = R.set(_lineHeightLens, R.__, {});// S_valu -> CSD_valu
+exports._CSD_to_CSD_weighted_w_ = N_wt => R.compose( _CSD_opacity_w_(N_wt), _CSD_fontSize_w_(N_wt));// N_wt->CSD -> CSD
 
-
-const _CSD_valu_opacity = R.compose(set_CSD_opacityValu, _opacityFrmttr);//    N_valu -> CSD_valu_opacity
-const _CSD_valu_fontSize = R.compose(set_CSD_fontSizeValu, _fontSizeFrmttr);//    N_valu -> CSD_valu_fontSize
-// const _CSD_valu_lineHeight = R.compose(set_CSD_lineHeightValu, _lineHeightFrmttr);//    N_valu -> CSD_valu_lineHeight
 /**
  * -----------------------  EXPORTS --------------------
  */
-module.exports = {_CSD_valu_opacity, _CSD_valu_fontSize};//::  (N_valu) -> CSD_...
-
-//asserts
-        assert.equal(_CSD_valu_opacity(.6).opacity, "0.600", '_CSD_valu_opacity');
-        assert.equal(_CSD_valu_fontSize(.6).fontSize, "60%", '_CSD_valu_fontSize: 0.6 * 100');
+// module.exports._CSD_to_CSD_weighted_w_;
+// export._CSD_to_CSD_weighted_w_;// BREAKS -> SyntaxError: Unexpected reserved word
 
