@@ -85,7 +85,7 @@ const Elm_TO_Elm_outerHTML = el => el.outerHTML;//:: E_a -> S_a
  *  --------------- module.exports ------------------
  */
 module.exports = {Elm_TO_Elm_outerHTML, L_TO_L_BY_D_beg_nxt,
-    Elm_TO_Elm_style_BY_CSD, myTap, C_Both, N_TO_N_Fixed_BY_N};
+    Elm_TO_Elm_style_BY_CSD, myTap, C_It, C_Both, N_TO_N_Fixed_BY_N};
 
 
 
