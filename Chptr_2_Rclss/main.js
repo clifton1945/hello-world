@@ -1,6 +1,8 @@
 /**
      *  main.js
-     *  160819  @1850 -> STABLE && WIP: now using R.slice instead of _one_Sof_Rclss_Spans_BY_()
+     *  160819  @1850 -> STABLE && WIP:
+ *  now using R.slice instead of _one_Sof_Rclss_Spans_BY_()
+ *  now using set_a_RclssElem()
      *      @1720 -> WIP && STABLE.  REFACT Names && ready to use R.slice instead of _one_Sof_Rclss_Spans_BY_()
  *      @1325 -> WIP BUT STABLE. can see opacity(ndx). Hardcoded for both pst_div && fut_div
  *      NXT move the set_anElem code to. guess what, set_anElem.js
@@ -83,3 +85,4 @@ RET = R.addIndex(R.map)(set_a_RclssElem(pst_wtRng, pst_fmlyLen))(L);//Elem,N,L -
 // C_Both(JSON.stringify(newCSD_L));// -> oneCSD:{{}, {}, ...}
 
 C_Both("OUT main.js");
+C_Both("LOOK AT TODOS");
