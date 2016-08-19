@@ -1,6 +1,7 @@
 /**
- *  main.js
- *  160819  @1720 -> WIP && STABLE.  REFACT Names && ready to use R.slice instead of _one_Sof_Rclss_Spans_BY_()
+     *  main.js
+     *  160819  @1850 -> STABLE && WIP: now using R.slice instead of _one_Sof_Rclss_Spans_BY_()
+     *      @1720 -> WIP && STABLE.  REFACT Names && ready to use R.slice instead of _one_Sof_Rclss_Spans_BY_()
  *      @1325 -> WIP BUT STABLE. can see opacity(ndx). Hardcoded for both pst_div && fut_div
  *      NXT move the set_anElem code to. guess what, set_anElem.js
  *      NXT add N_wt -> FORMATTING -> CSD_wt
@@ -21,41 +22,36 @@ var t = require('assert');
 //      -------------    external functions
 var set_a_RclssElem = require('./src/set_anElem_Style').set_a_RclssElem;
 var _outerHTML_SPAN_L = require('./src/set_RClss_Divs').L_Spans_TO_L_Span_outerHTML_Str;
-var _one_Sof_Rclss_Spans_BY_ = require('./src/set_RClss_Divs').L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_;
+// var _one_Sof_Rclss_Spans_BY_ = require('./src/set_RClss_Divs').L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_;
 
-// CONSTANTS
-var SPAN_NL = document.querySelectorAll('.Chptr_31 span');// -> NL[52]:: [span, spam, ...]
+// Rclss DIV DEFINITIONS
 var pst_div = document.querySelector('.pst_div');// -> div.pst_div
 var cur_div = document.querySelector('.cur_div');
 var fut_div = document.querySelector('.fut_div');
+// CONSTANTS
+var SPAN_NL = document.querySelectorAll('.Chptr_31 span');// -> NL[52]:: [span, spam, ...]
 
-// KEEP SEPARATE it does not change much
+// TODO do I really need  this conversion?? And looking at the code HOW DOES IT WORK anyhow???
 var outerHTML_SPAN_L = _outerHTML_SPAN_L(SPAN_NL);// -> Array[52]:: [S:"<span> 1 And...", S, ...]
-
-/**
- *              R.slice:: look at a better simpler way to handle <spans>
- */
-//var pSpan = R.slice(0, 10)(SPAN_NL);// FIX this to be (outerHTML_SPAN_L) -> Array[Str::, S,...] where Str:: "<span> 1 And it came ...
-// pst_div = R.slice(0, 10)(SPAN_NL);
-// cur_div = R.slice(10, 15)(SPAN_NL);
-// fut_div = R.slice(15,52)(SPAN_NL);
-
-pst_div.innerHTML = _one_Sof_Rclss_Spans_BY_({beg: 0, nxt: 6})(outerHTML_SPAN_L);// -> S:"<span
-// pst_div = R.slice(0, 5)(SPAN_NL); // BREAKS -> Array[5]::[S, S, ...]
-// pst_div = R.slice(0, 5)(outerHTML_SPAN_L); // BREAKS -> Array[5]::[S, S, ...]
-
-cur_div.innerHTML = _one_Sof_Rclss_Spans_BY_({beg: 6, nxt: 9})(outerHTML_SPAN_L);
-fut_div.innerHTML = _one_Sof_Rclss_Spans_BY_({beg: 9, nxt: 52})(outerHTML_SPAN_L);
-//
 
 /**
  * ----------------- Visual Confirm w/ index.html::  setting Rclss Element Styles ---------------------------
  */
+// THESE 3 lines set the 3 Rclss children
+pst_div.innerHTML = R.slice(0, 10)(outerHTML_SPAN_L); // Array[5]::[S, S, ...]
+cur_div.innerHTML = R.slice(10, 15)(outerHTML_SPAN_L);
+fut_div.innerHTML = R.slice(15, 52)(outerHTML_SPAN_L);
+
+// TODO   I do not see how doing these to the Rclss div is needed.
+// Why not just set the span for these n elements and THEN set the div.innerHTML???
+// lets try using just SPAN_NL The old but stable code is set with //FIX
+
 var L = pst_div.children;// ->[s0, s1,...]
 var pst_wtRng = {smlWt: 0.9, lrgWt: 0.10};
 var pst_fmlyLen = L.length;
 var RET = R.addIndex(R.map)(set_a_RclssElem(pst_wtRng, pst_fmlyLen))(L);//Elem,N,L -> [Elem,...]
-L = fut_div.children;
+
+L = fut_div.children;// -> div:fut_div
 pst_wtRng = {smlWt: 0.1, lrgWt: 0.90};
 pst_fmlyLen = L.length;
 RET = R.addIndex(R.map)(set_a_RclssElem(pst_wtRng, pst_fmlyLen))(L);//Elem,N,L -> [Elem,...]
