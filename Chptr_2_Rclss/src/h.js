@@ -1,5 +1,6 @@
 /**
  * h.js
+ *  160822  @1630 -> REFACT N_TO_N_Fixed_BY_N()
  *  160813  @1600 -> Generalized a few more.
  *      @0900  REFACTED Generalized a few names.
  * 160812   @1008 L_TO_L_BY_D_beg_nxt now NOT _L_TO_L_BY_D_beg_nxt
@@ -51,8 +52,11 @@ const C_Both = (txt) => {
 var sayX = x => console.log('tap:');
 const myTap = R.tap(sayX);
 
-var N_TO_N_Fixed_BY_N = R.curry(function N_TO_N_Fixed_BY_N(digits, n) {
-    return n.toFixed(digits);
+/**
+ *      ----- N_TO_N_Fixed_BY_N:: N_digits -> N_valu  -> N_valu to n_digits
+ */
+var N_TO_N_Fixed_BY_N = R.curry(function N_TO_N_Fixed_BY_N(n_digits, n) {
+    return n.toFixed(n_digits);
 });
 assert.equal( N_TO_N_Fixed_BY_N(3)(0.1537), 0.154, 'N_TO_N_Fixed_BY_N(3)(0.1537) -> 0.154');
 
@@ -84,8 +88,11 @@ const Elm_TO_Elm_outerHTML = el => el.outerHTML;//:: E_a -> S_a
 /**
  *  --------------- module.exports ------------------
  */
-module.exports = {Elm_TO_Elm_outerHTML, L_TO_L_BY_D_beg_nxt,
-    Elm_TO_Elm_style_BY_CSD, myTap, C_It, C_Both, N_TO_N_Fixed_BY_N};
+module.exports = {Elm_TO_Elm_outerHTML,
+    L_TO_L_BY_D_beg_nxt,
+    N_TO_N_Fixed_BY_N,
+    Elm_TO_Elm_style_BY_CSD,
+    myTap, C_It, C_Both};
 
 
 
