@@ -1,5 +1,6 @@
 /**
  * h.js
+ *  160823  @0816 -> fixed myTap
  *  160822  @1630 -> REFACT N_TO_N_Fixed_BY_N()
  *  160813  @1600 -> Generalized a few more.
  *      @0900  REFACTED Generalized a few names.
@@ -49,7 +50,7 @@ const C_Both = (txt) => {
     Doc_It(txt);
 };
 
-var sayX = x => console.log('tap:');
+var sayX = x => console.log('tap:' + x);
 const myTap = R.tap(sayX);
 
 /**
