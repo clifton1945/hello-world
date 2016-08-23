@@ -1,9 +1,10 @@
 /**
- *  set_anElement_Style.js
- *  160819  @1900 -> exports a new Fn: set_a_RclssElem() which need REFACT
- *  160816  @0700 -> TRYING FOR AN ALL INCLUSIVE set_anElem_Style DOES NOT WORK because
- *      (1) set_N_wt needs a current D_Nwt_Range and a current L_family OR N_family length
- *      (2) set_CSD_valu needs a current CSD_init - ALTHOUGH should just set a defaultCSD:{}
+ *  f_set_SPAN_Style:: weights opacity && fontSize CSD using Rclss Constants: D_wtRange && family List length
+ *  160822  @2100 -> STABLE w/ minimum test after major REFACT
+ *      @0900   -> REFACT this to
+ *  (1) use the new set_a_weightedSPAN_CSD in main &&
+ *  (2) FIGURE OUT AND SIMPLIFY THE CODE
+ *  160819  @1900 -> exports a new Fn: set_SPAN_Style() which need REFACT
  *  IN FILE: set_anElement_Style.js -> SET each Verse CSD as a function of their Space parameters
  */
 "use strict";
@@ -11,34 +12,38 @@
 var R = require('ramda');
 var h = require('./h');
 var tapThis = h.myTap;
+// set_wtN(D_csdLmts -> N_famLen -> N_elemNdx  ->   N_wt
+var set_wtN = R.curry(require('./set_N_wt').set_wtN);// D -> N -> N  ->  N
+// set_the_weightedCSD(D -> N ) -> CSD  -> CSD
+var set_the_weightedCSD = R.curry(require('./set_weightedSPAN_CSD').set_the_weightedCSD);//(D->N) -> CSD -> CSD
+// set_aSpan_Style (SPAN, CSD)  ->  SPAN
+var set_aSpan_Style = h.Elm_TO_Elm_style_BY_CSD;
+// begin
+console.log("IN  set_anElem_Style.js.");
 
-console.log("IN set_anElem_Style.js.");
-
-var f_s_w = require('./set_N_wt').f_set_wtN;// f_set_wtN(D_csdLmts ->  N_famLen -> N_elemNdx  ->   N_wt
-var f_set_wtN = R.curry(f_s_w);
-
-exports.set_a_RclssElem = (d_wtRng, n_fmly)=> {
-    // helpers
-    let Elem_to_wtElem_w_wtN = R.curry((elem, ndxN_to_wtN_w_) => {
-        Object.assign(elem.style, {opacity: ndxN_to_wtN_w_});
-    });// Elem  -> N ->  -> Elem
-    let ndxN_to_wtN_w_ = R.curry(f_set_wtN(d_wtRng, n_fmly));// (D, L)::  -> N  ->  N
-    let ndxN_to_wtElem = R.curry(function ndxN_to_wtElem (e_e, n_e, l_e) {// (Elem -> N -> L)  ->  Elem
-        let ret = R.compose(
-            Elem_to_wtElem_w_wtN(e_e), // N -> E
-            // wtN_to_wtCSD_w_
-            // h.myTap, BROKEN ???
-            ndxN_to_wtN_w_ //N -> N
-        )(n_e);// this returns
-        return e_e
-    });
-    return ndxN_to_wtElem
+const f_set_SPAN_Style = (d_wtRng, n_fmly)=> {// (D, N) -> Fn:( E, N, L ) -> E
+    return function ndxN_to_SPAN_by_ndx (e_e, n_ndx, l_fam)
+    {// Fn::(e_e -> n_ndx)  -> e_e
+        R.compose(
+            set_aSpan_Style(e_e), // (SPAN) -> CSD -> SPAN
+            set_the_weightedCSD(d_wtRng, n_fmly), // (D, N) -> N  -> CSD
+            set_wtN // N -> N
+        )(n_ndx);// which by now has been mutated with a new CSD
+    };
 };
+/**
+ *      ---------------- exports: set_SPAN_Style:: (D, N) -> Fn:( (E, N, L) -> E))
+ */
+exports.set_SPAN_Style = R.curry(f_set_SPAN_Style);
 
-var assert = require('assert');
+// OK a few tests
+var CUT = R.curry(f_set_SPAN_Style);
+
 // TEST CONSTANTS
-// var csdLimitsD = {smlWt:0.4, lrgWt:0.90};
-// var stubList = [0,1,2,3,4];
-// assert( N_ndx_TO_N_wt_W_())
+var csdLimitsD = {smlWt:0.4, lrgWt:0.90};
+var stubList = [0,1,2,3,4];
+var assert = require('assert');
+assert.ok(CUT(csdLimitsD, stubList.length) instanceof Function, `csdLimitsD(D,N) -> IS a Function.`);
+
 
 console.log("OUT set_anElem_Style.js.");

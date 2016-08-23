@@ -10,8 +10,8 @@
 let R = require('ramda');
 // HELPERS
 //  N_valu -> CSD_valu _opacity || _fontSize
-let _CSD_valu_opacity = R.curry(require('./set_CSD_valu')._CSD_valu_opacity);  // N:wt -> CSD_valu
-let _CSD_valu_fontSize = R.curry(require('./set_CSD_valu')._CSD_valu_fontSize); //      N:wt -> CSD_valu
+let _CSD_valu_opacity = R.curry(require('./DEPR_set_CSD_valu')._CSD_valu_opacity);  // N:wt -> CSD_valu
+let _CSD_valu_fontSize = R.curry(require('./DEPR_set_CSD_valu')._CSD_valu_fontSize); //      N:wt -> CSD_valu
 // let _CSD_valu_lineHeight = R.curry(require('./set_CSD_valu')._CSD_valu_lineHeight); //      N:wt -> CSD_valu
 
 //   * -----------------------  EXPORTS --------------------
