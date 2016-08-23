@@ -1,6 +1,7 @@
 /**
  *  main.js
- *  160823  @1225 WHY see 2 IN main.js
+ *  160823  @1230 _> FIX: './src/DEPR_set_RClss_Divs').L_Spans_TO_L_Span_outerHTML_Str
+ *      @1225 WHY see 2 IN main.js
  *      @1155 -> WIP STABLE USING REFACTED ->  set_anElem_Style.set_SPAN_Style()
  // *      BUT it is unclear why the pst_div is not showing tapered styles ???
  *  160822  @0833 -> WIP STABLE  set_a_weightedSPAN_CSD:: S -> a -> SPAN  ->  SPAN
@@ -69,4 +70,4 @@ CUT = set_SPAN_Style(rclss_wtRng, rclss_fmlyLen);
 RET = R.addIndex(R.map)(CUT)(L);//Elem,N,L -> [Elem,...]
 
 C_Both("OUT main.js");
-// C_Both("LOOK AT TODOS");
+C_Both("LOOK AT TODOS");
