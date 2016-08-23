@@ -46,7 +46,7 @@ exports.set_SPAN_Style = R.curry(f_set_SPAN_Style);
 var RET, CUT = R.curry(f_set_SPAN_Style);
 
 // TEST CONSTANTS
-var csdLimitsD = {smlWt:0.4, lrgWt:0.90};
+var csdLimitsD = {endWt:0.4, begWt:0.90};
 var stubList = [0,1,2,3,4,6];
 var assert = require('assert');
 // confirm functions valances

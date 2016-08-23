@@ -1,7 +1,7 @@
 /**
  *  main.js
  *  160823  @1155 -> WIP STABLE USING REFACTED ->  set_anElem_Style.set_SPAN_Style()
- *      BUT it is unclear why the pst_div is not showing tapered styles ???
+ // *      BUT it is unclear why the pst_div is not showing tapered styles ???
  *  160822  @0833 -> WIP STABLE  set_a_weightedSPAN_CSD:: S -> a -> SPAN  ->  SPAN
  *  NOW READY TO REFACT set_anElement_Style which mutates each span in a given Rclss.Div NL
  *  160819  @1850 -> STABLE && WIP:
@@ -17,7 +17,7 @@ C_Both("IN  main.js");
 // ------------------    REQUIRES
 var R = require('ramda');
 var t = require('assert');
-//      -------------    external functions
+//      -------------    EXTERNAL REQUIRED Functions  ------------------------
 /**
  *      ----- set_SPAN_Style::(D, N) -> Fn:( (E, N, L) -> E))
  */
@@ -46,12 +46,16 @@ var CUT, RET;
  *  ----------------- WIP ON pst_div VISUAL TESTS-------------------------
  * @type {HTMLElement[]}
  */
-var L = R.reverse(pst_div.children);// -> HTMLCollection[N]:: [span,[s0, s1,...]
+// var L = R.reverse(pst_div.children);// -> HTMLCollection[N]:: [span,[s0, s1,...]
+// var rclss_wtRng = {smlWt: 0.1, begWt: 0.8};
+// NOTE:  these above two definitions produce the same tapering as the two below.
+var L = pst_div.children;// -> HTMLCollection[N]:: [span,[s0, s1,...]
+var rclss_wtRng = {endWt: 0.85, begWt: 0.10}; // FIX based on the above NAME CHANGE:: smlWt -> endWt would be better && begWt -> begWt
 var rclss_fmlyLen = L.length;
-var rclss_wtRng = {smlWt: 0.1, lrgWt: 0.8};
-// var rclss_wtRng = {smlWt: 0.85, lrgWt: 0.10};
 CUT = set_SPAN_Style(rclss_wtRng, rclss_fmlyLen);
-RET = R.addIndex(R.map(CUT, L));
+// RET = R.addIndex(R.map)(CUT, L); // THIS WORKS
+RET = R.addIndex(R.map)(CUT)( L); // THIS WORKS
+// RET = R.addIndex(R.map(CUT, L)); TODO figure out the reason for this NOT tapering the spans
 
 /**
  *  ----------------- WIP ON fut_div VISUAL TESTS -------------------------
@@ -59,7 +63,7 @@ RET = R.addIndex(R.map(CUT, L));
  */
 L = fut_div.children;// -> HTMLCollection[N]:: [span,[s0, s1,...]
 rclss_fmlyLen = L.length;
-rclss_wtRng = {smlWt: 0.1, lrgWt: 0.90};// FIX
+rclss_wtRng = {endWt: 0.1, begWt: 0.90};// FIX
 CUT = set_SPAN_Style(rclss_wtRng, rclss_fmlyLen);
 RET = R.addIndex(R.map)(CUT)(L);//Elem,N,L -> [Elem,...]
 
