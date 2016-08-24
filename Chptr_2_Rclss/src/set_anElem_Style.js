@@ -31,7 +31,7 @@ const f_set_SPAN_Style = (d_wtRng, n_fmly)=> {// (D, N) -> Fn:( E, N, L ) -> E
         return R.compose(
             set_aSpan_Style(e_e), // (SPAN) -> CSD -> SPAN
             // tapThis, // it is a function wanting a CSD
-            set_weighted_CSD({}), //  CSD -> N_wt  ->  CSD FIX THIS it is a function HERE, NOT a CSD!!
+            set_weighted_CSD({}), //  CSD -> N_wt  ->  CSD TODO ADD a static CSD parameter
             // tapThis,
             set_wtN(d_wtRng, n_fmly) // N -> N
         )(n_ndx);// which by now has been mutated with a new CSD

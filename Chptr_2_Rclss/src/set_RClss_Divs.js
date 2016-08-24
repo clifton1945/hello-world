@@ -45,6 +45,7 @@ exports.L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_ = d_rcLmits => R.compose(
  * @private
  */
 var Elm_TO_Elm_outerHTML = h.Elm_TO_Elm_outerHTML;// E_a -> S_a
+
 /**
  *      --- L_Spans_TO_L_Span_outerHTML_Str:: L_Elems -> L_STR
  *  @private
