@@ -1,6 +1,7 @@
 /**
  *  set_RclssDIVs:: N_curSiz, L_elem, N_ndxBegCur) -> L:[L,L,L]
- *  160825 @1230 STABLE w/ changed exports && naming
+ *  160825 @1606 -> REFACT export and tests
+ *      @1230 STABLE w/ changed exports && naming
  *      @ 0905 STABLE simple TESTED
  *      @ 0755 -> visual output of three: pst, cur, fut Rclss DIV children
  * FILE: slice_Spans.js
@@ -18,32 +19,26 @@ var L = [0, 1, 2, 3, 4, 5];
 var CUT, RET, EXP;
 var jsonS = x => JSON.stringify(x);
 
-/**
- *      -----   f_set_RclssDIVs::(N,L,N) -> L
- * @param sizcur: Num of cur Rclss Spans
- * @param l: List of all Spans
- * @param beg: N ndx of th first/beginning cur Rclss Span
- */
-var set_RclssDIVs = R.curry(function set_RclssDIVs (sizcur, l, beg)  {
+var f_set_RclssDIVs = function f_set_RclssDIVs(sizcur, l, beg) {
     return [
         l.slice(0, beg),
         l.slice(beg, beg + sizcur),
         l.slice(beg + sizcur, l.length)
     ];
-});
+};
 /**
- *      -----   f_set_RclssDIVs::(N,L,N) -> L
+ *      -----   set_RclssDIVs::(N,L,N) -> L
  * @param sizcur: Num of cur Rclss Spans
  * @param l: List of all Spans
- * @param beg: N ndx of th first/beginning cur Rclss Span
+ * @param beg: N ndx of the first/beginning cur Rclss Span
  */
-
-module.exports = {set_RclssDIVs};
+module.exports.set_RclssDIVs = R.curry(f_set_RclssDIVs);
+// ---------------------- EXPORTS ---------------------------
 
 /**
  *      --------------------- TESTS: VISUAL --------------------
  */
-CUT = set_RclssDIVs(2, L);// N size of current DIV -> L of all spans
+CUT = R.curry(f_set_RclssDIVs)(2, L);// N size of current DIV -> L of all spans
 // test 0
 var n_ndx = 0;
 RET = CUT(n_ndx);
@@ -54,24 +49,13 @@ n_ndx = 1;
 RET = CUT(n_ndx);
 EXP = "[[0],[1,2],[3,4,5]]";
 assert.equal(jsonS(RET), EXP, `RET: ${jsonS(RET)} NOT EXP:${EXP} FROM CUT(${n_ndx})`);
-
 // test 5
 n_ndx = 5;
 RET = CUT(n_ndx);
 EXP = "[[0,1,2,3,4],[5],[]]";
 assert.equal(jsonS(RET), EXP, `RET: ${jsonS(RET)} NOT EXP:${EXP} FROM CUT(${n_ndx})`);
 
-
-// jsonS("\nthe next set:5/1/0");
-// set_RclssDIVs(5);
-
 C_It("  OUT set_RclssDIVs.js>");
-//      --------------- DEPR -------------------
-// var DEPR_f_set_RclssDIVs = (sizcur, l, beg) => {
-//     jsonS('pst:' + l.slice(0, beg));
-//     jsonS('cur:' + l.slice(beg, beg + sizcur));
-//     jsonS('fut:' + l.slice(beg + sizcur, l.length));
-// };
 
 
 
