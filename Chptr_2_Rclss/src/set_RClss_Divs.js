@@ -38,7 +38,6 @@ exports.L_RclssSpans_TO_one_Sof_Rclss_Spans_BY_ = d_rcLmits => R.compose(
     L_RclssSpans_TO_one_Sof_Rclss_Spans,
     L_Spans_TO_L_RclssSpans_BY_(d_rcLmits)
 );
-
 /**
  *          --- Elm_TO_S_Elm_outerHTML:: El -> S_outerHTML
  * @param el
