@@ -1,12 +1,14 @@
 /**
  *  handleKeyPresses()
- *  160825  @1610 REFACT handleKeyPresses WAS bindHandlers
+ *  160825  @1735  -> STABLE seeing each key press AND NOT also seeing the default action.
+ *      @1610 REFACT handleKeyPresses WAS bindHandlers
  * FILE:: bind_keyEvents.js  [some event ->  scrolls | reads | selects  the next or last verse]
  */
 
 "use strict";
-var assert = require('assert');
+// var assert = require('assert');
 var R = require('ramda');
+var h = require('./h');
 
 
 /**
@@ -14,28 +16,28 @@ var R = require('ramda');
  *      USED to increment the beginning of current Rclss DIV children
  * @constructor
  */
-var _handleKeyPresses = function handleKeyPresses() {
-    // KEY Events ************************
-
-    //document.addEventListener("keydown", keysPressed, false);
+var _handleKeyPresses = function _handleKeyPresses() {
+    // KEY Events ********* NOTE: need BOTH keyup and keydown to stop default*************
+    //document.addEventListener("keydown", keysPressed,
     document.addEventListener("keyup", keyActions, false);
+    document.addEventListener("keydown", keyActions, false);
     var ret = 0;
 
     function keyActions(e) {
-        var V_Grp_NL;
+        // var V_Grp_NL;
         // read Last Chapter
         if (e.keyCode == 37) {
             //e.stopPropagation();
             e.preventDefault();
-            C_Both("read Last Chptr");
+            h.C_Both("read Last Chptr");
             // READ_Last(C_Grp_NL);
         }
         // read Last verse.
         if (e.keyCode == 38) {
-            //e.stopPropagation();
             e.preventDefault();
-            C_Both("read Last Verse");
-            ret = -1;
+            h.C_Both("read Last Verse");
+            //e.stopPropagation();
+            // ret = -1;
 
             // V_Grp_NL = GET_V_Grp_NL(book);
             // READ_Last(V_Grp_NL);
@@ -44,19 +46,19 @@ var _handleKeyPresses = function handleKeyPresses() {
         if (e.keyCode == 39 || e.keyCode == 96) { // rt arrow || numpad 0
             //e.stopPropagation();
             e.preventDefault();
-            C_Both("read Next Chptr ");
+            h.C_Both("read Next Chptr ");
             // READ_Next(C_Grp_NL);
         }
         // read Next verse.
         if (e.keyCode == 32 || e.keyCode == 40) {
-            //e.stopPropagation();
             e.preventDefault();
-            C_Both("read Next Verse");
-            ret = 1;
+            e.stopPropagation();
+            h.C_Both("read Next Verse");
+            // ret = 1;
             // V_Grp_NL = GET_V_Grp_NL(book);
             // READ_Next(V_Grp_NL);
         }
-        return ret
+        // return ret
     }
 };
 exports.handleKeyPresses = _handleKeyPresses;
