@@ -1,6 +1,6 @@
 /**
  *  handleKeyPresses(fn)
- *  160826  @1122   -> WIP added a Fn parameter to figure out how to update the Rclsses
+ *  160826  @1218   -> WIP added a Fn parameter to figure out how to update the Rclsses
  *  160825  @1735  -> STABLE seeing each key press AND NOT also seeing the default action.
  *      @1610 REFACT handleKeyPresses WAS bindHandlers
  * FILE:: bind_keyEvents.js  [some event ->  scrolls | reads | selects  the next or last verse]
@@ -43,14 +43,16 @@ var _handleKeyPresses = function _handleKeyPresses(fn) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Next Chptr ");
-            n += 5;
+            fn(5);
+            // n += 5;
         }
         // read Next verse.
         if (e.keyCode == 32 || e.keyCode == 40) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Next Verse");
-             n += +1;// TODO limit this
+            fn(1);
+             // n += +1;// TODO limit this
         }
         return n
     }

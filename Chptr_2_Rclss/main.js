@@ -1,6 +1,6 @@
 /**
  *  main.js
- *  160826  @1125 -> WIP  TESTING trying to pass set_RclssDIVs function to handle_keyEvents
+ *  160826  @1218 -> WIP  TESTING trying to pass set_RclssDIVs function to handle_keyEvents
  *  160825  @1230   STABLE WIP hardcoded -> USING set_RclssDIVs.js/set_RclssDIVs()
  *  160824  @0715 -> WIP ADD key events for Reading next verse
  *      -> RENAMED DEPR back to './src/set_RClss_Divs').L_Spans_TO_L_Span_outerHTML_Str
@@ -19,8 +19,12 @@ var h_vE = require('./src/bind_keyEvents').handleKeyPresses;
 var handle_keyEvents = (fn) => h_vE(fn);
 
 // This TEST FN PASSED is seen on keyPresses
-var aTEST_Fn = (n)=> { console.log(`n -> ${n}`)};
-handle_keyEvents(aTEST_Fn);// INVOKED and works
+var aTEST_Fn = (n)=> (d) => {
+    console.log(`n -> ${n} -> ${n + d }`);
+    return n + d
+};
+var N = 5;
+N = handle_keyEvents(aTEST_Fn(N));// INVOKED and works
 //      -------------    Rclss DIV: List or STR of spans Functions  ------------------------
 
 /**
@@ -50,11 +54,10 @@ var stub_curSizN = 2;
 var stub_spanSTR_L = _set_spanSTR_L_from_(SPAN_NL);// -> Array[52]:: [S:"<span> 1 And...", S, ...]
 
 var stub_curRclssBegN = 5;
-var _L_Rclss = set_RclssDIVs(stub_curSizN, stub_spanSTR_L);// partialed. N_page  -> L_
-handle_keyEvents(aTEST_Fn);// INVOKED and works
+var set_Rclss_L_w_ = set_RclssDIVs(stub_curSizN, stub_spanSTR_L);// partialed. N_page  -> L_
 
 
-var L_Rclss = _L_Rclss(stub_curRclssBegN);
+var L_Rclss = set_Rclss_L_w_(stub_curRclssBegN);
 // Each of the 3 Rclss DIVs are reassigned a single Str of it's SPANs
 pst_div.innerHTML = L_Rclss[0]; // -> S[nome N]:"<spam 1 And.....
 cur_div.innerHTML = L_Rclss[1];
