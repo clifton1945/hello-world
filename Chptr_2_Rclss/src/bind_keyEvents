@@ -1,5 +1,6 @@
 /**
- *  handleKeyPresses()
+ *  handleKeyPresses(fn)
+ *  160826  @1122   -> WIP added a Fn parameter to figure out how to update the Rclsses
  *  160825  @1735  -> STABLE seeing each key press AND NOT also seeing the default action.
  *      @1610 REFACT handleKeyPresses WAS bindHandlers
  * FILE:: bind_keyEvents.js  [some event ->  scrolls | reads | selects  the next or last verse]
@@ -7,59 +8,53 @@
 
 "use strict";
 // var assert = require('assert');
-var R = require('ramda');
+// var R = require('ramda');
 var h = require('./h');
-
 
 /**
  *      ----- handleKeyPresses:: (a key event) -> N:: (+1||-1) value
  *      USED to increment the beginning of current Rclss DIV children
  * @constructor
  */
-var _handleKeyPresses = function _handleKeyPresses() {
+var _handleKeyPresses = function _handleKeyPresses(fn) {
     // KEY Events ********* NOTE: need BOTH keyup and keydown to stop default*************
-    //document.addEventListener("keydown", keysPressed,
     document.addEventListener("keyup", keyActions, false);
     document.addEventListener("keydown", keyActions, false);
-    var ret = 0;
-
+    var n = 1;//FIX
     function keyActions(e) {
-        // var V_Grp_NL;
         // read Last Chapter
         if (e.keyCode == 37) {
-            //e.stopPropagation();
             e.preventDefault();
+            e.stopPropagation();
             h.C_Both("read Last Chptr");
-            // READ_Last(C_Grp_NL);
+            fn(-5);
+            // n += -5; // FIX
         }
         // read Last verse.
         if (e.keyCode == 38) {
             e.preventDefault();
+            e.stopPropagation();
             h.C_Both("read Last Verse");
-            //e.stopPropagation();
-            // ret = -1;
-
-            // V_Grp_NL = GET_V_Grp_NL(book);
-            // READ_Last(V_Grp_NL);
+            fn(-1);
+            // n += -1; // TODO limit this
         }
         // read Next Chptr.
-        if (e.keyCode == 39 || e.keyCode == 96) { // rt arrow || numpad 0
-            //e.stopPropagation();
+        if (e.keyCode == 39 || e.keyCode == 96) { // rt arrow || num pad 0
             e.preventDefault();
+            e.stopPropagation();
             h.C_Both("read Next Chptr ");
-            // READ_Next(C_Grp_NL);
+            n += 5;
         }
         // read Next verse.
         if (e.keyCode == 32 || e.keyCode == 40) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Next Verse");
-            // ret = 1;
-            // V_Grp_NL = GET_V_Grp_NL(book);
-            // READ_Next(V_Grp_NL);
+             n += +1;// TODO limit this
         }
-        // return ret
+        return n
     }
+     return n
 };
 exports.handleKeyPresses = _handleKeyPresses;
 

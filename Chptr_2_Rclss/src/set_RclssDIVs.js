@@ -27,10 +27,11 @@ var f_set_RclssDIVs = function f_set_RclssDIVs(sizcur, l, beg) {
     ];
 };
 /**
- *      -----   set_RclssDIVs::(N,L,N) -> L
+ *      -----   set_RclssDIVs::(N_curRclssSize,L_spans,N_curBegNdx) -> L
  * @param sizcur: Num of cur Rclss Spans
  * @param l: List of all Spans
  * @param beg: N ndx of the first/beginning cur Rclss Span
+ * @return l: List of 3 RclssLists of its SPANs
  */
 module.exports.set_RclssDIVs = R.curry(f_set_RclssDIVs);
 // ---------------------- EXPORTS ---------------------------

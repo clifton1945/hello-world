@@ -12,6 +12,7 @@
 var R = require('ramda');
 var h = require('./h');
 var tapThis = h.myTap;
+console.log("< IN  set_anElem_Style.js.");
 // ----------------- HELPERS -----------------------
 // set_wtN(D_csdLmts -> N_famLen -> N_elemNdx  ->   N_wt
 var set_wtN = R.curry(require('./set_N_wt').set_wtN);// D -> N -> N  ->  N
@@ -23,7 +24,7 @@ var set_weighted_CSD = R.curry(require('./set_weightedSPAN_CSD').set_weighted_CS
 var set_aSpan_Style = h.Elm_TO_Elm_style_BY_CSD;
 
 // begin
-console.log("IN  set_anElem_Style.js.");
+
 
 const f_set_SPAN_Style = (d_wtRng, n_fmly)=> {// (D, N) -> Fn:( E, N, L ) -> E
     return function ndxN_to_SPAN_by_ndx (e_e, n_ndx, l_fam)
@@ -62,4 +63,4 @@ var l_fam = [];
 RET = callback(elem, n_ndx, l_fam);
 assert.equal(RET.fontSize, '70%', `${RET} is NOT '70%'??`);
 
-console.log("OUT set_anElem_Style.js.");
+console.log("  OUT set_anElem_Style.js.>");
