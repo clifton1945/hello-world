@@ -1,13 +1,12 @@
 /**
  *  handleKeyPresses(fn)
- *  160827  @1537  STABLE (1) to stop double events commented out document.addEventListener("keyup", keyActions, false);
+ *  160827  @1722 REFACT:  now each event returns the passed in function with the event specific delta step applied.
+ *  Also needed to add the rclssDIV assignemtns added to the passed in Fn
+ *      @1537  STABLE (1) to stop double events commented out document.addEventListener("keyup", keyActions, false);
  *  leaving just document.addEventListener("keydown", keyActions, false);
  *  (2) handleKeyPresses( now has a Fn parameter)
  *   The Fn:(a -> step)   -> a(step);
  *   Fn (a) is already curried.
- *  160826  @1218   -> WIP added a Fn parameter to figure out how to update the Rclsses
- *  160825  @1735  -> STABLE seeing each key press AND NOT also seeing the default action.
- *      @1610 REFACT handleKeyPresses WAS bindHandlers
  * FILE:: bind_keyEvents.js  [some event ->  scrolls | reads | selects  the next or last verse]
  */
 
@@ -25,14 +24,14 @@ var _handleKeyPresses = function _handleKeyPresses(fn) {
     // KEY Events ********* NOTE: need BOTH keyup and keydown to stop default*************
     // document.addEventListener("keyup", keyActions, false);
     document.addEventListener("keydown", keyActions, false);
-    var n = 1;//FIX
+    // var n = 1;//FIX
     function keyActions(e) {
         // read Last Chapter
         if (e.keyCode == 37) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Last Chptr");
-            fn(-5);
+            return fn(-5);
             // n += -5; // FIX
         }
         // read Last verse.
@@ -40,7 +39,7 @@ var _handleKeyPresses = function _handleKeyPresses(fn) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Last Verse");
-            fn(-1);
+            return fn(-1);
             // n += -1; // TODO limit this
         }
         // read Next Chptr.
@@ -48,7 +47,7 @@ var _handleKeyPresses = function _handleKeyPresses(fn) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Next Chptr ");
-            fn(5);
+            return fn(5);
             // n += 5;
         }
         // read Next verse.
@@ -56,12 +55,12 @@ var _handleKeyPresses = function _handleKeyPresses(fn) {
             e.preventDefault();
             e.stopPropagation();
             h.C_Both("read Next Verse");
-            fn(1);
+            return fn(1);
              // n += +1;// TODO limit this
         }
-        return n
+        // return n
     }
-     return n
+     // return n
 };
 exports.handleKeyPresses = _handleKeyPresses;
 
