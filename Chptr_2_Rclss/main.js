@@ -1,10 +1,11 @@
 /**
  *  main.js
- *  160826  @1218 -> WIP  TESTING trying to pass set_RclssDIVs function to handle_keyEvents
- *  160825  @1230   STABLE WIP hardcoded -> USING set_RclssDIVs.js/set_RclssDIVs()
- *  160824  @0715 -> WIP ADD key events for Reading next verse
- *      -> RENAMED DEPR back to './src/set_RClss_Divs').L_Spans_TO_L_Span_outerHTML_Str
- *  IN FILE: -> UPDATES the 3 RClss DIVS. They are now stand alone DIVS and the Chptr_31 DIV is :hidden
+ *  160826
+ *      @1720   ->WIP  handle_keyEvents IS WORKING BUT
+ *      (1) NO initial rendering until a key press!
+ *      (2) NEED the APPLY weighted CSD to all spans
+ *      @1218 -> WIP   trying to pass set_RclssDIVs function to handle_keyEvents
+ *  IN FILE: main.js -> UPDATES the 3 RClss DIVS. They are now stand alone DIVS and the Chptr_31 DIV is :hidden
  */
 //
 "use strict";
@@ -28,8 +29,8 @@ var aTEST_Fn = (n)=> {
 };
 var N = 5;
 N = handle_keyEvents(aTEST_Fn(N));// INVOKED and works
-//      -------------    Rclss DIV: List or STR of spans Functions  ------------------------
 
+//      -------------    Rclss DIV: List or STR of spans Functions  ------------------------
 /**
  *      -----   set_RclssDIVs::(N_curRclssSize,L_spans,N_curBegNdx) -> L
  * @param sizcur: Num of cur Rclss Spans
@@ -38,7 +39,6 @@ N = handle_keyEvents(aTEST_Fn(N));// INVOKED and works
  * @return l: List of 3 RclssLists of its SPANs
  */
 var set_RclssDIVs = require('./src/set_RclssDIVs').set_RclssDIVs;// (N_cur, L_spans) -> N_curSpansBegin -> L:[[pst],[cur],[fut]]
-
 // ------------------  Rclss DIV:  DEFINITIONS/CONSTANTS -----------set here SO THAT the CSS styles are in effect for the DIV
 var SPAN_NL = document.querySelectorAll('.Chptr_31 span');// -> NL[52]:: [span, spam, ...]
 /**
@@ -55,16 +55,33 @@ var fut_div = document.querySelector('.fut_div');
  */
 var stub_curSizN = 2;
 var stub_spanSTR_L = _set_spanSTR_L_from_(SPAN_NL);// -> Array[52]:: [S:"<span> 1 And...", S, ...]
+var stub_curRclssBegN = 5;// FIX to 0 when 0/L limits in place
+// OK NOW partial APPLY
+let set_Rclss_L_w_ = set_RclssDIVs(stub_curSizN, stub_spanSTR_L);// partialed. N_page  -> L_
+// NOW slice the big list into 3 Lists
+let L_Rclss = set_Rclss_L_w_(stub_curRclssBegN);
 
-var stub_curRclssBegN = 5;
-var set_Rclss_L_w_ = set_RclssDIVs(stub_curSizN, stub_spanSTR_L);// partialed. N_page  -> L_
-
-
-var L_Rclss = set_Rclss_L_w_(stub_curRclssBegN);
+// now try to increment the 3 RlcssDIV children
+let aTEST_set_Rclss_L_w_ = R.curry(
+    (n_init)=> {// N_init -> N_step  ->  L_Rclsses
+    var cnt = n_init;
+    return n_step => {// N ->
+        console.log(` curBeg:${cnt} + ${n_step} -> ${cnt + n_step}`);
+        cnt = cnt + n_step;
+        var RET = set_Rclss_L_w_(cnt);
+        // maybe this works
+        pst_div.innerHTML = RET[0]; // -> S[nome N]:"<spam 1 And.....
+        cur_div.innerHTML = RET[1];
+        fut_div.innerHTML = RET[2];
+        return RET
+    }
+});
+// -------------- this is CUT -----------------------
+L_Rclss = handle_keyEvents(aTEST_set_Rclss_L_w_(stub_curRclssBegN));// N -> L
 // Each of the 3 Rclss DIVs are reassigned a single Str of it's SPANs
-pst_div.innerHTML = L_Rclss[0]; // -> S[nome N]:"<spam 1 And.....
-cur_div.innerHTML = L_Rclss[1];
-fut_div.innerHTML = L_Rclss[2];
+// pst_div.innerHTML = L_Rclss[0]; // -> S[nome N]:"<spam 1 And.....
+// cur_div.innerHTML = L_Rclss[1];
+// fut_div.innerHTML = L_Rclss[2];
 
 /**
  * ----------------- NOW   setting each Rclss Span Styles -- Visual Confirm w/ index.html::   ---------------------------
