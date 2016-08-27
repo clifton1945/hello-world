@@ -19,9 +19,12 @@ var h_vE = require('./src/bind_keyEvents').handleKeyPresses;
 var handle_keyEvents = (fn) => h_vE(fn);
 
 // This TEST FN PASSED is seen on keyPresses
-var aTEST_Fn = (n)=> (d) => {
-    console.log(`n -> ${n} -> ${n + d }`);
-    return n + d
+var aTEST_Fn = (n)=> {
+    var cnt = n;
+    return d => {
+        console.log(`cnt:${cnt} + ${d} -> ${cnt + d}`);
+        return cnt = cnt + d;
+    }
 };
 var N = 5;
 N = handle_keyEvents(aTEST_Fn(N));// INVOKED and works
@@ -83,7 +86,7 @@ var rclss_wtRng = {endWt: 0.85, begWt: 0.10};
 var rclss_fmlyLen = L.length;
 CUT = set_SPAN_Style(rclss_wtRng, rclss_fmlyLen);
 // RET = R.addIndex(R.map)(CUT, L); // THIS WORKS
-RET = R.addIndex(R.map)(CUT)( L); // THIS WORKS
+RET = R.addIndex(R.map)(CUT)(L); // THIS WORKS
 // RET = R.addIndex(R.map(CUT, L)); NOTE this NOT taper the spans
 
 /**

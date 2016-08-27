@@ -1,5 +1,10 @@
 /**
  *  handleKeyPresses(fn)
+ *  160827  @1537  STABLE (1) to stop double events commented out document.addEventListener("keyup", keyActions, false);
+ *  leaving just document.addEventListener("keydown", keyActions, false);
+ *  (2) handleKeyPresses( now has a Fn parameter)
+ *   The Fn:(a -> step)   -> a(step);
+ *   Fn (a) is already curried.
  *  160826  @1218   -> WIP added a Fn parameter to figure out how to update the Rclsses
  *  160825  @1735  -> STABLE seeing each key press AND NOT also seeing the default action.
  *      @1610 REFACT handleKeyPresses WAS bindHandlers
@@ -18,7 +23,7 @@ var h = require('./h');
  */
 var _handleKeyPresses = function _handleKeyPresses(fn) {
     // KEY Events ********* NOTE: need BOTH keyup and keydown to stop default*************
-    document.addEventListener("keyup", keyActions, false);
+    // document.addEventListener("keyup", keyActions, false);
     document.addEventListener("keydown", keyActions, false);
     var n = 1;//FIX
     function keyActions(e) {
